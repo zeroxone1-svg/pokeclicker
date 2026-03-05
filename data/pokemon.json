@@ -1,0 +1,4014 @@
+[
+  {
+    "id": 1,
+    "name": "Bulbasaur",
+    "nameEs": "Bulbasaur",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "stats": {
+      "hp": 45,
+      "attack": 49,
+      "defense": 49,
+      "spAttack": 65,
+      "spDefense": 65,
+      "speed": 45
+    },
+    "catchRate": 45,
+    "baseExp": 64,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 2,
+    "evolveLevel": 16,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 2,
+    "name": "Ivysaur",
+    "nameEs": "Ivysaur",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 62,
+      "defense": 63,
+      "spAttack": 80,
+      "spDefense": 80,
+      "speed": 60
+    },
+    "catchRate": 45,
+    "baseExp": 142,
+    "evolvesFrom": 1,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 3,
+    "evolveLevel": 32,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 3,
+    "name": "Venusaur",
+    "nameEs": "Venusaur",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "stats": {
+      "hp": 80,
+      "attack": 82,
+      "defense": 83,
+      "spAttack": 100,
+      "spDefense": 100,
+      "speed": 80
+    },
+    "catchRate": 45,
+    "baseExp": 236,
+    "evolvesFrom": 2,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 4,
+    "name": "Charmander",
+    "nameEs": "Charmander",
+    "types": [
+      "fire"
+    ],
+    "stats": {
+      "hp": 39,
+      "attack": 52,
+      "defense": 43,
+      "spAttack": 60,
+      "spDefense": 50,
+      "speed": 65
+    },
+    "catchRate": 45,
+    "baseExp": 62,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 5,
+    "evolveLevel": 16,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 5,
+    "name": "Charmeleon",
+    "nameEs": "Charmeleon",
+    "types": [
+      "fire"
+    ],
+    "stats": {
+      "hp": 58,
+      "attack": 64,
+      "defense": 58,
+      "spAttack": 80,
+      "spDefense": 65,
+      "speed": 80
+    },
+    "catchRate": 45,
+    "baseExp": 142,
+    "evolvesFrom": 4,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 6,
+    "evolveLevel": 36,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 6,
+    "name": "Charizard",
+    "nameEs": "Charizard",
+    "types": [
+      "fire",
+      "flying"
+    ],
+    "stats": {
+      "hp": 78,
+      "attack": 84,
+      "defense": 78,
+      "spAttack": 109,
+      "spDefense": 85,
+      "speed": 100
+    },
+    "catchRate": 45,
+    "baseExp": 240,
+    "evolvesFrom": 5,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 7,
+    "name": "Squirtle",
+    "nameEs": "Squirtle",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 44,
+      "attack": 48,
+      "defense": 65,
+      "spAttack": 50,
+      "spDefense": 64,
+      "speed": 43
+    },
+    "catchRate": 45,
+    "baseExp": 63,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 8,
+    "evolveLevel": 16,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 8,
+    "name": "Wartortle",
+    "nameEs": "Wartortle",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 59,
+      "attack": 63,
+      "defense": 80,
+      "spAttack": 65,
+      "spDefense": 80,
+      "speed": 58
+    },
+    "catchRate": 45,
+    "baseExp": 142,
+    "evolvesFrom": 7,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 9,
+    "evolveLevel": 36,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 9,
+    "name": "Blastoise",
+    "nameEs": "Blastoise",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 79,
+      "attack": 83,
+      "defense": 100,
+      "spAttack": 85,
+      "spDefense": 105,
+      "speed": 78
+    },
+    "catchRate": 45,
+    "baseExp": 239,
+    "evolvesFrom": 8,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 10,
+    "name": "Caterpie",
+    "nameEs": "Caterpie",
+    "types": [
+      "bug"
+    ],
+    "stats": {
+      "hp": 45,
+      "attack": 30,
+      "defense": 35,
+      "spAttack": 20,
+      "spDefense": 20,
+      "speed": 45
+    },
+    "catchRate": 255,
+    "baseExp": 39,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 11,
+    "evolveLevel": 7,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 11,
+    "name": "Metapod",
+    "nameEs": "Metapod",
+    "types": [
+      "bug"
+    ],
+    "stats": {
+      "hp": 50,
+      "attack": 20,
+      "defense": 55,
+      "spAttack": 25,
+      "spDefense": 25,
+      "speed": 30
+    },
+    "catchRate": 120,
+    "baseExp": 72,
+    "evolvesFrom": 10,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 12,
+    "evolveLevel": 10,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 12,
+    "name": "Butterfree",
+    "nameEs": "Butterfree",
+    "types": [
+      "bug",
+      "flying"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 45,
+      "defense": 50,
+      "spAttack": 90,
+      "spDefense": 80,
+      "speed": 70
+    },
+    "catchRate": 45,
+    "baseExp": 178,
+    "evolvesFrom": 11,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 13,
+    "name": "Weedle",
+    "nameEs": "Weedle",
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 35,
+      "defense": 30,
+      "spAttack": 20,
+      "spDefense": 20,
+      "speed": 50
+    },
+    "catchRate": 255,
+    "baseExp": 39,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 14,
+    "evolveLevel": 7,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 14,
+    "name": "Kakuna",
+    "nameEs": "Kakuna",
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "stats": {
+      "hp": 45,
+      "attack": 25,
+      "defense": 50,
+      "spAttack": 25,
+      "spDefense": 25,
+      "speed": 35
+    },
+    "catchRate": 120,
+    "baseExp": 72,
+    "evolvesFrom": 13,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 15,
+    "evolveLevel": 10,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 15,
+    "name": "Beedrill",
+    "nameEs": "Beedrill",
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 90,
+      "defense": 40,
+      "spAttack": 45,
+      "spDefense": 80,
+      "speed": 75
+    },
+    "catchRate": 45,
+    "baseExp": 178,
+    "evolvesFrom": 14,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 16,
+    "name": "Pidgey",
+    "nameEs": "Pidgey",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 45,
+      "defense": 40,
+      "spAttack": 35,
+      "spDefense": 35,
+      "speed": 56
+    },
+    "catchRate": 255,
+    "baseExp": 50,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 17,
+    "evolveLevel": 18,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 17,
+    "name": "Pidgeotto",
+    "nameEs": "Pidgeotto",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "stats": {
+      "hp": 63,
+      "attack": 60,
+      "defense": 55,
+      "spAttack": 50,
+      "spDefense": 50,
+      "speed": 71
+    },
+    "catchRate": 120,
+    "baseExp": 122,
+    "evolvesFrom": 16,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 18,
+    "evolveLevel": 36,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 18,
+    "name": "Pidgeot",
+    "nameEs": "Pidgeot",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "stats": {
+      "hp": 83,
+      "attack": 80,
+      "defense": 75,
+      "spAttack": 70,
+      "spDefense": 70,
+      "speed": 101
+    },
+    "catchRate": 45,
+    "baseExp": 216,
+    "evolvesFrom": 17,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 19,
+    "name": "Rattata",
+    "nameEs": "Rattata",
+    "types": [
+      "normal"
+    ],
+    "stats": {
+      "hp": 30,
+      "attack": 56,
+      "defense": 35,
+      "spAttack": 25,
+      "spDefense": 35,
+      "speed": 72
+    },
+    "catchRate": 255,
+    "baseExp": 51,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 20,
+    "evolveLevel": 20,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 20,
+    "name": "Raticate",
+    "nameEs": "Raticate",
+    "types": [
+      "normal"
+    ],
+    "stats": {
+      "hp": 55,
+      "attack": 81,
+      "defense": 60,
+      "spAttack": 50,
+      "spDefense": 70,
+      "speed": 97
+    },
+    "catchRate": 127,
+    "baseExp": 145,
+    "evolvesFrom": 19,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 21,
+    "name": "Spearow",
+    "nameEs": "Spearow",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 60,
+      "defense": 30,
+      "spAttack": 31,
+      "spDefense": 31,
+      "speed": 70
+    },
+    "catchRate": 255,
+    "baseExp": 52,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 22,
+    "evolveLevel": 20,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 22,
+    "name": "Fearow",
+    "nameEs": "Fearow",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 90,
+      "defense": 65,
+      "spAttack": 61,
+      "spDefense": 61,
+      "speed": 100
+    },
+    "catchRate": 90,
+    "baseExp": 155,
+    "evolvesFrom": 21,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 23,
+    "name": "Ekans",
+    "nameEs": "Ekans",
+    "types": [
+      "poison"
+    ],
+    "stats": {
+      "hp": 35,
+      "attack": 60,
+      "defense": 44,
+      "spAttack": 40,
+      "spDefense": 54,
+      "speed": 55
+    },
+    "catchRate": 255,
+    "baseExp": 58,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 24,
+    "evolveLevel": 22,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 24,
+    "name": "Arbok",
+    "nameEs": "Arbok",
+    "types": [
+      "poison"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 95,
+      "defense": 69,
+      "spAttack": 65,
+      "spDefense": 79,
+      "speed": 80
+    },
+    "catchRate": 90,
+    "baseExp": 157,
+    "evolvesFrom": 23,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 25,
+    "name": "Pikachu",
+    "nameEs": "Pikachu",
+    "types": [
+      "electric"
+    ],
+    "stats": {
+      "hp": 35,
+      "attack": 55,
+      "defense": 40,
+      "spAttack": 50,
+      "spDefense": 50,
+      "speed": 90
+    },
+    "catchRate": 190,
+    "baseExp": 112,
+    "evolvesFrom": 172,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 26,
+    "name": "Raichu",
+    "nameEs": "Raichu",
+    "types": [
+      "electric"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 90,
+      "defense": 55,
+      "spAttack": 90,
+      "spDefense": 80,
+      "speed": 110
+    },
+    "catchRate": 75,
+    "baseExp": 218,
+    "evolvesFrom": 25,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 27,
+    "name": "Sandshrew",
+    "nameEs": "Sandshrew",
+    "types": [
+      "ground"
+    ],
+    "stats": {
+      "hp": 50,
+      "attack": 75,
+      "defense": 85,
+      "spAttack": 20,
+      "spDefense": 30,
+      "speed": 40
+    },
+    "catchRate": 255,
+    "baseExp": 60,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 28,
+    "evolveLevel": 22,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 28,
+    "name": "Sandslash",
+    "nameEs": "Sandslash",
+    "types": [
+      "ground"
+    ],
+    "stats": {
+      "hp": 75,
+      "attack": 100,
+      "defense": 110,
+      "spAttack": 45,
+      "spDefense": 55,
+      "speed": 65
+    },
+    "catchRate": 90,
+    "baseExp": 158,
+    "evolvesFrom": 27,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 29,
+    "name": "Nidoran♀",
+    "nameEs": "Nidoran♀",
+    "types": [
+      "poison"
+    ],
+    "stats": {
+      "hp": 55,
+      "attack": 47,
+      "defense": 52,
+      "spAttack": 40,
+      "spDefense": 40,
+      "speed": 41
+    },
+    "catchRate": 235,
+    "baseExp": 55,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 30,
+    "evolveLevel": 16,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 30,
+    "name": "Nidorina",
+    "nameEs": "Nidorina",
+    "types": [
+      "poison"
+    ],
+    "stats": {
+      "hp": 70,
+      "attack": 62,
+      "defense": 67,
+      "spAttack": 55,
+      "spDefense": 55,
+      "speed": 56
+    },
+    "catchRate": 120,
+    "baseExp": 128,
+    "evolvesFrom": 29,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 31,
+    "evolveLevel": null,
+    "evolveItem": "moon-stone",
+    "evolveTrigger": "use-item"
+  },
+  {
+    "id": 31,
+    "name": "Nidoqueen",
+    "nameEs": "Nidoqueen",
+    "types": [
+      "poison",
+      "ground"
+    ],
+    "stats": {
+      "hp": 90,
+      "attack": 92,
+      "defense": 87,
+      "spAttack": 75,
+      "spDefense": 85,
+      "speed": 76
+    },
+    "catchRate": 45,
+    "baseExp": 227,
+    "evolvesFrom": 30,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 32,
+    "name": "Nidoran♂",
+    "nameEs": "Nidoran♂",
+    "types": [
+      "poison"
+    ],
+    "stats": {
+      "hp": 46,
+      "attack": 57,
+      "defense": 40,
+      "spAttack": 40,
+      "spDefense": 40,
+      "speed": 50
+    },
+    "catchRate": 235,
+    "baseExp": 55,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 33,
+    "evolveLevel": 16,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 33,
+    "name": "Nidorino",
+    "nameEs": "Nidorino",
+    "types": [
+      "poison"
+    ],
+    "stats": {
+      "hp": 61,
+      "attack": 72,
+      "defense": 57,
+      "spAttack": 55,
+      "spDefense": 55,
+      "speed": 65
+    },
+    "catchRate": 120,
+    "baseExp": 128,
+    "evolvesFrom": 32,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 34,
+    "evolveLevel": null,
+    "evolveItem": "moon-stone",
+    "evolveTrigger": "use-item"
+  },
+  {
+    "id": 34,
+    "name": "Nidoking",
+    "nameEs": "Nidoking",
+    "types": [
+      "poison",
+      "ground"
+    ],
+    "stats": {
+      "hp": 81,
+      "attack": 102,
+      "defense": 77,
+      "spAttack": 85,
+      "spDefense": 75,
+      "speed": 85
+    },
+    "catchRate": 45,
+    "baseExp": 227,
+    "evolvesFrom": 33,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 35,
+    "name": "Clefairy",
+    "nameEs": "Clefairy",
+    "types": [
+      "fairy"
+    ],
+    "stats": {
+      "hp": 70,
+      "attack": 45,
+      "defense": 48,
+      "spAttack": 60,
+      "spDefense": 65,
+      "speed": 35
+    },
+    "catchRate": 150,
+    "baseExp": 113,
+    "evolvesFrom": 173,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "fast",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 36,
+    "name": "Clefable",
+    "nameEs": "Clefable",
+    "types": [
+      "fairy"
+    ],
+    "stats": {
+      "hp": 95,
+      "attack": 70,
+      "defense": 73,
+      "spAttack": 95,
+      "spDefense": 90,
+      "speed": 60
+    },
+    "catchRate": 25,
+    "baseExp": 217,
+    "evolvesFrom": 35,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "fast",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 37,
+    "name": "Vulpix",
+    "nameEs": "Vulpix",
+    "types": [
+      "fire"
+    ],
+    "stats": {
+      "hp": 38,
+      "attack": 41,
+      "defense": 40,
+      "spAttack": 50,
+      "spDefense": 65,
+      "speed": 65
+    },
+    "catchRate": 190,
+    "baseExp": 60,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 38,
+    "evolveLevel": null,
+    "evolveItem": "fire-stone",
+    "evolveTrigger": "use-item"
+  },
+  {
+    "id": 38,
+    "name": "Ninetales",
+    "nameEs": "Ninetales",
+    "types": [
+      "fire"
+    ],
+    "stats": {
+      "hp": 73,
+      "attack": 76,
+      "defense": 75,
+      "spAttack": 81,
+      "spDefense": 100,
+      "speed": 100
+    },
+    "catchRate": 75,
+    "baseExp": 177,
+    "evolvesFrom": 37,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 39,
+    "name": "Jigglypuff",
+    "nameEs": "Jigglypuff",
+    "types": [
+      "normal",
+      "fairy"
+    ],
+    "stats": {
+      "hp": 115,
+      "attack": 45,
+      "defense": 20,
+      "spAttack": 45,
+      "spDefense": 25,
+      "speed": 20
+    },
+    "catchRate": 170,
+    "baseExp": 95,
+    "evolvesFrom": 174,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "fast",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 40,
+    "name": "Wigglytuff",
+    "nameEs": "Wigglytuff",
+    "types": [
+      "normal",
+      "fairy"
+    ],
+    "stats": {
+      "hp": 140,
+      "attack": 70,
+      "defense": 45,
+      "spAttack": 85,
+      "spDefense": 50,
+      "speed": 45
+    },
+    "catchRate": 50,
+    "baseExp": 196,
+    "evolvesFrom": 39,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "fast",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 41,
+    "name": "Zubat",
+    "nameEs": "Zubat",
+    "types": [
+      "poison",
+      "flying"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 45,
+      "defense": 35,
+      "spAttack": 30,
+      "spDefense": 40,
+      "speed": 55
+    },
+    "catchRate": 255,
+    "baseExp": 49,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 42,
+    "evolveLevel": 22,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 42,
+    "name": "Golbat",
+    "nameEs": "Golbat",
+    "types": [
+      "poison",
+      "flying"
+    ],
+    "stats": {
+      "hp": 75,
+      "attack": 80,
+      "defense": 70,
+      "spAttack": 65,
+      "spDefense": 75,
+      "speed": 90
+    },
+    "catchRate": 90,
+    "baseExp": 159,
+    "evolvesFrom": 41,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 43,
+    "name": "Oddish",
+    "nameEs": "Oddish",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "stats": {
+      "hp": 45,
+      "attack": 50,
+      "defense": 55,
+      "spAttack": 75,
+      "spDefense": 65,
+      "speed": 30
+    },
+    "catchRate": 255,
+    "baseExp": 64,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 44,
+    "evolveLevel": 21,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 44,
+    "name": "Gloom",
+    "nameEs": "Gloom",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 65,
+      "defense": 70,
+      "spAttack": 85,
+      "spDefense": 75,
+      "speed": 40
+    },
+    "catchRate": 120,
+    "baseExp": 138,
+    "evolvesFrom": 43,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 45,
+    "evolveLevel": null,
+    "evolveItem": "leaf-stone",
+    "evolveTrigger": "use-item"
+  },
+  {
+    "id": 45,
+    "name": "Vileplume",
+    "nameEs": "Vileplume",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "stats": {
+      "hp": 75,
+      "attack": 80,
+      "defense": 85,
+      "spAttack": 110,
+      "spDefense": 90,
+      "speed": 50
+    },
+    "catchRate": 45,
+    "baseExp": 221,
+    "evolvesFrom": 44,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 46,
+    "name": "Paras",
+    "nameEs": "Paras",
+    "types": [
+      "bug",
+      "grass"
+    ],
+    "stats": {
+      "hp": 35,
+      "attack": 70,
+      "defense": 55,
+      "spAttack": 45,
+      "spDefense": 55,
+      "speed": 25
+    },
+    "catchRate": 190,
+    "baseExp": 57,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 47,
+    "evolveLevel": 24,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 47,
+    "name": "Parasect",
+    "nameEs": "Parasect",
+    "types": [
+      "bug",
+      "grass"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 95,
+      "defense": 80,
+      "spAttack": 60,
+      "spDefense": 80,
+      "speed": 30
+    },
+    "catchRate": 75,
+    "baseExp": 142,
+    "evolvesFrom": 46,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 48,
+    "name": "Venonat",
+    "nameEs": "Venonat",
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 55,
+      "defense": 50,
+      "spAttack": 40,
+      "spDefense": 55,
+      "speed": 45
+    },
+    "catchRate": 190,
+    "baseExp": 61,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 49,
+    "evolveLevel": 31,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 49,
+    "name": "Venomoth",
+    "nameEs": "Venomoth",
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "stats": {
+      "hp": 70,
+      "attack": 65,
+      "defense": 60,
+      "spAttack": 90,
+      "spDefense": 75,
+      "speed": 90
+    },
+    "catchRate": 75,
+    "baseExp": 158,
+    "evolvesFrom": 48,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 50,
+    "name": "Diglett",
+    "nameEs": "Diglett",
+    "types": [
+      "ground"
+    ],
+    "stats": {
+      "hp": 10,
+      "attack": 55,
+      "defense": 25,
+      "spAttack": 35,
+      "spDefense": 45,
+      "speed": 95
+    },
+    "catchRate": 255,
+    "baseExp": 53,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 51,
+    "evolveLevel": 26,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 51,
+    "name": "Dugtrio",
+    "nameEs": "Dugtrio",
+    "types": [
+      "ground"
+    ],
+    "stats": {
+      "hp": 35,
+      "attack": 100,
+      "defense": 50,
+      "spAttack": 50,
+      "spDefense": 70,
+      "speed": 120
+    },
+    "catchRate": 50,
+    "baseExp": 149,
+    "evolvesFrom": 50,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 52,
+    "name": "Meowth",
+    "nameEs": "Meowth",
+    "types": [
+      "normal"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 45,
+      "defense": 35,
+      "spAttack": 40,
+      "spDefense": 40,
+      "speed": 90
+    },
+    "catchRate": 255,
+    "baseExp": 58,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 53,
+    "evolveLevel": 28,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 53,
+    "name": "Persian",
+    "nameEs": "Persian",
+    "types": [
+      "normal"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 70,
+      "defense": 60,
+      "spAttack": 65,
+      "spDefense": 65,
+      "speed": 115
+    },
+    "catchRate": 90,
+    "baseExp": 154,
+    "evolvesFrom": 52,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 54,
+    "name": "Psyduck",
+    "nameEs": "Psyduck",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 50,
+      "attack": 52,
+      "defense": 48,
+      "spAttack": 65,
+      "spDefense": 50,
+      "speed": 55
+    },
+    "catchRate": 190,
+    "baseExp": 64,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 55,
+    "evolveLevel": 33,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 55,
+    "name": "Golduck",
+    "nameEs": "Golduck",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 80,
+      "attack": 82,
+      "defense": 78,
+      "spAttack": 95,
+      "spDefense": 80,
+      "speed": 85
+    },
+    "catchRate": 75,
+    "baseExp": 175,
+    "evolvesFrom": 54,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 56,
+    "name": "Mankey",
+    "nameEs": "Mankey",
+    "types": [
+      "fighting"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 80,
+      "defense": 35,
+      "spAttack": 35,
+      "spDefense": 45,
+      "speed": 70
+    },
+    "catchRate": 190,
+    "baseExp": 61,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 57,
+    "evolveLevel": 28,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 57,
+    "name": "Primeape",
+    "nameEs": "Primeape",
+    "types": [
+      "fighting"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 105,
+      "defense": 60,
+      "spAttack": 60,
+      "spDefense": 70,
+      "speed": 95
+    },
+    "catchRate": 75,
+    "baseExp": 159,
+    "evolvesFrom": 56,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 58,
+    "name": "Growlithe",
+    "nameEs": "Growlithe",
+    "types": [
+      "fire"
+    ],
+    "stats": {
+      "hp": 55,
+      "attack": 70,
+      "defense": 45,
+      "spAttack": 70,
+      "spDefense": 50,
+      "speed": 60
+    },
+    "catchRate": 190,
+    "baseExp": 70,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": 59,
+    "evolveLevel": null,
+    "evolveItem": "fire-stone",
+    "evolveTrigger": "use-item"
+  },
+  {
+    "id": 59,
+    "name": "Arcanine",
+    "nameEs": "Arcanine",
+    "types": [
+      "fire"
+    ],
+    "stats": {
+      "hp": 90,
+      "attack": 110,
+      "defense": 80,
+      "spAttack": 100,
+      "spDefense": 80,
+      "speed": 95
+    },
+    "catchRate": 75,
+    "baseExp": 194,
+    "evolvesFrom": 58,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 60,
+    "name": "Poliwag",
+    "nameEs": "Poliwag",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 50,
+      "defense": 40,
+      "spAttack": 40,
+      "spDefense": 40,
+      "speed": 90
+    },
+    "catchRate": 255,
+    "baseExp": 60,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 61,
+    "evolveLevel": 25,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 61,
+    "name": "Poliwhirl",
+    "nameEs": "Poliwhirl",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 65,
+      "defense": 65,
+      "spAttack": 50,
+      "spDefense": 50,
+      "speed": 90
+    },
+    "catchRate": 120,
+    "baseExp": 135,
+    "evolvesFrom": 60,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 62,
+    "evolveLevel": null,
+    "evolveItem": "water-stone",
+    "evolveTrigger": "use-item"
+  },
+  {
+    "id": 62,
+    "name": "Poliwrath",
+    "nameEs": "Poliwrath",
+    "types": [
+      "water",
+      "fighting"
+    ],
+    "stats": {
+      "hp": 90,
+      "attack": 95,
+      "defense": 95,
+      "spAttack": 70,
+      "spDefense": 90,
+      "speed": 70
+    },
+    "catchRate": 45,
+    "baseExp": 230,
+    "evolvesFrom": 61,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 63,
+    "name": "Abra",
+    "nameEs": "Abra",
+    "types": [
+      "psychic"
+    ],
+    "stats": {
+      "hp": 25,
+      "attack": 20,
+      "defense": 15,
+      "spAttack": 105,
+      "spDefense": 55,
+      "speed": 90
+    },
+    "catchRate": 200,
+    "baseExp": 62,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 64,
+    "evolveLevel": 16,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 64,
+    "name": "Kadabra",
+    "nameEs": "Kadabra",
+    "types": [
+      "psychic"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 35,
+      "defense": 30,
+      "spAttack": 120,
+      "spDefense": 70,
+      "speed": 105
+    },
+    "catchRate": 100,
+    "baseExp": 140,
+    "evolvesFrom": 63,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 65,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": "trade"
+  },
+  {
+    "id": 65,
+    "name": "Alakazam",
+    "nameEs": "Alakazam",
+    "types": [
+      "psychic"
+    ],
+    "stats": {
+      "hp": 55,
+      "attack": 50,
+      "defense": 45,
+      "spAttack": 135,
+      "spDefense": 95,
+      "speed": 120
+    },
+    "catchRate": 50,
+    "baseExp": 225,
+    "evolvesFrom": 64,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 66,
+    "name": "Machop",
+    "nameEs": "Machop",
+    "types": [
+      "fighting"
+    ],
+    "stats": {
+      "hp": 70,
+      "attack": 80,
+      "defense": 50,
+      "spAttack": 35,
+      "spDefense": 35,
+      "speed": 35
+    },
+    "catchRate": 180,
+    "baseExp": 61,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 67,
+    "evolveLevel": 28,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 67,
+    "name": "Machoke",
+    "nameEs": "Machoke",
+    "types": [
+      "fighting"
+    ],
+    "stats": {
+      "hp": 80,
+      "attack": 100,
+      "defense": 70,
+      "spAttack": 50,
+      "spDefense": 60,
+      "speed": 45
+    },
+    "catchRate": 90,
+    "baseExp": 142,
+    "evolvesFrom": 66,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 68,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": "trade"
+  },
+  {
+    "id": 68,
+    "name": "Machamp",
+    "nameEs": "Machamp",
+    "types": [
+      "fighting"
+    ],
+    "stats": {
+      "hp": 90,
+      "attack": 130,
+      "defense": 80,
+      "spAttack": 65,
+      "spDefense": 85,
+      "speed": 55
+    },
+    "catchRate": 45,
+    "baseExp": 227,
+    "evolvesFrom": 67,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 69,
+    "name": "Bellsprout",
+    "nameEs": "Bellsprout",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "stats": {
+      "hp": 50,
+      "attack": 75,
+      "defense": 35,
+      "spAttack": 70,
+      "spDefense": 30,
+      "speed": 40
+    },
+    "catchRate": 255,
+    "baseExp": 60,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 70,
+    "evolveLevel": 21,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 70,
+    "name": "Weepinbell",
+    "nameEs": "Weepinbell",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 90,
+      "defense": 50,
+      "spAttack": 85,
+      "spDefense": 45,
+      "speed": 55
+    },
+    "catchRate": 120,
+    "baseExp": 137,
+    "evolvesFrom": 69,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 71,
+    "evolveLevel": null,
+    "evolveItem": "leaf-stone",
+    "evolveTrigger": "use-item"
+  },
+  {
+    "id": 71,
+    "name": "Victreebel",
+    "nameEs": "Victreebel",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "stats": {
+      "hp": 80,
+      "attack": 105,
+      "defense": 65,
+      "spAttack": 100,
+      "spDefense": 70,
+      "speed": 70
+    },
+    "catchRate": 45,
+    "baseExp": 221,
+    "evolvesFrom": 70,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 72,
+    "name": "Tentacool",
+    "nameEs": "Tentacool",
+    "types": [
+      "water",
+      "poison"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 40,
+      "defense": 35,
+      "spAttack": 50,
+      "spDefense": 100,
+      "speed": 70
+    },
+    "catchRate": 190,
+    "baseExp": 67,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": 73,
+    "evolveLevel": 30,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 73,
+    "name": "Tentacruel",
+    "nameEs": "Tentacruel",
+    "types": [
+      "water",
+      "poison"
+    ],
+    "stats": {
+      "hp": 80,
+      "attack": 70,
+      "defense": 65,
+      "spAttack": 80,
+      "spDefense": 120,
+      "speed": 100
+    },
+    "catchRate": 60,
+    "baseExp": 180,
+    "evolvesFrom": 72,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 74,
+    "name": "Geodude",
+    "nameEs": "Geodude",
+    "types": [
+      "rock",
+      "ground"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 80,
+      "defense": 100,
+      "spAttack": 30,
+      "spDefense": 30,
+      "speed": 20
+    },
+    "catchRate": 255,
+    "baseExp": 60,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 75,
+    "evolveLevel": 25,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 75,
+    "name": "Graveler",
+    "nameEs": "Graveler",
+    "types": [
+      "rock",
+      "ground"
+    ],
+    "stats": {
+      "hp": 55,
+      "attack": 95,
+      "defense": 115,
+      "spAttack": 45,
+      "spDefense": 45,
+      "speed": 35
+    },
+    "catchRate": 120,
+    "baseExp": 137,
+    "evolvesFrom": 74,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 76,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": "trade"
+  },
+  {
+    "id": 76,
+    "name": "Golem",
+    "nameEs": "Golem",
+    "types": [
+      "rock",
+      "ground"
+    ],
+    "stats": {
+      "hp": 80,
+      "attack": 120,
+      "defense": 130,
+      "spAttack": 55,
+      "spDefense": 65,
+      "speed": 45
+    },
+    "catchRate": 45,
+    "baseExp": 223,
+    "evolvesFrom": 75,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 77,
+    "name": "Ponyta",
+    "nameEs": "Ponyta",
+    "types": [
+      "fire"
+    ],
+    "stats": {
+      "hp": 50,
+      "attack": 85,
+      "defense": 55,
+      "spAttack": 65,
+      "spDefense": 65,
+      "speed": 90
+    },
+    "catchRate": 190,
+    "baseExp": 82,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 78,
+    "evolveLevel": 40,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 78,
+    "name": "Rapidash",
+    "nameEs": "Rapidash",
+    "types": [
+      "fire"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 100,
+      "defense": 70,
+      "spAttack": 80,
+      "spDefense": 80,
+      "speed": 105
+    },
+    "catchRate": 60,
+    "baseExp": 175,
+    "evolvesFrom": 77,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 79,
+    "name": "Slowpoke",
+    "nameEs": "Slowpoke",
+    "types": [
+      "water",
+      "psychic"
+    ],
+    "stats": {
+      "hp": 90,
+      "attack": 65,
+      "defense": 65,
+      "spAttack": 40,
+      "spDefense": 40,
+      "speed": 15
+    },
+    "catchRate": 190,
+    "baseExp": 63,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 80,
+    "evolveLevel": 37,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 80,
+    "name": "Slowbro",
+    "nameEs": "Slowbro",
+    "types": [
+      "water",
+      "psychic"
+    ],
+    "stats": {
+      "hp": 95,
+      "attack": 75,
+      "defense": 110,
+      "spAttack": 100,
+      "spDefense": 80,
+      "speed": 30
+    },
+    "catchRate": 75,
+    "baseExp": 172,
+    "evolvesFrom": 79,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 81,
+    "name": "Magnemite",
+    "nameEs": "Magnemite",
+    "types": [
+      "electric",
+      "steel"
+    ],
+    "stats": {
+      "hp": 25,
+      "attack": 35,
+      "defense": 70,
+      "spAttack": 95,
+      "spDefense": 55,
+      "speed": 45
+    },
+    "catchRate": 190,
+    "baseExp": 65,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 82,
+    "evolveLevel": 30,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 82,
+    "name": "Magneton",
+    "nameEs": "Magneton",
+    "types": [
+      "electric",
+      "steel"
+    ],
+    "stats": {
+      "hp": 50,
+      "attack": 60,
+      "defense": 95,
+      "spAttack": 120,
+      "spDefense": 70,
+      "speed": 70
+    },
+    "catchRate": 60,
+    "baseExp": 163,
+    "evolvesFrom": 81,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 83,
+    "name": "Farfetch’d",
+    "nameEs": "Farfetch’d",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "stats": {
+      "hp": 52,
+      "attack": 90,
+      "defense": 55,
+      "spAttack": 58,
+      "spDefense": 62,
+      "speed": 60
+    },
+    "catchRate": 45,
+    "baseExp": 132,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 84,
+    "name": "Doduo",
+    "nameEs": "Doduo",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "stats": {
+      "hp": 35,
+      "attack": 85,
+      "defense": 45,
+      "spAttack": 35,
+      "spDefense": 35,
+      "speed": 75
+    },
+    "catchRate": 190,
+    "baseExp": 62,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 85,
+    "evolveLevel": 31,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 85,
+    "name": "Dodrio",
+    "nameEs": "Dodrio",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 110,
+      "defense": 70,
+      "spAttack": 60,
+      "spDefense": 60,
+      "speed": 110
+    },
+    "catchRate": 45,
+    "baseExp": 165,
+    "evolvesFrom": 84,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 86,
+    "name": "Seel",
+    "nameEs": "Seel",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 45,
+      "defense": 55,
+      "spAttack": 45,
+      "spDefense": 70,
+      "speed": 45
+    },
+    "catchRate": 190,
+    "baseExp": 65,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 87,
+    "evolveLevel": 34,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 87,
+    "name": "Dewgong",
+    "nameEs": "Dewgong",
+    "types": [
+      "water",
+      "ice"
+    ],
+    "stats": {
+      "hp": 90,
+      "attack": 70,
+      "defense": 80,
+      "spAttack": 70,
+      "spDefense": 95,
+      "speed": 70
+    },
+    "catchRate": 75,
+    "baseExp": 166,
+    "evolvesFrom": 86,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 88,
+    "name": "Grimer",
+    "nameEs": "Grimer",
+    "types": [
+      "poison"
+    ],
+    "stats": {
+      "hp": 80,
+      "attack": 80,
+      "defense": 50,
+      "spAttack": 40,
+      "spDefense": 50,
+      "speed": 25
+    },
+    "catchRate": 190,
+    "baseExp": 65,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 89,
+    "evolveLevel": 38,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 89,
+    "name": "Muk",
+    "nameEs": "Muk",
+    "types": [
+      "poison"
+    ],
+    "stats": {
+      "hp": 105,
+      "attack": 105,
+      "defense": 75,
+      "spAttack": 65,
+      "spDefense": 100,
+      "speed": 50
+    },
+    "catchRate": 75,
+    "baseExp": 175,
+    "evolvesFrom": 88,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 90,
+    "name": "Shellder",
+    "nameEs": "Shellder",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 30,
+      "attack": 65,
+      "defense": 100,
+      "spAttack": 45,
+      "spDefense": 25,
+      "speed": 40
+    },
+    "catchRate": 190,
+    "baseExp": 61,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": 91,
+    "evolveLevel": null,
+    "evolveItem": "water-stone",
+    "evolveTrigger": "use-item"
+  },
+  {
+    "id": 91,
+    "name": "Cloyster",
+    "nameEs": "Cloyster",
+    "types": [
+      "water",
+      "ice"
+    ],
+    "stats": {
+      "hp": 50,
+      "attack": 95,
+      "defense": 180,
+      "spAttack": 85,
+      "spDefense": 45,
+      "speed": 70
+    },
+    "catchRate": 60,
+    "baseExp": 184,
+    "evolvesFrom": 90,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 92,
+    "name": "Gastly",
+    "nameEs": "Gastly",
+    "types": [
+      "ghost",
+      "poison"
+    ],
+    "stats": {
+      "hp": 30,
+      "attack": 35,
+      "defense": 30,
+      "spAttack": 100,
+      "spDefense": 35,
+      "speed": 80
+    },
+    "catchRate": 190,
+    "baseExp": 62,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 93,
+    "evolveLevel": 25,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 93,
+    "name": "Haunter",
+    "nameEs": "Haunter",
+    "types": [
+      "ghost",
+      "poison"
+    ],
+    "stats": {
+      "hp": 45,
+      "attack": 50,
+      "defense": 45,
+      "spAttack": 115,
+      "spDefense": 55,
+      "speed": 95
+    },
+    "catchRate": 90,
+    "baseExp": 142,
+    "evolvesFrom": 92,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": 94,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": "trade"
+  },
+  {
+    "id": 94,
+    "name": "Gengar",
+    "nameEs": "Gengar",
+    "types": [
+      "ghost",
+      "poison"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 65,
+      "defense": 60,
+      "spAttack": 130,
+      "spDefense": 75,
+      "speed": 110
+    },
+    "catchRate": 45,
+    "baseExp": 225,
+    "evolvesFrom": 93,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 95,
+    "name": "Onix",
+    "nameEs": "Onix",
+    "types": [
+      "rock",
+      "ground"
+    ],
+    "stats": {
+      "hp": 35,
+      "attack": 45,
+      "defense": 160,
+      "spAttack": 30,
+      "spDefense": 45,
+      "speed": 70
+    },
+    "catchRate": 45,
+    "baseExp": 77,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 96,
+    "name": "Drowzee",
+    "nameEs": "Drowzee",
+    "types": [
+      "psychic"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 48,
+      "defense": 45,
+      "spAttack": 43,
+      "spDefense": 90,
+      "speed": 42
+    },
+    "catchRate": 190,
+    "baseExp": 66,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 97,
+    "evolveLevel": 26,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 97,
+    "name": "Hypno",
+    "nameEs": "Hypno",
+    "types": [
+      "psychic"
+    ],
+    "stats": {
+      "hp": 85,
+      "attack": 73,
+      "defense": 70,
+      "spAttack": 73,
+      "spDefense": 115,
+      "speed": 67
+    },
+    "catchRate": 75,
+    "baseExp": 169,
+    "evolvesFrom": 96,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 98,
+    "name": "Krabby",
+    "nameEs": "Krabby",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 30,
+      "attack": 105,
+      "defense": 90,
+      "spAttack": 25,
+      "spDefense": 25,
+      "speed": 50
+    },
+    "catchRate": 225,
+    "baseExp": 65,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 99,
+    "evolveLevel": 28,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 99,
+    "name": "Kingler",
+    "nameEs": "Kingler",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 55,
+      "attack": 130,
+      "defense": 115,
+      "spAttack": 50,
+      "spDefense": 50,
+      "speed": 75
+    },
+    "catchRate": 60,
+    "baseExp": 166,
+    "evolvesFrom": 98,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 100,
+    "name": "Voltorb",
+    "nameEs": "Voltorb",
+    "types": [
+      "electric"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 30,
+      "defense": 50,
+      "spAttack": 55,
+      "spDefense": 55,
+      "speed": 100
+    },
+    "catchRate": 190,
+    "baseExp": 66,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 101,
+    "evolveLevel": 30,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 101,
+    "name": "Electrode",
+    "nameEs": "Electrode",
+    "types": [
+      "electric"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 50,
+      "defense": 70,
+      "spAttack": 80,
+      "spDefense": 80,
+      "speed": 150
+    },
+    "catchRate": 60,
+    "baseExp": 172,
+    "evolvesFrom": 100,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 102,
+    "name": "Exeggcute",
+    "nameEs": "Exeggcute",
+    "types": [
+      "grass",
+      "psychic"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 40,
+      "defense": 80,
+      "spAttack": 60,
+      "spDefense": 45,
+      "speed": 40
+    },
+    "catchRate": 90,
+    "baseExp": 65,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": 103,
+    "evolveLevel": null,
+    "evolveItem": "leaf-stone",
+    "evolveTrigger": "use-item"
+  },
+  {
+    "id": 103,
+    "name": "Exeggutor",
+    "nameEs": "Exeggutor",
+    "types": [
+      "grass",
+      "psychic"
+    ],
+    "stats": {
+      "hp": 95,
+      "attack": 95,
+      "defense": 85,
+      "spAttack": 125,
+      "spDefense": 75,
+      "speed": 55
+    },
+    "catchRate": 45,
+    "baseExp": 186,
+    "evolvesFrom": 102,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 104,
+    "name": "Cubone",
+    "nameEs": "Cubone",
+    "types": [
+      "ground"
+    ],
+    "stats": {
+      "hp": 50,
+      "attack": 50,
+      "defense": 95,
+      "spAttack": 40,
+      "spDefense": 50,
+      "speed": 35
+    },
+    "catchRate": 190,
+    "baseExp": 64,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 105,
+    "evolveLevel": 28,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 105,
+    "name": "Marowak",
+    "nameEs": "Marowak",
+    "types": [
+      "ground"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 80,
+      "defense": 110,
+      "spAttack": 50,
+      "spDefense": 80,
+      "speed": 45
+    },
+    "catchRate": 75,
+    "baseExp": 149,
+    "evolvesFrom": 104,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 106,
+    "name": "Hitmonlee",
+    "nameEs": "Hitmonlee",
+    "types": [
+      "fighting"
+    ],
+    "stats": {
+      "hp": 50,
+      "attack": 120,
+      "defense": 53,
+      "spAttack": 35,
+      "spDefense": 110,
+      "speed": 87
+    },
+    "catchRate": 45,
+    "baseExp": 159,
+    "evolvesFrom": 236,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 107,
+    "name": "Hitmonchan",
+    "nameEs": "Hitmonchan",
+    "types": [
+      "fighting"
+    ],
+    "stats": {
+      "hp": 50,
+      "attack": 105,
+      "defense": 79,
+      "spAttack": 35,
+      "spDefense": 110,
+      "speed": 76
+    },
+    "catchRate": 45,
+    "baseExp": 159,
+    "evolvesFrom": 236,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 108,
+    "name": "Lickitung",
+    "nameEs": "Lickitung",
+    "types": [
+      "normal"
+    ],
+    "stats": {
+      "hp": 90,
+      "attack": 55,
+      "defense": 75,
+      "spAttack": 60,
+      "spDefense": 75,
+      "speed": 30
+    },
+    "catchRate": 45,
+    "baseExp": 77,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 109,
+    "name": "Koffing",
+    "nameEs": "Koffing",
+    "types": [
+      "poison"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 65,
+      "defense": 95,
+      "spAttack": 60,
+      "spDefense": 45,
+      "speed": 35
+    },
+    "catchRate": 190,
+    "baseExp": 68,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 110,
+    "evolveLevel": 35,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 110,
+    "name": "Weezing",
+    "nameEs": "Weezing",
+    "types": [
+      "poison"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 90,
+      "defense": 120,
+      "spAttack": 85,
+      "spDefense": 70,
+      "speed": 60
+    },
+    "catchRate": 60,
+    "baseExp": 172,
+    "evolvesFrom": 109,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 111,
+    "name": "Rhyhorn",
+    "nameEs": "Rhyhorn",
+    "types": [
+      "ground",
+      "rock"
+    ],
+    "stats": {
+      "hp": 80,
+      "attack": 85,
+      "defense": 95,
+      "spAttack": 30,
+      "spDefense": 30,
+      "speed": 25
+    },
+    "catchRate": 120,
+    "baseExp": 69,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": 112,
+    "evolveLevel": 42,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 112,
+    "name": "Rhydon",
+    "nameEs": "Rhydon",
+    "types": [
+      "ground",
+      "rock"
+    ],
+    "stats": {
+      "hp": 105,
+      "attack": 130,
+      "defense": 120,
+      "spAttack": 45,
+      "spDefense": 45,
+      "speed": 40
+    },
+    "catchRate": 60,
+    "baseExp": 170,
+    "evolvesFrom": 111,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 113,
+    "name": "Chansey",
+    "nameEs": "Chansey",
+    "types": [
+      "normal"
+    ],
+    "stats": {
+      "hp": 250,
+      "attack": 5,
+      "defense": 5,
+      "spAttack": 35,
+      "spDefense": 105,
+      "speed": 50
+    },
+    "catchRate": 30,
+    "baseExp": 395,
+    "evolvesFrom": 440,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "fast",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 114,
+    "name": "Tangela",
+    "nameEs": "Tangela",
+    "types": [
+      "grass"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 55,
+      "defense": 115,
+      "spAttack": 100,
+      "spDefense": 40,
+      "speed": 60
+    },
+    "catchRate": 45,
+    "baseExp": 87,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 115,
+    "name": "Kangaskhan",
+    "nameEs": "Kangaskhan",
+    "types": [
+      "normal"
+    ],
+    "stats": {
+      "hp": 105,
+      "attack": 95,
+      "defense": 80,
+      "spAttack": 40,
+      "spDefense": 80,
+      "speed": 90
+    },
+    "catchRate": 45,
+    "baseExp": 172,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 116,
+    "name": "Horsea",
+    "nameEs": "Horsea",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 30,
+      "attack": 40,
+      "defense": 70,
+      "spAttack": 70,
+      "spDefense": 25,
+      "speed": 60
+    },
+    "catchRate": 225,
+    "baseExp": 59,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 117,
+    "evolveLevel": 32,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 117,
+    "name": "Seadra",
+    "nameEs": "Seadra",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 55,
+      "attack": 65,
+      "defense": 95,
+      "spAttack": 95,
+      "spDefense": 45,
+      "speed": 85
+    },
+    "catchRate": 75,
+    "baseExp": 154,
+    "evolvesFrom": 116,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 118,
+    "name": "Goldeen",
+    "nameEs": "Goldeen",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 45,
+      "attack": 67,
+      "defense": 60,
+      "spAttack": 35,
+      "spDefense": 50,
+      "speed": 63
+    },
+    "catchRate": 225,
+    "baseExp": 64,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 119,
+    "evolveLevel": 33,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 119,
+    "name": "Seaking",
+    "nameEs": "Seaking",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 80,
+      "attack": 92,
+      "defense": 65,
+      "spAttack": 65,
+      "spDefense": 80,
+      "speed": 68
+    },
+    "catchRate": 60,
+    "baseExp": 158,
+    "evolvesFrom": 118,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 120,
+    "name": "Staryu",
+    "nameEs": "Staryu",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 30,
+      "attack": 45,
+      "defense": 55,
+      "spAttack": 70,
+      "spDefense": 55,
+      "speed": 85
+    },
+    "catchRate": 225,
+    "baseExp": 68,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": 121,
+    "evolveLevel": null,
+    "evolveItem": "water-stone",
+    "evolveTrigger": "use-item"
+  },
+  {
+    "id": 121,
+    "name": "Starmie",
+    "nameEs": "Starmie",
+    "types": [
+      "water",
+      "psychic"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 75,
+      "defense": 85,
+      "spAttack": 100,
+      "spDefense": 85,
+      "speed": 115
+    },
+    "catchRate": 60,
+    "baseExp": 182,
+    "evolvesFrom": 120,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 122,
+    "name": "Mr. Mime",
+    "nameEs": "Mr. Mime",
+    "types": [
+      "psychic",
+      "fairy"
+    ],
+    "stats": {
+      "hp": 40,
+      "attack": 45,
+      "defense": 65,
+      "spAttack": 100,
+      "spDefense": 120,
+      "speed": 90
+    },
+    "catchRate": 45,
+    "baseExp": 161,
+    "evolvesFrom": 439,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 123,
+    "name": "Scyther",
+    "nameEs": "Scyther",
+    "types": [
+      "bug",
+      "flying"
+    ],
+    "stats": {
+      "hp": 70,
+      "attack": 110,
+      "defense": 80,
+      "spAttack": 55,
+      "spDefense": 80,
+      "speed": 105
+    },
+    "catchRate": 45,
+    "baseExp": 100,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 124,
+    "name": "Jynx",
+    "nameEs": "Jynx",
+    "types": [
+      "ice",
+      "psychic"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 50,
+      "defense": 35,
+      "spAttack": 115,
+      "spDefense": 95,
+      "speed": 95
+    },
+    "catchRate": 45,
+    "baseExp": 159,
+    "evolvesFrom": 238,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 125,
+    "name": "Electabuzz",
+    "nameEs": "Electabuzz",
+    "types": [
+      "electric"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 83,
+      "defense": 57,
+      "spAttack": 95,
+      "spDefense": 85,
+      "speed": 105
+    },
+    "catchRate": 45,
+    "baseExp": 172,
+    "evolvesFrom": 239,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 126,
+    "name": "Magmar",
+    "nameEs": "Magmar",
+    "types": [
+      "fire"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 95,
+      "defense": 57,
+      "spAttack": 100,
+      "spDefense": 85,
+      "speed": 93
+    },
+    "catchRate": 45,
+    "baseExp": 173,
+    "evolvesFrom": 240,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 127,
+    "name": "Pinsir",
+    "nameEs": "Pinsir",
+    "types": [
+      "bug"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 125,
+      "defense": 100,
+      "spAttack": 55,
+      "spDefense": 70,
+      "speed": 85
+    },
+    "catchRate": 45,
+    "baseExp": 175,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 128,
+    "name": "Tauros",
+    "nameEs": "Tauros",
+    "types": [
+      "normal"
+    ],
+    "stats": {
+      "hp": 75,
+      "attack": 100,
+      "defense": 95,
+      "spAttack": 40,
+      "spDefense": 70,
+      "speed": 110
+    },
+    "catchRate": 45,
+    "baseExp": 172,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 129,
+    "name": "Magikarp",
+    "nameEs": "Magikarp",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 20,
+      "attack": 10,
+      "defense": 55,
+      "spAttack": 15,
+      "spDefense": 20,
+      "speed": 80
+    },
+    "catchRate": 255,
+    "baseExp": 40,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": 130,
+    "evolveLevel": 20,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 130,
+    "name": "Gyarados",
+    "nameEs": "Gyarados",
+    "types": [
+      "water",
+      "flying"
+    ],
+    "stats": {
+      "hp": 95,
+      "attack": 125,
+      "defense": 79,
+      "spAttack": 60,
+      "spDefense": 100,
+      "speed": 81
+    },
+    "catchRate": 45,
+    "baseExp": 189,
+    "evolvesFrom": 129,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 131,
+    "name": "Lapras",
+    "nameEs": "Lapras",
+    "types": [
+      "water",
+      "ice"
+    ],
+    "stats": {
+      "hp": 130,
+      "attack": 85,
+      "defense": 80,
+      "spAttack": 85,
+      "spDefense": 95,
+      "speed": 60
+    },
+    "catchRate": 45,
+    "baseExp": 187,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 132,
+    "name": "Ditto",
+    "nameEs": "Ditto",
+    "types": [
+      "normal"
+    ],
+    "stats": {
+      "hp": 48,
+      "attack": 48,
+      "defense": 48,
+      "spAttack": 48,
+      "spDefense": 48,
+      "speed": 48
+    },
+    "catchRate": 35,
+    "baseExp": 101,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 133,
+    "name": "Eevee",
+    "nameEs": "Eevee",
+    "types": [
+      "normal"
+    ],
+    "stats": {
+      "hp": 55,
+      "attack": 55,
+      "defense": 50,
+      "spAttack": 45,
+      "spDefense": 65,
+      "speed": 55
+    },
+    "catchRate": 45,
+    "baseExp": 65,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": [
+      {
+        "id": 134,
+        "level": null,
+        "item": "water-stone",
+        "trigger": "use-item"
+      },
+      {
+        "id": 135,
+        "level": null,
+        "item": "thunder-stone",
+        "trigger": "use-item"
+      },
+      {
+        "id": 136,
+        "level": null,
+        "item": "fire-stone",
+        "trigger": "use-item"
+      }
+    ],
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 134,
+    "name": "Vaporeon",
+    "nameEs": "Vaporeon",
+    "types": [
+      "water"
+    ],
+    "stats": {
+      "hp": 130,
+      "attack": 65,
+      "defense": 60,
+      "spAttack": 110,
+      "spDefense": 95,
+      "speed": 65
+    },
+    "catchRate": 45,
+    "baseExp": 184,
+    "evolvesFrom": 133,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 135,
+    "name": "Jolteon",
+    "nameEs": "Jolteon",
+    "types": [
+      "electric"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 65,
+      "defense": 60,
+      "spAttack": 110,
+      "spDefense": 95,
+      "speed": 130
+    },
+    "catchRate": 45,
+    "baseExp": 184,
+    "evolvesFrom": 133,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 136,
+    "name": "Flareon",
+    "nameEs": "Flareon",
+    "types": [
+      "fire"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 130,
+      "defense": 60,
+      "spAttack": 95,
+      "spDefense": 110,
+      "speed": 65
+    },
+    "catchRate": 45,
+    "baseExp": 184,
+    "evolvesFrom": 133,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 137,
+    "name": "Porygon",
+    "nameEs": "Porygon",
+    "types": [
+      "normal"
+    ],
+    "stats": {
+      "hp": 65,
+      "attack": 60,
+      "defense": 70,
+      "spAttack": 85,
+      "spDefense": 75,
+      "speed": 40
+    },
+    "catchRate": 45,
+    "baseExp": 79,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 138,
+    "name": "Omanyte",
+    "nameEs": "Omanyte",
+    "types": [
+      "rock",
+      "water"
+    ],
+    "stats": {
+      "hp": 35,
+      "attack": 40,
+      "defense": 100,
+      "spAttack": 90,
+      "spDefense": 55,
+      "speed": 35
+    },
+    "catchRate": 45,
+    "baseExp": 71,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 139,
+    "evolveLevel": 40,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 139,
+    "name": "Omastar",
+    "nameEs": "Omastar",
+    "types": [
+      "rock",
+      "water"
+    ],
+    "stats": {
+      "hp": 70,
+      "attack": 60,
+      "defense": 125,
+      "spAttack": 115,
+      "spDefense": 70,
+      "speed": 55
+    },
+    "catchRate": 45,
+    "baseExp": 173,
+    "evolvesFrom": 138,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 140,
+    "name": "Kabuto",
+    "nameEs": "Kabuto",
+    "types": [
+      "rock",
+      "water"
+    ],
+    "stats": {
+      "hp": 30,
+      "attack": 80,
+      "defense": 90,
+      "spAttack": 55,
+      "spDefense": 45,
+      "speed": 55
+    },
+    "catchRate": 45,
+    "baseExp": 71,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": 141,
+    "evolveLevel": 40,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 141,
+    "name": "Kabutops",
+    "nameEs": "Kabutops",
+    "types": [
+      "rock",
+      "water"
+    ],
+    "stats": {
+      "hp": 60,
+      "attack": 115,
+      "defense": 105,
+      "spAttack": 65,
+      "spDefense": 70,
+      "speed": 80
+    },
+    "catchRate": 45,
+    "baseExp": 173,
+    "evolvesFrom": 140,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "medium",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 142,
+    "name": "Aerodactyl",
+    "nameEs": "Aerodactyl",
+    "types": [
+      "rock",
+      "flying"
+    ],
+    "stats": {
+      "hp": 80,
+      "attack": 105,
+      "defense": 65,
+      "spAttack": 60,
+      "spDefense": 75,
+      "speed": 130
+    },
+    "catchRate": 45,
+    "baseExp": 180,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 143,
+    "name": "Snorlax",
+    "nameEs": "Snorlax",
+    "types": [
+      "normal"
+    ],
+    "stats": {
+      "hp": 160,
+      "attack": 110,
+      "defense": 65,
+      "spAttack": 65,
+      "spDefense": 110,
+      "speed": 30
+    },
+    "catchRate": 25,
+    "baseExp": 189,
+    "evolvesFrom": 446,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 144,
+    "name": "Articuno",
+    "nameEs": "Articuno",
+    "types": [
+      "ice",
+      "flying"
+    ],
+    "stats": {
+      "hp": 90,
+      "attack": 85,
+      "defense": 100,
+      "spAttack": 95,
+      "spDefense": 125,
+      "speed": 85
+    },
+    "catchRate": 3,
+    "baseExp": 261,
+    "evolvesFrom": null,
+    "isLegendary": true,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 145,
+    "name": "Zapdos",
+    "nameEs": "Zapdos",
+    "types": [
+      "electric",
+      "flying"
+    ],
+    "stats": {
+      "hp": 90,
+      "attack": 90,
+      "defense": 85,
+      "spAttack": 125,
+      "spDefense": 90,
+      "speed": 100
+    },
+    "catchRate": 3,
+    "baseExp": 261,
+    "evolvesFrom": null,
+    "isLegendary": true,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 146,
+    "name": "Moltres",
+    "nameEs": "Moltres",
+    "types": [
+      "fire",
+      "flying"
+    ],
+    "stats": {
+      "hp": 90,
+      "attack": 100,
+      "defense": 90,
+      "spAttack": 125,
+      "spDefense": 85,
+      "speed": 90
+    },
+    "catchRate": 3,
+    "baseExp": 261,
+    "evolvesFrom": null,
+    "isLegendary": true,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 147,
+    "name": "Dratini",
+    "nameEs": "Dratini",
+    "types": [
+      "dragon"
+    ],
+    "stats": {
+      "hp": 41,
+      "attack": 64,
+      "defense": 45,
+      "spAttack": 50,
+      "spDefense": 50,
+      "speed": 50
+    },
+    "catchRate": 45,
+    "baseExp": 60,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": 148,
+    "evolveLevel": 30,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 148,
+    "name": "Dragonair",
+    "nameEs": "Dragonair",
+    "types": [
+      "dragon"
+    ],
+    "stats": {
+      "hp": 61,
+      "attack": 84,
+      "defense": 65,
+      "spAttack": 70,
+      "spDefense": 70,
+      "speed": 70
+    },
+    "catchRate": 45,
+    "baseExp": 147,
+    "evolvesFrom": 147,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": 149,
+    "evolveLevel": 55,
+    "evolveItem": null,
+    "evolveTrigger": "level-up"
+  },
+  {
+    "id": 149,
+    "name": "Dragonite",
+    "nameEs": "Dragonite",
+    "types": [
+      "dragon",
+      "flying"
+    ],
+    "stats": {
+      "hp": 91,
+      "attack": 134,
+      "defense": 95,
+      "spAttack": 100,
+      "spDefense": 100,
+      "speed": 80
+    },
+    "catchRate": 45,
+    "baseExp": 270,
+    "evolvesFrom": 148,
+    "isLegendary": false,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 150,
+    "name": "Mewtwo",
+    "nameEs": "Mewtwo",
+    "types": [
+      "psychic"
+    ],
+    "stats": {
+      "hp": 106,
+      "attack": 110,
+      "defense": 90,
+      "spAttack": 154,
+      "spDefense": 90,
+      "speed": 130
+    },
+    "catchRate": 3,
+    "baseExp": 306,
+    "evolvesFrom": null,
+    "isLegendary": true,
+    "isMythical": false,
+    "growthRate": "slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  },
+  {
+    "id": 151,
+    "name": "Mew",
+    "nameEs": "Mew",
+    "types": [
+      "psychic"
+    ],
+    "stats": {
+      "hp": 100,
+      "attack": 100,
+      "defense": 100,
+      "spAttack": 100,
+      "spDefense": 100,
+      "speed": 100
+    },
+    "catchRate": 45,
+    "baseExp": 270,
+    "evolvesFrom": null,
+    "isLegendary": false,
+    "isMythical": true,
+    "growthRate": "medium-slow",
+    "evolvesTo": null,
+    "evolveLevel": null,
+    "evolveItem": null,
+    "evolveTrigger": null
+  }
+]

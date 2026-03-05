@@ -1,0 +1,18 @@
+{
+  "name": "PokéClicker",
+  "short_name": "PokéClicker",
+  "description": "Juego clicker/idle de Pokémon",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "icons": [
+    {
+      "src": "assets/ui/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
