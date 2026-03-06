@@ -1,4 +1,4 @@
-// pokemon.js — Pokemon data, type chart, class
+﻿// pokemon.js — Pokemon roster data, type chart, DPS calculations (Clicker Heroes model)
 
 // ===== TYPE EFFECTIVENESS CHART =====
 const TYPE_LIST = [
@@ -30,6 +30,8 @@ const CHART = {
   fairy:    { fire:0.5, poison:0.5, fighting:2, dragon:2, dark:2, steel:0.5 }
 };
 
+export { TYPE_LIST, CHART };
+
 export function getTypeEffectiveness(atkType, defTypes) {
   let mult = 1;
   for (const def of defTypes) {
@@ -49,12 +51,445 @@ export function getBestEffectiveness(atkTypes, defTypes) {
   return best;
 }
 
-// ===== POKEMON DATA STORE =====
+// ===== SPRITE URLS =====
+const SPRITE_BASE = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
+
+export function getSpriteURL(id, type = 'artwork') {
+  switch (type) {
+    case 'pixel':    return SPRITE_BASE + '/' + id + '.png';
+    case 'shiny':    return SPRITE_BASE + '/shiny/' + id + '.png';
+    case 'artwork':  return SPRITE_BASE + '/other/home/' + id + '.png';
+    case 'animated': return SPRITE_BASE + '/versions/generation-v/black-white/animated/' + id + '.gif';
+    default:         return SPRITE_BASE + '/other/home/' + id + '.png';
+  }
+}
+
+// ===== ROSTER DATA (50 Pokemon, Clicker Heroes style) =====
+let ROSTER = [];
 let ALL_POKEMON = [];
 
+const NATURE_IDLE_DPS_BONUS = {
+  serious: 0,
+  modest: 0.10,
+  adamant: 0,
+  jolly: -0.10,
+  calm: 0.10,
+  timid: 0,
+  hasty: -0.10,
+  bold: 0.05,
+  rash: 0.08,
+  careful: 0.06,
+};
+
+const STAR_DPS_BONUS = {
+  0: 0,
+  1: 0.10,
+  2: 0.20,
+  3: 0.35,
+};
+
+// Milestones keep the original multipliers, but now each threshold is tied to
+// a named move to align progression flavor with Pokemon identity.
+const LEVEL_MILESTONES = [
+  { level: 10, multiplier: 4, key: 'stage2' },
+  { level: 25, multiplier: 4, key: 'stage3' },
+  { level: 50, multiplier: 2, key: 'special' },
+  { level: 100, multiplier: 4, key: 'final' },
+  { level: 150, multiplier: 4, key: 'mega' },
+  { level: 200, multiplier: 10, key: 'stellar' },
+];
+
+const EVOLUTION_ACCELERABLE_KEYS = new Set(['stage2', 'stage3']);
+
+const MILESTONE_MOVE_LIBRARY = {
+  normal:   { base: 'Placaje', stage2: 'Doble Filo', stage3: 'Hiper Rayo', special: 'Golpe Cuerpo', final: 'Megagolpe', mega: 'Giga Impacto', stellar: 'Golpe Estelar' },
+  fire:     { base: 'Ascuas', stage2: 'Rueda Fuego', stage3: 'Lanzallamas', special: 'Llamarada', final: 'Sofoco', mega: 'Anillo Igneo', stellar: 'Llama Estelar' },
+  water:    { base: 'Pistola Agua', stage2: 'Aqua Cola', stage3: 'Hidrobomba', special: 'Surf', final: 'Pulso Agua', mega: 'Hidrocanon', stellar: 'Marea Estelar' },
+  electric: { base: 'Impactrueno', stage2: 'Chispazo', stage3: 'Rayo', special: 'Trueno', final: 'Voltio Cruel', mega: 'Campo Electrico', stellar: 'Rayo Estelar' },
+  grass:    { base: 'Hoja Afilada', stage2: 'Drenadoras', stage3: 'Rayo Solar', special: 'Latigo Cepa', final: 'Tormenta Floral', mega: 'Planta Feroz', stellar: 'Brote Estelar' },
+  ice:      { base: 'Vaho Gelido', stage2: 'Viento Hielo', stage3: 'Rayo Hielo', special: 'Ventisca', final: 'Nieve Polvo', mega: 'Cero Absoluto', stellar: 'Cristal Estelar' },
+  fighting: { base: 'Golpe Karate', stage2: 'Doble Patada', stage3: 'A Bocajarro', special: 'Tajo Cruzado', final: 'Puño Drenaje', mega: 'Onda Certera', stellar: 'Impacto Estelar' },
+  poison:   { base: 'Picotazo Veneno', stage2: 'Acido', stage3: 'Bomba Lodo', special: 'Puya Nociva', final: 'Onda Toxica', mega: 'Lluvia Acida', stellar: 'Veneno Estelar' },
+  ground:   { base: 'Disparo Lodo', stage2: 'Bofeton Lodo', stage3: 'Terremoto', special: 'Taladradora', final: 'Fuerza Equina', mega: 'Fisura', stellar: 'Falla Estelar' },
+  flying:   { base: 'Ataque Ala', stage2: 'Picado', stage3: 'Pajaro Osado', special: 'Vendaval', final: 'Aire Afilado', mega: 'Viento Plata', stellar: 'Ala Estelar' },
+  psychic:  { base: 'Confusion', stage2: 'Psicorrayo', stage3: 'Psiquico', special: 'Premonicion', final: 'Fuerza Lunar', mega: 'Psicoataque', stellar: 'Mente Estelar' },
+  bug:      { base: 'Picadura', stage2: 'Tijera X', stage3: 'Megacuerno', special: 'Zumbido', final: 'Danza Aleteo', mega: 'Aguijon Letal', stellar: 'Enjambre Estelar' },
+  rock:     { base: 'Lanzarrocas', stage2: 'Avalancha', stage3: 'Roca Afilada', special: 'Poder Pasado', final: 'Pulimento', mega: 'Meteoro Roca', stellar: 'Roca Estelar' },
+  ghost:    { base: 'Lenguetazo', stage2: 'Sombra Vil', stage3: 'Bola Sombra', special: 'Infortunio', final: 'Golpe Umbrio', mega: 'Niebla Oscura', stellar: 'Sombra Estelar' },
+  dragon:   { base: 'Dragoaliento', stage2: 'Garra Dragon', stage3: 'Cometa Draco', special: 'Pulso Dragon', final: 'Enfado', mega: 'Ascenso Draco', stellar: 'Dragon Estelar' },
+  dark:     { base: 'Ataque Finta', stage2: 'Mordisco', stage3: 'Pulso Umbrio', special: 'Tajo Umbrio', final: 'Juego Sucio', mega: 'Alarido', stellar: 'Noche Estelar' },
+  steel:    { base: 'Cola Ferrea', stage2: 'Cuerpo Pesado', stage3: 'Cabeza de Hierro', special: 'Foco Resplandor', final: 'Metalaser', mega: 'Puño Meteoro', stellar: 'Acero Estelar' },
+  fairy:    { base: 'Voz Cautivadora', stage2: 'Brillo Magico', stage3: 'Fuerza Lunar', special: 'Carantoña', final: 'Velo Sagrado', mega: 'Beso Drenaje', stellar: 'Luz Estelar' },
+};
+
+function cloneTypes(types) {
+  return Array.isArray(types) ? [...types] : [];
+}
+
+function hydrateRosterMetadata() {
+  if (!ROSTER.length || !ALL_POKEMON.length) {
+    return;
+  }
+
+  ROSTER = ROSTER.map((pokemon) => {
+    const baseData = getPokemonData(pokemon.pokedexId);
+    if (!baseData) {
+      return pokemon;
+    }
+
+    return {
+      ...pokemon,
+      types: cloneTypes(baseData.types),
+    };
+  });
+}
+
+export async function loadRosterData() {
+  const resp = await fetch('data/roster.json');
+  ROSTER = await resp.json();
+  hydrateRosterMetadata();
+  return ROSTER;
+}
+
+export function getRosterPokemon(id) {
+  return ROSTER.find(p => p.id === id) || null;
+}
+
+export function getAllRoster() {
+  return ROSTER;
+}
+
+export function getOwnedPokemonLevel(ownedEntry) {
+  if (typeof ownedEntry === 'number') {
+    return Math.max(1, ownedEntry);
+  }
+  if (ownedEntry && typeof ownedEntry === 'object') {
+    return Math.max(1, ownedEntry.level || 1);
+  }
+  return 0;
+}
+
+function getOwnedIdleProgressMultiplier(ownedEntry) {
+  if (!ownedEntry || typeof ownedEntry !== 'object') {
+    return 1;
+  }
+
+  const stars = Number.isFinite(ownedEntry.stars)
+    ? Math.max(0, Math.min(3, Math.floor(ownedEntry.stars)))
+    : 0;
+  const starMult = 1 + (STAR_DPS_BONUS[stars] || 0);
+
+  const natureId = typeof ownedEntry.nature === 'string' ? ownedEntry.nature : 'serious';
+  const natureMult = 1 + (NATURE_IDLE_DPS_BONUS[natureId] || 0);
+
+  const candyUpgrades = Number.isFinite(ownedEntry.candyUpgrades)
+    ? Math.max(0, Math.min(20, Math.floor(ownedEntry.candyUpgrades)))
+    : 0;
+  const candyMult = 1 + candyUpgrades * 0.05;
+
+  return starMult * natureMult * candyMult;
+}
+
+export function getPokemonTypesByDexId(pokedexId) {
+  const pokemon = getPokemonData(pokedexId);
+  return cloneTypes(pokemon?.types);
+}
+
+export function getRosterPokemonTypes(rosterPokemon, level, ownedEntry = null) {
+  if (!rosterPokemon) {
+    return [];
+  }
+
+  const currentForm = getCurrentForm(rosterPokemon, level, ownedEntry);
+  return getPokemonTypesByDexId(currentForm.pokedexId);
+}
+
+function getPrimaryType(rosterPokemon, level = 1, ownedEntry = null) {
+  const types = getRosterPokemonTypes(rosterPokemon, level, ownedEntry);
+  return types[0] || 'normal';
+}
+
+function getMoveSetForType(type) {
+  return MILESTONE_MOVE_LIBRARY[type] || MILESTONE_MOVE_LIBRARY.normal;
+}
+
+export function getMoveNameForMilestone(rosterPokemon, level, stageKey) {
+  const moveSet = getMoveSetForType(getPrimaryType(rosterPokemon, level, null));
+  return moveSet[stageKey] || moveSet.base || 'Placaje';
+}
+
+export function getCurrentMove(rosterPokemon, level, ownedEntry = null) {
+  const safeLevel = Math.max(1, Math.floor(Number(level) || 1));
+  const milestones = getEffectiveMilestones(rosterPokemon, ownedEntry);
+  let key = 'base';
+
+  for (const milestone of milestones) {
+    if (safeLevel >= milestone.level) {
+      key = milestone.key;
+    }
+  }
+
+  return getMoveNameForMilestone(rosterPokemon, safeLevel, key);
+}
+
+export function getMilestoneMoveProgression(rosterPokemon, ownedEntry = null) {
+  return getEffectiveMilestones(rosterPokemon, ownedEntry).map((milestone) => ({
+    level: milestone.level,
+    multiplier: milestone.multiplier,
+    move: getMoveNameForMilestone(rosterPokemon, milestone.level, milestone.key),
+    key: milestone.key,
+  }));
+}
+
+function getCandyEvolutionBoostCount(rosterPokemon, ownedEntry) {
+  const maxBoosts = Math.max(0, Math.min(
+    2,
+    Array.isArray(rosterPokemon?.evolutions) ? rosterPokemon.evolutions.length : 0,
+  ));
+
+  if (maxBoosts <= 0) {
+    return 0;
+  }
+
+  const raw = Number.isFinite(ownedEntry?.candyEvolutionBoosts)
+    ? Math.floor(ownedEntry.candyEvolutionBoosts)
+    : 0;
+  return Math.max(0, Math.min(maxBoosts, raw));
+}
+
+function getEffectiveMilestones(rosterPokemon, ownedEntry = null) {
+  const boostCount = getCandyEvolutionBoostCount(rosterPokemon, ownedEntry);
+  if (boostCount <= 0) {
+    return LEVEL_MILESTONES;
+  }
+
+  let remaining = boostCount;
+  return LEVEL_MILESTONES.map((milestone) => {
+    if (remaining > 0 && EVOLUTION_ACCELERABLE_KEYS.has(milestone.key)) {
+      remaining -= 1;
+      return {
+        ...milestone,
+        level: Math.max(1, milestone.level - 3),
+      };
+    }
+
+    return milestone;
+  });
+}
+
+// ===== MILESTONE MULTIPLIERS =====
+// Evolution milestones like Clicker Heroes hero skill thresholds
+export function getMilestoneMultiplier(level, rosterPokemon = null, ownedEntry = null) {
+  let mult = 1;
+  const safeLevel = Math.max(1, Math.floor(Number(level) || 1));
+  const milestones = getEffectiveMilestones(rosterPokemon, ownedEntry);
+
+  for (const milestone of milestones) {
+    if (safeLevel >= milestone.level) {
+      mult *= milestone.multiplier;
+    }
+  }
+
+  return mult;  // Max cumulative at 200: 4*4*2*4*4*10 = 5,120
+}
+
+// ===== DPS CALCULATION =====
+// DPS for a single pokemon at a given level
+export function getPokemonDps(rosterPokemon, level, ownedEntry = null) {
+  return rosterPokemon.baseDps
+    * level
+    * getMilestoneMultiplier(level, rosterPokemon, ownedEntry)
+    * getOwnedIdleProgressMultiplier(ownedEntry);
+}
+
+export function getPokemonDpsForOwnedEntry(rosterPokemon, ownedEntry) {
+  return getPokemonDps(rosterPokemon, getOwnedPokemonLevel(ownedEntry), ownedEntry);
+}
+
+export function getTeamDps(activeTeam, ownedPokemon) {
+  if (!Array.isArray(activeTeam)) {
+    return 0;
+  }
+
+  let total = 0;
+  for (const rosterId of activeTeam) {
+    if (!Number.isFinite(rosterId)) {
+      continue;
+    }
+
+    const rosterPokemon = getRosterPokemon(rosterId);
+    const ownedEntry = ownedPokemon[rosterId];
+    const level = getOwnedPokemonLevel(ownedEntry);
+    if (rosterPokemon && level > 0) {
+      total += getPokemonDps(rosterPokemon, level, ownedEntry);
+    }
+  }
+
+  return total;
+}
+
+export function getActiveTeamBreakdown(activeTeam, ownedPokemon) {
+  if (!Array.isArray(activeTeam)) {
+    return [];
+  }
+
+  const members = [];
+  for (const rosterId of activeTeam) {
+    if (!Number.isFinite(rosterId)) {
+      continue;
+    }
+
+    const rosterPokemon = getRosterPokemon(rosterId);
+    const ownedEntry = ownedPokemon[rosterId];
+    const level = getOwnedPokemonLevel(ownedEntry);
+    if (!rosterPokemon || level <= 0) {
+      continue;
+    }
+
+    const currentForm = getCurrentForm(rosterPokemon, level, ownedEntry);
+    members.push({
+      rosterId,
+      rosterPokemon,
+      level,
+      dps: getPokemonDps(rosterPokemon, level, ownedEntry),
+      currentForm,
+      types: getRosterPokemonTypes(rosterPokemon, level, ownedEntry),
+    });
+  }
+
+  return members;
+}
+
+const TEAM_SYNERGY_DEFINITIONS = [
+  {
+    id: 'triangle',
+    name: 'Triángulo Elemental',
+    description: 'Fire + Water + Grass',
+    isActive: (typeCounts, uniqueTypes) => (
+      uniqueTypes.has('fire') && uniqueTypes.has('water') && uniqueTypes.has('grass')
+    ),
+  },
+  {
+    id: 'diversity',
+    name: 'Diversidad',
+    description: '6 tipos distintos',
+    isActive: (typeCounts) => typeCounts.size >= 6,
+  },
+  {
+    id: 'storm',
+    name: 'Tormenta Eléctrica',
+    description: 'Electric + Water',
+    isActive: (typeCounts, uniqueTypes) => (
+      uniqueTypes.has('electric') && uniqueTypes.has('water')
+    ),
+  },
+  {
+    id: 'fist',
+    name: 'Puño de Hierro',
+    description: 'Fighting + Steel',
+    isActive: (typeCounts, uniqueTypes) => (
+      uniqueTypes.has('fighting') && uniqueTypes.has('steel')
+    ),
+  },
+  {
+    id: 'killer_combo',
+    name: 'Killer Combo',
+    description: 'Ghost + Dark',
+    isActive: (typeCounts, uniqueTypes) => (
+      uniqueTypes.has('ghost') && uniqueTypes.has('dark')
+    ),
+  },
+  {
+    id: 'garden',
+    name: 'Jardín Místico',
+    description: 'Grass + Fairy',
+    isActive: (typeCounts, uniqueTypes) => (
+      uniqueTypes.has('grass') && uniqueTypes.has('fairy')
+    ),
+  },
+];
+
+function buildActiveTeamTypeCounts(activeTeam, ownedPokemon) {
+  const breakdown = getActiveTeamBreakdown(activeTeam, ownedPokemon);
+  const counts = new Map();
+  for (const member of breakdown) {
+    for (const type of member.types || []) {
+      counts.set(type, (counts.get(type) || 0) + 1);
+    }
+  }
+  return counts;
+}
+
+export function getActiveTeamSynergies(activeTeam, ownedPokemon) {
+  const typeCounts = buildActiveTeamTypeCounts(activeTeam, ownedPokemon);
+  const uniqueTypes = new Set(typeCounts.keys());
+  const active = [];
+
+  // Mono-tipo can trigger for multiple types; return one entry per matching type.
+  for (const [type, count] of typeCounts.entries()) {
+    if (count >= 3) {
+      active.push({
+        id: `mono_${type}`,
+        name: `Mono-${type}`,
+        description: `3+ ${type}`,
+      });
+    }
+  }
+
+  for (const synergy of TEAM_SYNERGY_DEFINITIONS) {
+    if (synergy.isActive(typeCounts, uniqueTypes)) {
+      active.push({
+        id: synergy.id,
+        name: synergy.name,
+        description: synergy.description,
+      });
+    }
+  }
+
+  return active;
+}
+
+// ===== LEVEL UP COST =====
+// Cost to level up: baseCost * level * 1.07^level
+// baseCost = purchaseCost / 10 (first level-up is cheap relative to purchase)
+export function getLevelUpCost(rosterPokemon, currentLevel) {
+  const baseCost = rosterPokemon.purchaseCost / 10;
+  return Math.ceil(baseCost * currentLevel * Math.pow(1.07, currentLevel));
+}
+
+// ===== CURRENT EVOLUTION FORM =====
+// Returns the name and pokedexId for the current form based on level
+export function getCurrentForm(rosterPokemon, level, ownedEntry = null) {
+  let name = rosterPokemon.name;
+  let pokedexId = rosterPokemon.pokedexId;
+  const effectiveMilestones = getEffectiveMilestones(rosterPokemon, ownedEntry);
+  const stage2Level = effectiveMilestones.find((milestone) => milestone.key === 'stage2')?.level ?? 10;
+  const stage3Level = effectiveMilestones.find((milestone) => milestone.key === 'stage3')?.level ?? 25;
+  const evolutionLevels = [stage2Level, stage3Level];
+
+  if (rosterPokemon.evolutions) {
+    for (let index = 0; index < rosterPokemon.evolutions.length; index++) {
+      const evo = rosterPokemon.evolutions[index];
+      const effectiveLevel = evolutionLevels[index] || evo.level;
+      if (level >= effectiveLevel) {
+        name = evo.name;
+        pokedexId = evo.pokedexId;
+      }
+    }
+  }
+  return { name, pokedexId };
+}
+
 export async function loadPokemonData() {
-  const resp = await fetch('data/pokemon.json');
-  ALL_POKEMON = await resp.json();
+  try {
+    const resp = await fetch('data/pokemon.json');
+    ALL_POKEMON = await resp.json();
+  } catch (e) {
+    ALL_POKEMON = [];
+  }
+  // Also load roster data
+  await loadRosterData();
+  hydrateRosterMetadata();
   return ALL_POKEMON;
 }
 
@@ -64,235 +499,4 @@ export function getPokemonData(id) {
 
 export function getAllPokemon() {
   return ALL_POKEMON;
-}
-
-// ===== RARITY FROM CATCH RATE =====
-export function getRarity(catchRate, isLegendary, isMythical) {
-  if (isLegendary || isMythical) return 'legendary';
-  if (catchRate >= 200) return 'common';
-  if (catchRate >= 120) return 'uncommon';
-  if (catchRate >= 45) return 'rare';
-  return 'very-rare';
-}
-
-// Defeats required before capture attempt unlocks
-// Continuous formula: rarer Pokémon need more defeats
-export function getDefeatsRequired(pokemonData) {
-  if (pokemonData.isLegendary || pokemonData.isMythical) return 50;
-  const difficulty = 1 - (pokemonData.catchRate / 255);
-  return Math.max(2, Math.floor(difficulty * 18 + 2));
-}
-
-export function getGameCatchRate(pokemonData, catchBonus = 0) {
-  if (pokemonData.isLegendary || pokemonData.isMythical) {
-    return Math.min(1, 0.05 + catchBonus);
-  }
-  // Continuous formula: maps original catchRate (0-255) to game rate (30%-95%)
-  const baseRate = 0.30 + (pokemonData.catchRate / 255) * 0.65;
-  return Math.min(1, baseRate + catchBonus);
-}
-
-// HP for wild encounters based on route difficulty
-export function getWildHP(pokemonData, routeHPRange) {
-  const rarity = getRarity(pokemonData.catchRate, pokemonData.isLegendary, pokemonData.isMythical);
-  const rarityMult = { common: 1, uncommon: 1.5, rare: 2.5, 'very-rare': 4, legendary: 25 };
-  const base = routeHPRange[0] + Math.random() * (routeHPRange[1] - routeHPRange[0]);
-  return Math.floor(base * (rarityMult[rarity] || 1));
-}
-
-// ===== GRADE SYSTEM (IVs simplified) =====
-export const GRADES = [
-  { id: 'C',  label: 'C',  color: '#999999', mult: 1.00, chance: 0.60 },
-  { id: 'B',  label: 'B',  color: '#4CAF50', mult: 1.15, chance: 0.25 },
-  { id: 'A',  label: 'A',  color: '#2196F3', mult: 1.35, chance: 0.10 },
-  { id: 'S',  label: 'S',  color: '#9C27B0', mult: 1.60, chance: 0.04 },
-  { id: 'S+', label: 'S+', color: '#FFD700', mult: 2.00, chance: 0.01 }
-];
-
-export function rollGrade() {
-  const roll = Math.random();
-  let cumulative = 0;
-  for (const g of GRADES) {
-    cumulative += g.chance;
-    if (roll < cumulative) return g.id;
-  }
-  return 'C';
-}
-
-export function getGradeData(gradeId) {
-  return GRADES.find(g => g.id === gradeId) || GRADES[0];
-}
-
-// ===== CANDY BONUS (captures → stat multiplier) =====
-export const CANDY_THRESHOLDS = [
-  { count: 5,  bonus: 0.10 },
-  { count: 10, bonus: 0.20 },
-  { count: 20, bonus: 0.40 },
-  { count: 35, bonus: 0.65 },
-  { count: 50, bonus: 1.00 }
-];
-
-export function getCandyBonus(catchCount) {
-  let bonus = 0;
-  for (const t of CANDY_THRESHOLDS) {
-    if (catchCount >= t.count) bonus = t.bonus;
-  }
-  return bonus;
-}
-
-// Evolution capture requirements (expanded from 3)
-export const EVOLVE_CAPTURES_STAGE1 = 8;   // e.g. Charmander → Charmeleon
-export const EVOLVE_CAPTURES_STAGE2 = 20;  // e.g. Charmeleon → Charizard
-
-// ===== SPRITE URLS =====
-const SPRITE_BASE = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
-
-export function getSpriteURL(id, type = 'artwork') {
-  switch (type) {
-    case 'pixel':    return `${SPRITE_BASE}/${id}.png`;
-    case 'shiny':    return `${SPRITE_BASE}/shiny/${id}.png`;
-    case 'artwork':  return `${SPRITE_BASE}/other/home/${id}.png`;
-    case 'animated': return `${SPRITE_BASE}/versions/generation-v/black-white/animated/${id}.gif`;
-    default:         return `${SPRITE_BASE}/other/home/${id}.png`;
-  }
-}
-
-// ===== POKEMON INSTANCE (an owned Pokemon) =====
-export class PokemonInstance {
-  constructor(dataId, level = 5, isShiny = false, grade = null) {
-    const data = getPokemonData(dataId);
-    this.dataId = dataId;
-    this.name = data.name;
-    this.types = data.types;
-    this.level = level;
-    this.xp = 0;
-    this.xpToNext = this.calcXpToNext();
-    this.isShiny = isShiny;
-    this.grade = grade || rollGrade();
-    this.catchCount = 1; // How many of this species captured
-    this.evolved = false;
-    this.heldItem = null; // { id: string, level: number } or null
-
-    // Base stats from data
-    this.baseAttack = data.stats.attack;
-    this.baseHP = data.stats.hp;
-    this.baseSpeed = data.stats.speed;
-  }
-
-  get power() {
-    return this.baseAttack + Math.floor(this.level * 1.5);
-  }
-
-  get gradeMultiplier() {
-    return getGradeData(this.grade).mult;
-  }
-
-  get candyMultiplier() {
-    return 1 + getCandyBonus(this.catchCount);
-  }
-
-  get tapDamage() {
-    // Exponential scaling × grade × candy bonus
-    const base = this.baseAttack * 0.1 * Math.pow(1.1, this.level) + this.level * 1.5;
-    return Math.floor(base * this.gradeMultiplier * this.candyMultiplier);
-  }
-
-  get idleDPS() {
-    return Math.floor(this.tapDamage / 5);
-  }
-
-  calcXpToNext() {
-    // Quadratic XP curve balanced for 9 regions (Kanto→Paldea)
-    // ~10 levels per region, level 100 is end-game across all regions
-    return Math.floor(40 * Math.pow(this.level, 2));
-  }
-
-  addXP(amount) {
-    if (this.level >= 100) return false; // Hard cap
-    this.xp += amount;
-    let leveled = false;
-    while (this.xp >= this.xpToNext && this.level < 100) {
-      this.xp -= this.xpToNext;
-      this.level++;
-      this.xpToNext = this.calcXpToNext();
-      leveled = true;
-    }
-    if (this.level >= 100) {
-      this.xp = 0; // No overflow XP at cap
-    }
-    return leveled;
-  }
-
-  canEvolve() {
-    const data = getPokemonData(this.dataId);
-    if (!data.evolvesTo) return false;
-
-    // Determine required captures based on evolution stage
-    const requiredCaptures = this.evolved ? EVOLVE_CAPTURES_STAGE2 : EVOLVE_CAPTURES_STAGE1;
-
-    if (Array.isArray(data.evolvesTo)) {
-      return data.evolvesTo.some(evo => {
-        if (evo.trigger === 'level-up' && evo.level) return this.level >= evo.level && this.catchCount >= requiredCaptures;
-        if (evo.trigger === 'use-item') return this.catchCount >= requiredCaptures;
-        return this.catchCount >= requiredCaptures;
-      });
-    }
-
-    if (data.evolveTrigger === 'level-up' && data.evolveLevel) {
-      return this.level >= data.evolveLevel && this.catchCount >= requiredCaptures;
-    }
-    if (data.evolveTrigger === 'use-item') {
-      return this.catchCount >= requiredCaptures;
-    }
-    return this.catchCount >= requiredCaptures;
-  }
-
-  evolve(targetId = null) {
-    const data = getPokemonData(this.dataId);
-    if (!data.evolvesTo) return false;
-
-    let newId;
-    if (Array.isArray(data.evolvesTo)) {
-      if (!targetId) return false;
-      newId = targetId;
-    } else {
-      newId = data.evolvesTo;
-    }
-
-    const newData = getPokemonData(newId);
-    if (!newData) return false;
-
-    this.dataId = newId;
-    this.name = newData.name;
-    this.types = newData.types;
-    this.baseAttack = newData.stats.attack;
-    this.baseHP = newData.stats.hp;
-    this.baseSpeed = newData.stats.speed;
-    this.evolved = true;
-    this.catchCount = 0;
-    return true;
-  }
-
-  toJSON() {
-    return {
-      dataId: this.dataId,
-      level: this.level,
-      xp: this.xp,
-      isShiny: this.isShiny,
-      grade: this.grade,
-      catchCount: this.catchCount,
-      evolved: this.evolved,
-      heldItem: this.heldItem
-    };
-  }
-
-  static fromJSON(data) {
-    const inst = new PokemonInstance(data.dataId, data.level, data.isShiny, data.grade || 'C');
-    inst.xp = data.xp || 0;
-    inst.xpToNext = inst.calcXpToNext();
-    inst.catchCount = data.catchCount || 1;
-    inst.evolved = data.evolved || false;
-    inst.heldItem = data.heldItem || null;
-    return inst;
-  }
 }

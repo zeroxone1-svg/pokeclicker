@@ -1,153 +1,400 @@
-// abilities.js — Active abilities per Pokemon
-import { player } from './player.js';
+// abilities.js — 8 Active abilities with cooldowns (Clicker Heroes model)
+// No imports — standalone module
 
-// Ability definitions by Pokemon type
-const TYPE_ABILITIES = {
-  fire: [
-    { name: 'Lanzallamas', level: 10, cooldown: 30, duration: 5, effect: 'damageMult', value: 5, color: '#ff4500' },
-    { name: 'Llamarada', level: 20, cooldown: 60, duration: 8, effect: 'damageMult', value: 3, color: '#ff6347' },
-    { name: 'Mega Ígneo', level: 30, cooldown: 120, duration: 10, effect: 'damageMult', value: 10, color: '#ff0000' }
-  ],
-  water: [
-    { name: 'Hidrobomba', level: 10, cooldown: 30, duration: 5, effect: 'damageMult', value: 5, color: '#1e90ff' },
-    { name: 'Surf', level: 20, cooldown: 60, duration: 8, effect: 'damageMult', value: 3, color: '#4169e1' },
-    { name: 'Mega Cañón', level: 30, cooldown: 120, duration: 10, effect: 'damageMult', value: 8, color: '#0000cd' }
-  ],
-  grass: [
-    { name: 'Drenadoras', level: 10, cooldown: 30, duration: 5, effect: 'coinMult', value: 5, color: '#32cd32' },
-    { name: 'Esporas', level: 20, cooldown: 60, duration: 10, effect: 'slowEnemy', value: 0.5, color: '#9acd32' },
-    { name: 'Planta Solar', level: 30, cooldown: 120, duration: 1, effect: 'megaHit', value: 12, color: '#228b22' }
-  ],
-  electric: [
-    { name: 'Rayo', level: 10, cooldown: 30, duration: 5, effect: 'damageMult', value: 5, color: '#ffd700' },
-    { name: 'Onda Trueno', level: 20, cooldown: 60, duration: 10, effect: 'slowEnemy', value: 0.5, color: '#ffff00' },
-    { name: 'Trueno', level: 30, cooldown: 120, duration: 10, effect: 'damageMult', value: 10, color: '#daa520' }
-  ],
-  psychic: [
-    { name: 'Confusión', level: 10, cooldown: 30, duration: 5, effect: 'damageMult', value: 5, color: '#da70d6' },
-    { name: 'Psíquico', level: 20, cooldown: 60, duration: 8, effect: 'damageMult', value: 4, color: '#9370db' },
-    { name: 'Mega Mente', level: 30, cooldown: 120, duration: 10, effect: 'damageMult', value: 8, color: '#8a2be2' }
-  ],
-  fighting: [
-    { name: 'Golpe Karate', level: 10, cooldown: 30, duration: 5, effect: 'damageMult', value: 5, color: '#cd853f' },
-    { name: 'Puño Dinámico', level: 20, cooldown: 60, duration: 8, effect: 'damageMult', value: 3, color: '#d2691e' },
-    { name: 'Sumisión', level: 30, cooldown: 120, duration: 10, effect: 'damageMult', value: 10, color: '#8b4513' }
-  ],
-  // Default for types without specific abilities
-  default: [
-    { name: 'Ataque Rápido', level: 10, cooldown: 30, duration: 5, effect: 'damageMult', value: 5, color: '#c0c0c0' },
-    { name: 'Concentración', level: 20, cooldown: 60, duration: 8, effect: 'damageMult', value: 3, color: '#a9a9a9' },
-    { name: 'Hiperrayo', level: 30, cooldown: 120, duration: 10, effect: 'damageMult', value: 8, color: '#ffa500' }
-  ]
+// Ability definitions
+const ABILITIES = [
+  {
+    id: 1,
+    name: 'Ataque Rápido',
+    description: 'Auto-click 10 veces por segundo',
+    icon: '⚡',
+    duration: 30,       // seconds
+    cooldown: 300,      // seconds (5 min)
+    unlockZone: 5,
+    effect: 'autoClick',
+    effectValue: 10     // clicks per second
+  },
+  {
+    id: 2,
+    name: 'Potenciador',
+    description: 'x2 DPS de todos los Pokémon',
+    icon: '💪',
+    duration: 30,
+    cooldown: 300,
+    unlockZone: 10,
+    effect: 'dpsMultiplier',
+    effectValue: 2
+  },
+  {
+    id: 3,
+    name: 'Golpe Crítico',
+    description: '+50% probabilidad de crítico',
+    icon: '🎯',
+    duration: 30,
+    cooldown: 300,
+    unlockZone: 15,
+    effect: 'critBonus',
+    effectValue: 0.50
+  },
+  {
+    id: 4,
+    name: 'Día de Pago',
+    description: 'x2 oro por kill',
+    icon: '💰',
+    duration: 30,
+    cooldown: 300,
+    unlockZone: 20,
+    effect: 'goldMultiplier',
+    effectValue: 2
+  },
+  {
+    id: 5,
+    name: 'Mega Puño',
+    description: 'x3 daño de click',
+    icon: '👊',
+    duration: 30,
+    cooldown: 300,
+    unlockZone: 25,
+    effect: 'clickMultiplier',
+    effectValue: 3
+  },
+  {
+    id: 6,
+    name: 'Carga',
+    description: 'La siguiente habilidad tiene x2 efecto',
+    icon: '🔋',
+    duration: 0,        // instant — no duration
+    cooldown: 300,
+    unlockZone: 30,
+    effect: 'energize',
+    effectValue: 2
+  },
+  {
+    id: 7,
+    name: 'Ritual Oscuro',
+    description: '+5% DPS permanente (hasta prestige)',
+    icon: '🌑',
+    duration: 0,        // instant
+    cooldown: 28800,    // 8 hours
+    unlockZone: 35,
+    effect: 'darkRitual',
+    effectValue: 0.05
+  },
+  {
+    id: 8,
+    name: 'Descanso',
+    description: 'Resetea todos los cooldowns',
+    icon: '😴',
+    duration: 0,        // instant
+    cooldown: 3600,     // 1 hour
+    unlockZone: 40,
+    effect: 'reload',
+    effectValue: 0
+  }
+];
+
+const ZONE_TO_ABILITY = {
+  5: 1,
+  10: 2,
+  15: 3,
+  20: 4,
+  25: 5,
+  30: 6,
+  35: 7,
+  40: 8,
 };
 
-export function getAbilitiesForPokemon(pokemon) {
-  const type = pokemon.types[0];
-  const abilities = TYPE_ABILITIES[type] || TYPE_ABILITIES.default;
-  return abilities.filter(a => pokemon.level >= a.level);
+function clampNonNegative(value) {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) {
+    return 0;
+  }
+  return Math.max(0, numeric);
 }
 
-export function getAllAbilitiesForPokemon(pokemon) {
-  const type = pokemon.types[0];
-  return TYPE_ABILITIES[type] || TYPE_ABILITIES.default;
-}
-
-// Active ability state manager
-export class AbilityManager {
+// Ability state manager
+class AbilityManager {
   constructor() {
-    this.cooldowns = {}; // key: `${pokemonSlot}_${abilityIndex}` → endTime
-    this.activeEffects = []; // { effect, value, endTime, color }
+    // Which abilities are unlocked (by id)
+    this.unlockedAbilities = new Set();
+
+    // Cooldown remaining in seconds (0 = ready)
+    this.cooldowns = {};        // { abilityId: secondsRemaining }
+
+    // Active durations remaining in seconds
+    this.activeDurations = {};  // { abilityId: secondsRemaining }
+
+    // Energize flag — next skill gets x2 effect
+    this.nextSkillEnergized = false;
+
+    // Dark Ritual stacks (resets on prestige)
+    this.darkRitualStacks = 0;
+
+    // Track which Dark Ritual stacks were energized for accurate multiplier
+    this.darkRitualEnergizedCount = 0;
   }
 
-  // Reduce all cooldowns when player taps
-  onTap() {
-    const chargeLevel = player.upgrades.abilityCharge || 0;
-    const reduction = (0.3 + chargeLevel * 0.02) * 1000; // ms to reduce per tap
-    const now = Date.now();
-    let charged = false;
+  // Unlock an ability (called when gym boss is defeated)
+  unlock(abilityId) {
+    if (!ABILITIES.some((ability) => ability.id === abilityId)) {
+      return false;
+    }
+    this.unlockedAbilities.add(abilityId);
+    return true;
+  }
 
-    for (const key of Object.keys(this.cooldowns)) {
-      const endTime = this.cooldowns[key];
-      if (endTime > now) {
-        // Parse the ability to find its total cooldown for cap
-        const [slotStr, abilityStr] = key.split('_');
-        const pokemon = player.team[parseInt(slotStr)];
-        if (!pokemon) continue;
-        const abilities = getAbilitiesForPokemon(pokemon);
-        const ability = abilities[parseInt(abilityStr)];
-        if (!ability) continue;
+  // Rebuild unlocked abilities from persisted player progress.
+  // This keeps saves resilient even if ability state is missing or stale.
+  syncUnlocks(unlockedAbilityIds = [], defeatedGyms = []) {
+    const unlockedSet = new Set();
 
-        // Cap: never reduce more than 80% of total cooldown
-        const totalCd = ability.cooldown * 1000;
-        const minEndTime = now + totalCd * 0.2;
-        const newEndTime = Math.max(minEndTime, endTime - reduction);
-        if (newEndTime < endTime) {
-          this.cooldowns[key] = newEndTime;
-          if (newEndTime <= now) charged = true;
-        }
+    for (const abilityId of unlockedAbilityIds) {
+      if (ABILITIES.some((ability) => ability.id === abilityId)) {
+        unlockedSet.add(abilityId);
       }
     }
-    return charged; // true if any ability just became ready
-  }
 
-  canUse(slotIndex, abilityIndex) {
-    const key = `${slotIndex}_${abilityIndex}`;
-    const cd = this.cooldowns[key];
-    return !cd || Date.now() >= cd;
-  }
-
-  use(slotIndex, abilityIndex) {
-    const pokemon = player.team[slotIndex];
-    if (!pokemon) return null;
-
-    const abilities = getAbilitiesForPokemon(pokemon);
-    const ability = abilities[abilityIndex];
-    if (!ability) return null;
-
-    if (!this.canUse(slotIndex, abilityIndex)) return null;
-
-    const now = Date.now();
-    const key = `${slotIndex}_${abilityIndex}`;
-    this.cooldowns[key] = now + ability.cooldown * 1000;
-
-    this.activeEffects.push({
-      effect: ability.effect,
-      value: ability.value,
-      endTime: now + ability.duration * 1000,
-      name: ability.name,
-      color: ability.color
-    });
-
-    return ability;
-  }
-
-  getActiveDamageMult() {
-    const now = Date.now();
-    let mult = 1;
-    for (const eff of this.activeEffects) {
-      if (eff.endTime > now && eff.effect === 'damageMult') {
-        mult *= eff.value;
+    for (const gymZone of defeatedGyms) {
+      const abilityId = ZONE_TO_ABILITY[gymZone];
+      if (abilityId) {
+        unlockedSet.add(abilityId);
       }
+    }
+
+    this.unlockedAbilities = unlockedSet;
+  }
+
+  // Check if ability is unlocked
+  isUnlocked(abilityId) {
+    return this.unlockedAbilities.has(abilityId);
+  }
+
+  // Check if ability is ready to use (unlocked + off cooldown)
+  isReady(abilityId) {
+    return this.isUnlocked(abilityId) && (this.cooldowns[abilityId] || 0) <= 0;
+  }
+
+  // Check if ability is currently active (has duration running)
+  isActive(abilityId) {
+    return (this.activeDurations[abilityId] || 0) > 0;
+  }
+
+  // Activate an ability
+  activate(abilityId) {
+    if (!this.isReady(abilityId)) return false;
+
+    const ability = ABILITIES.find(a => a.id === abilityId);
+    if (!ability) return false;
+
+    // Check if energized (consumed by non-Carga abilities)
+    const isEnergized = this.nextSkillEnergized;
+    if (abilityId !== 6) {
+      this.nextSkillEnergized = false;
+    }
+
+    // Handle each ability type
+    switch (ability.effect) {
+      case 'autoClick':
+      case 'dpsMultiplier':
+      case 'critBonus':
+      case 'goldMultiplier':
+      case 'clickMultiplier':
+        // Duration-based abilities — energized doubles the duration
+        this.activeDurations[abilityId] = isEnergized
+          ? ability.duration * 2
+          : ability.duration;
+        break;
+
+      case 'energize':
+        // Set the energize flag for the next ability
+        this.nextSkillEnergized = true;
+        break;
+
+      case 'darkRitual':
+        // Permanent DPS boost: +5% normal, +10% if energized
+        this.darkRitualStacks++;
+        if (isEnergized) {
+          this.darkRitualEnergizedCount++;
+        }
+        break;
+
+      case 'reload':
+        // Reset ALL cooldowns to 0
+        for (const key of Object.keys(this.cooldowns)) {
+          this.cooldowns[key] = 0;
+        }
+        break;
+    }
+
+    // Start cooldown for this ability
+    this.cooldowns[abilityId] = ability.cooldown;
+
+    return true;
+  }
+
+  // Tick — call every second (or with deltaSeconds for variable timestep)
+  tick(deltaSeconds = 1) {
+    // Reduce cooldowns
+    for (const id of Object.keys(this.cooldowns)) {
+      this.cooldowns[id] = Math.max(0, this.cooldowns[id] - deltaSeconds);
+    }
+    // Reduce active durations
+    for (const id of Object.keys(this.activeDurations)) {
+      this.activeDurations[id] = Math.max(0, this.activeDurations[id] - deltaSeconds);
+    }
+  }
+
+  // === GETTER FUNCTIONS for combat.js to query ===
+
+  // Is auto-click active? Returns clicks/sec or 0
+  getAutoClickRate() {
+    if (!this.isActive(1)) return 0;
+    return ABILITIES[0].effectValue; // 10 clicks/sec
+  }
+
+  // DPS multiplier from abilities (Potenciador)
+  getDpsMultiplier() {
+    let mult = 1;
+    if (this.isActive(2)) {
+      mult *= ABILITIES[1].effectValue; // x2
     }
     return mult;
   }
 
-  getCooldownRemaining(slotIndex, abilityIndex) {
-    const key = `${slotIndex}_${abilityIndex}`;
-    const cd = this.cooldowns[key];
-    if (!cd) return 0;
-    return Math.max(0, cd - Date.now());
+  // Crit chance bonus from abilities (Golpe Crítico)
+  getCritBonus() {
+    if (!this.isActive(3)) return 0;
+    return ABILITIES[2].effectValue; // +0.50
   }
 
-  cleanup() {
-    const now = Date.now();
-    this.activeEffects = this.activeEffects.filter(e => e.endTime > now);
+  // Gold multiplier from abilities (Día de Pago)
+  getGoldMultiplier() {
+    if (!this.isActive(4)) return 1;
+    return ABILITIES[3].effectValue; // x2
   }
 
-  getActiveEffects() {
-    const now = Date.now();
-    return this.activeEffects.filter(e => e.endTime > now);
+  // Click damage multiplier from abilities (Mega Puño)
+  getClickMultiplier() {
+    if (!this.isActive(5)) return 1;
+    return ABILITIES[4].effectValue; // x3
+  }
+
+  // Dark Ritual total DPS multiplier
+  // Normal stacks: 1.05 each, Energized stacks: 1.10 each
+  getDarkRitualMultiplier() {
+    const normalStacks = this.darkRitualStacks - this.darkRitualEnergizedCount;
+    const energizedStacks = this.darkRitualEnergizedCount;
+    return Math.pow(1.05, normalStacks) * Math.pow(1.10, energizedStacks);
+  }
+
+  // Is auto-clicking currently active?
+  isAutoClicking() {
+    return this.isActive(1);
+  }
+
+  // Get all abilities with current state (for UI rendering)
+  getAllAbilities() {
+    return ABILITIES.map(a => ({
+      ...a,
+      unlocked: this.isUnlocked(a.id),
+      ready: this.isReady(a.id),
+      active: this.isActive(a.id),
+      cooldownRemaining: this.cooldowns[a.id] || 0,
+      durationRemaining: this.activeDurations[a.id] || 0,
+      energizeReady: a.id !== 6 ? this.nextSkillEnergized : false
+    }));
+  }
+
+  // Pure cooldown snapshot for combat/UI debugging and overlays.
+  getCooldownState() {
+    const state = {};
+    for (const ability of ABILITIES) {
+      const id = ability.id;
+      state[id] = {
+        unlocked: this.isUnlocked(id),
+        active: this.isActive(id),
+        cooldownRemaining: clampNonNegative(this.cooldowns[id] || 0),
+        durationRemaining: clampNonNegative(this.activeDurations[id] || 0),
+      };
+    }
+    return state;
+  }
+
+  // Get a single ability definition
+  getAbility(id) {
+    return ABILITIES.find(a => a.id === id);
+  }
+
+  // Reset for prestige (keep unlocks, reset stacks and cooldowns)
+  resetForPrestige() {
+    this.darkRitualStacks = 0;
+    this.darkRitualEnergizedCount = 0;
+    this.cooldowns = {};
+    this.activeDurations = {};
+    this.nextSkillEnergized = false;
+    // Unlocks persist (tied to gym medals)
+  }
+
+  // Full reset (new game)
+  resetAll() {
+    this.unlockedAbilities.clear();
+    this.cooldowns = {};
+    this.activeDurations = {};
+    this.nextSkillEnergized = false;
+    this.darkRitualStacks = 0;
+    this.darkRitualEnergizedCount = 0;
+  }
+
+  // Serialize for save
+  toJSON() {
+    return {
+      unlockedAbilities: [...this.unlockedAbilities],
+      cooldowns: { ...this.cooldowns },
+      activeDurations: { ...this.activeDurations },
+      nextSkillEnergized: this.nextSkillEnergized,
+      darkRitualStacks: this.darkRitualStacks,
+      darkRitualEnergizedCount: this.darkRitualEnergizedCount
+    };
+  }
+
+  // Deserialize from save
+  loadFromJSON(data) {
+    if (!data || typeof data !== 'object') {
+      return;
+    }
+
+    this.unlockedAbilities = new Set(
+      (Array.isArray(data.unlockedAbilities) ? data.unlockedAbilities : [])
+        .filter((abilityId) => ABILITIES.some((ability) => ability.id === abilityId))
+    );
+
+    this.cooldowns = {};
+    const rawCooldowns = data.cooldowns && typeof data.cooldowns === 'object' ? data.cooldowns : {};
+    for (const ability of ABILITIES) {
+      const raw = rawCooldowns[ability.id] ?? rawCooldowns[String(ability.id)];
+      if (raw !== undefined) {
+        this.cooldowns[ability.id] = clampNonNegative(raw);
+      }
+    }
+
+    this.activeDurations = {};
+    const rawDurations = data.activeDurations && typeof data.activeDurations === 'object' ? data.activeDurations : {};
+    for (const ability of ABILITIES) {
+      const raw = rawDurations[ability.id] ?? rawDurations[String(ability.id)];
+      if (raw !== undefined) {
+        this.activeDurations[ability.id] = clampNonNegative(raw);
+      }
+    }
+
+    this.nextSkillEnergized = !!data.nextSkillEnergized;
+    this.darkRitualStacks = Math.max(0, Math.floor(Number(data.darkRitualStacks || 0)));
+    this.darkRitualEnergizedCount = Math.max(0, Math.floor(Number(data.darkRitualEnergizedCount || 0)));
+    if (this.darkRitualEnergizedCount > this.darkRitualStacks) {
+      this.darkRitualEnergizedCount = this.darkRitualStacks;
+    }
   }
 }
 
-export const abilityManager = new AbilityManager();
+// Singleton
+export const abilities = new AbilityManager();
+export { ABILITIES };

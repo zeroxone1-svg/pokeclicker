@@ -2,6 +2,7 @@
 import { getSpriteURL } from './pokemon.js';
 
 const loadedSprites = new Set();
+const pendingSpriteLoads = new Map();
 
 /**
  * Pre-downscale a Phaser texture using Canvas 2D high-quality resampling.
@@ -37,31 +38,45 @@ export function loadPokemonSprite(scene, id, type = 'artwork') {
     return Promise.resolve(key);
   }
 
-  return new Promise((resolve) => {
+  const pending = pendingSpriteLoads.get(key);
+  if (pending) {
+    return pending;
+  }
+
+  const loadPromise = new Promise((resolve) => {
+    const finish = () => {
+      if (scene.textures.exists(key)) {
+        loadedSprites.add(key);
+        if (type === 'artwork') {
+          downscaleTexture(scene, key, 128, key + '-sm');
+        }
+      }
+      pendingSpriteLoads.delete(key);
+      resolve(key);
+    };
+
     const url = getSpriteURL(id, type);
     scene.load.image(key, url);
     scene.load.once(`filecomplete-image-${key}`, () => {
-      loadedSprites.add(key);
-      // Auto-generate downscaled variant for artwork (475px → 128px)
-      // so small displays (36-80px) get clean 2-3:1 WebGL downscale instead of 12:1
-      if (type === 'artwork') {
-        downscaleTexture(scene, key, 128, key + '-sm');
-      }
-      resolve(key);
+      finish();
     });
     scene.load.once(`loaderror`, (file) => {
       if (file.key === key) {
         // Fallback to pixel sprite if artwork fails
-        if (type === 'artwork') {
+        if (type === 'artwork' && !scene.textures.exists(key)) {
           const fallbackUrl = getSpriteURL(id, 'pixel');
           scene.load.image(key, fallbackUrl);
           scene.load.start();
+          return;
         }
-        resolve(key);
+        finish();
       }
     });
     scene.load.start();
   });
+
+  pendingSpriteLoads.set(key, loadPromise);
+  return loadPromise;
 }
 
 export function preloadStarterSprites(scene) {

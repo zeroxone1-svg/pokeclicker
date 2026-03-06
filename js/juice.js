@@ -355,7 +355,7 @@ function formatCoinAmount(n) {
 
 // ── Wave complete celebration ──
 export function createWaveCompleteEffect(scene, waveNumber, isBoss) {
-  const cx = 390 / 2;
+  const cx = 460 / 2;
   const cy = 844 / 2 - 12;
 
   const accentColor = isBoss ? 0xff4444 : 0xffd700;

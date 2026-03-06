@@ -1,8 +1,11 @@
-import { getRouteThemeId } from './routes.js';
-
 // backgrounds.js — Dynamic parallax route backgrounds with animated elements + image backgrounds
 
-const W = 390;
+// Map zone number to a background theme (1-9, cycling)
+function getZoneThemeId(zone) {
+  return ((zone - 1) % 9) + 1;
+}
+
+const W = 460;
 const H = 844;
 
 // ========================
@@ -491,7 +494,7 @@ function makeBgParticle(scene, config, index) {
 
 /** Load route background images. If routeId is given, only load that route. */
 export function preloadRouteBackgrounds(scene, routeId = null) {
-  const mappedRouteId = routeId != null ? getRouteThemeId(routeId) : null;
+  const mappedRouteId = routeId != null ? getZoneThemeId(routeId) : null;
   const entries = mappedRouteId != null
     ? [[String(mappedRouteId), ROUTE_IMAGES[mappedRouteId] || []]]
     : Object.entries(ROUTE_IMAGES);
@@ -510,7 +513,7 @@ function bgKey(path) {
   return `route_bg_${path.replace(/[\/\.]/g, '_')}`;
 }
 
-/** Create and fit an image to cover the screen (390×844) */
+/** Create and fit an image to cover the screen (460×844) */
 function createFittedBgImage(scene, textureKey, depth) {
   const img = scene.add.image(W / 2, H / 2, textureKey).setDepth(depth);
   // Scale to cover the entire screen
@@ -528,7 +531,7 @@ function createFittedBgImage(scene, textureKey, depth) {
 // ========================
 
 export function createRouteBackground(scene, routeId) {
-  const mappedRouteId = getRouteThemeId(routeId);
+  const mappedRouteId = getZoneThemeId(routeId);
   destroyRouteBackground(scene);
 
   const theme = BG_THEMES[mappedRouteId] || BG_THEMES[1];

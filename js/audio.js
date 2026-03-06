@@ -1,7 +1,5 @@
 // audio.js — SFX via Tone.js + Music via HTML5 Audio (MP3)
 
-import { getRouteThemeId } from './routes.js';
-
 let audioEnabled = true;
 let audioInitialized = false;
 
@@ -185,9 +183,10 @@ export function stopMusic() {
   currentTrackName = null;
 }
 
-export function getRouteMusic(routeId) {
-  const themeRouteId = getRouteThemeId(routeId);
-  return ROUTE_MUSIC[themeRouteId] || 'pallet-town';
+// Map zone number to a music track (cycle through 9 route themes)
+export function getRouteMusic(zone) {
+  const themeId = ((zone - 1) % 9) + 1;
+  return ROUTE_MUSIC[themeId] || 'pallet-town';
 }
 
 export function getCurrentTrack() {
@@ -396,6 +395,28 @@ export function playHeal() {
     captureSynth.triggerAttackRelease('E5', '16n', now + 0.1);
     captureSynth.triggerAttackRelease('G5', '16n', now + 0.2);
     captureSynth.triggerAttackRelease('C6', '8n', now + 0.3);
+  } catch { /* silent */ }
+}
+
+export function playPokemonCenterJingle() {
+  if (!ensureAudio()) return;
+  try {
+    const now = Tone.now();
+    const motif = [
+      ['G4', 0.00],
+      ['B4', 0.09],
+      ['D5', 0.18],
+      ['G5', 0.30],
+      ['E5', 0.45],
+      ['D5', 0.58],
+      ['B4', 0.70],
+      ['G4', 0.82],
+    ];
+
+    motif.forEach(([note, offset]) => {
+      purchaseSynth.triggerAttackRelease(note, '16n', now + offset);
+    });
+    levelSynth.triggerAttackRelease(['G4', 'B4', 'D5'], '4n', now + 0.92);
   } catch { /* silent */ }
 }
 

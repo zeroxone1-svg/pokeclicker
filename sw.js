@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pokeclicker-v14';
+const CACHE_NAME = 'pokeclicker-v16';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -16,9 +16,10 @@ const PRECACHE_URLS = [
   '/js/audio.js',
   '/js/ui.js',
   '/js/save.js',
+  '/js/expeditions.js',
+  '/js/eggs.js',
   '/js/sprites.js',
   '/js/backgrounds.js',
-  '/js/research.js',
   '/data/pokemon.json',
   '/assets/ui/stat-pokedex.svg',
   '/assets/ui/stat-kills.svg',

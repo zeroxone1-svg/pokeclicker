@@ -1,735 +1,318 @@
-﻿# PokéClicker — Guía Completa del Juego
+﻿# GUIA DEL JUEGO (RUNTIME ACTUAL)
 
----
+Ultima actualizacion: 2026-03-06
 
-## 📱 ¿Qué es PokéClicker?
+Esta guia describe solo lo que hoy funciona en el juego.
 
-PokéClicker es un juego tipo **clicker/idle** de Pokémon que se juega en el navegador.
-Tapeas para dañar Pokémon salvajes, los capturas, armas un equipo de 6 y avanzas
-por las rutas de Kanto derrotando Gym Leaders hasta completar la Pokédex de 151 Pokémon.
+## QA recomendado (cierre)
 
-- **Plataforma**: Navegador web (PC o móvil)
-- **Instalable**: Se puede instalar como app en iPhone/Android (PWA)
-- **Sin internet**: Funciona offline después de la primera carga
-- **Sin cuenta**: Tu progreso se guarda automáticamente en el navegador
+- Para validar el estado final del build en una pasada corta, usar `docs/QA_CIERRE_RAPIDO.md`.
+- Incluye verificacion de combate, AFK/IDLE, Torre, Expediciones y persistencia.
 
----
+## 1. Objetivo
 
-## 🚀 Cómo Empezar
+- Derrotar enemigos para ganar oro.
+- Comprar y mejorar Pokemon.
+- Avanzar zonas para desbloquear habilidades, gym leaders y legendarios.
+- Llegar lo mas alto posible y hacer Nuevo Viaje para ganar Research Points.
 
-### 1. Abrir el juego
+## 2. Pantallas disponibles
 
-Abre `index.html` en un navegador, o visita la URL donde esté desplegado.
+### Batalla
 
-### 2. Elegir tu Pokémon inicial
+La pantalla principal. Aqui haces casi todo el progreso:
+- Tap al Pokemon enemigo para hacer dano.
+- Tu equipo activo tambien pega automatico cada segundo.
+- Ves zona, oro, DPS, clima, fase del dia y barra de progreso.
 
-Al iniciar por primera vez verás 3 opciones:
+Controles importantes:
+- `Entrenar/Avanzar`: activa o desactiva farm mode.
+- `🏥 Curar`: quita fatiga, da buff de +15% DPS durante 300s y reproduce jingle de Centro Pokemon al terminar.
+- Barra de habilidades: activa skills cuando esten listas.
 
-| Pokémon | Tipo | Ventaja contra |
-|---------|------|----------------|
-| 🌿 **Bulbasaur** | Planta/Veneno | Gym 1 (Roca), Gym 2 (Agua) |
-| 🔥 **Charmander** | Fuego | Gym 4 (Planta), Gym 7 (Fuego) |
-| 💧 **Squirtle** | Agua | Gym 1 (Roca), Gym 7 (Fuego) |
+### Equipo
 
-**Consejo**: Bulbasaur es el más fácil para empezar porque tiene ventaja contra los 2 primeros gimnasios.
+Aqui gestionas roster y poder:
+- Comprar Pokemon nuevos.
+- Subir niveles (`x1`, `x10`, `Max`).
+- Ver y ajustar el equipo activo de 6 slots.
+- Auto-fill para llenar huecos rapidamente.
 
-### 3. ¡A tapear!
+Importante:
+- El DPS de combate sale del `equipo activo`.
+- Comprar Pokemon que no estan en esos 6 slots no aumenta DPS hasta equiparlos.
 
-Una vez elegido tu starter, apareces en la **Ruta 1** con un Pokémon salvaje enfrente. ¡Toca la pantalla para atacar!
+### Laboratorio
 
----
+Aqui esta la meta-progresion:
+- Boton de `Nuevo Viaje` (prestige).
+- Mejoras permanentes de laboratorio.
+- Lista de legendarios con estado bloqueado/desbloqueado.
+- Panel de recompensas Pokédex con progreso e hitos.
 
-## ⚔️ Mecánicas de Combate
+## 3. Como jugar (inicio rapido)
 
-### Tap (Toque)
+1. Entra a Batalla y toca al enemigo para ganar oro.
+2. Cambia a Equipo y compra tu primer Pokemon.
+3. Sube niveles de tus Pokemon principales.
+4. Regresa a Batalla y deja trabajar el DPS automatico.
+5. Derrota bosses de cada 5 zonas para abrir nuevas habilidades.
+6. Cuando te estanques, usa `Nuevo Viaje` en Laboratorio.
 
-Cada vez que tocas la pantalla, tu **Pokémon líder** (el primero del equipo) ataca al enemigo.
+## 4. Combate y progreso
 
-**Fórmula de daño:**
-```
-Daño por tap = (Nivel × 2) + Poder base + Bonuses de tienda
-```
+### Enemigos
 
-Ejemplos:
-- Charmander Lv.5 → ~18 de daño por tap
-- Charizard Lv.36 → ~117 de daño por tap
-- Mewtwo Lv.70 → ~220 de daño por tap
+Hay 3 tipos:
+- Salvaje (`wild`)
+- Entrenador (`trainer`)
+- Boss (`boss`)
 
-### Golpes Críticos
+### Avance de zona
 
-- **No hay crits base** — necesitas el item **Lente Alcance** equipado
-- Con Lente Alcance: 5% probabilidad base (mejorable subiendo nivel del item)
-- Daño crítico base: **x1.5** (mejorable con el item **Garra Afilada**)
-- Se ve como un **número dorado grande** con screen shake
-- Tip: un Pokémon Fighting con **Puño Dinámico** da crits temporales sin necesitar items
+- Debes hacer 10 kills para cerrar una zona.
+- Si `Avanzar` esta activo, pasas a la siguiente zona.
+- Si `Entrenar` esta activo (farm mode), repites la misma zona.
 
-### Combos
+### Boss
 
-Si tapeas rápido sin parar, acumulas un **combo** que multiplica tu daño:
+- Aparece en zonas multiplo de 5.
+- Tiene mucho mas HP y un timer de 30s.
+- Si ganas, sigues avanzando.
+- Si pierdes por tiempo, vuelves a estado normal de combate.
 
-| Taps seguidos | Multiplicador | Efecto visual |
-|---------------|--------------|---------------|
-| 10 | x1.2 | Tono dorado |
-| 25 | x1.5 | Naranja + onda |
-| 50 | x1.8 | Rojo + onda intensa |
-| 100 | x2.0 | Carmesí + screen shake |
-| 200 | x2.5 | Violeta + explosión |
+### Entrenadores
 
-⚠️ **El combo decae si dejas de tapear por 1.1 segundos** (pierde 30% progresivamente).
+- Aparecen de forma periodica mientras progresas.
+- Son encuentros con varios Pokemon seguidos.
+- Tienen timer de 45s.
+- Dan recompensas de oro mas altas.
 
-### Efectividad de Tipos
+## 5. Sistemas que afectan tu dano
 
-Los 18 tipos de Pokémon tienen ventajas y desventajas:
+### Fatiga
 
-- **Super efectivo (x2.0)**: Agua vs Fuego, Planta vs Agua, etc.
-- **No muy efectivo (x0.5)**: Fuego vs Agua, Normal vs Roca, etc.
-- **Inmune (x0)**: Normal vs Fantasma, Tierra vs Volador, etc.
+- Sube con cada kill.
+- Reduce tu DPS gradualmente.
+- Se limpia con `🏥 Curar`.
+- Si pasas 60s sin tapear, entras en modo `IDLE`.
+- En `IDLE` recibes un bonus base de DPS `+10%`.
+- `Idle Mastery` suma su bonus encima del modo `IDLE`.
 
-**Es crucial armar un equipo variado** para tener ventaja de tipo contra diferentes enemigos.
+### Clima
 
----
+- Cambia automaticamente entre varios estados.
+- Algunos tipos se benefician y otros pierden dano segun clima.
+- El clima tambien cambia los spawns visibles de la zona (aparecen mas tipos afines al clima).
 
-## 👥 Tu Equipo de 6
+### Dia/Noche
 
-Puedes tener hasta **6 Pokémon** en tu equipo:
+- El juego calcula fase horaria real (amanecer/dia/atardecer/noche).
+- En noche ganas mas oro por kill.
+- Tipo `normal` pega menos en noche.
+- La fase del dia afecta los spawns visuales y puede sumar especies especiales.
 
-| Slot | Rol | Función |
-|------|-----|---------|
-| **Slot 1 (Líder)** ★ | Atacante principal | Su poder determina el daño por tap |
-| **Slots 2-6 (Soporte)** | DPS automático | Generan la mayor parte del daño idle |
+### Habilidades
 
-### DPS Idle (Automático)
+Se desbloquean con bosses/gym milestones y tienen cooldown.
 
-Tus 5 Pokémon de soporte atacan automáticamente sin que hagas nada. Además, tu líder aporta una parte pequeña del idle para que desde el inicio siempre haya progreso pasivo:
+Habilidades actuales:
+1. Ataque Rapido
+2. Potenciador
+3. Golpe Critico
+4. Dia de Pago
+5. Mega Puno
+6. Carga
+7. Ritual Oscuro
+8. Descanso
 
-```
-DPS idle = Suma de (nivel × poder / 5) de los 5 soportes + 25% del idle del líder
-```
+Consejo rapido:
+- Usa `Carga` antes de una habilidad fuerte para duplicar su efecto.
+
+## 6. Equipo y economia
 
-Esto significa que **ganas monedas y dañas enemigos aunque no estés tapeando**.
+### Comprar Pokemon
 
-### Cambiar el líder
+- Cada Pokemon tiene costo de compra inicial.
+- Las compras siguen orden de escalera: solo puedes comprar el siguiente Pokemon bloqueado (`Siguiente #N`).
+- Comprar agrega el Pokemon a tu roster.
+
+### Subir niveles
+
+- El costo de level up sube de forma progresiva.
+- Hay saltos grandes de poder en milestones (10, 25, 50, 100, 150, 200).
+- Cada milestone ahora representa un movimiento real del tipo principal del Pokemon (ejemplos: Fire `Ascuas/Lanzallamas`, Water `Pistola Agua/Hidrobomba`, Electric `Impactrueno/Rayo`).
 
-En la pantalla de batalla, toca cualquier Pokémon de tu equipo para **intercambiarlo con el líder**. También puedes gestionar tu equipo desde la pantalla de **Equipo** (👥).
-
----
-
-## 🎯 Captura de Pokémon
-
-### Cómo funciona
-
-1. **Derrota** al Pokémon salvaje varias veces para desbloquear la captura (los comunes necesitan solo 2 derrotas, los raros hasta 18)
-2. Se lanza una **Pokéball automáticamente**
-3. La Pokéball rebota 1-3 veces (suspense)
-4. **Roll de probabilidad** según el Pokémon:
-
-| Pokémon ejemplo | Derrotas necesarias | Probabilidad de captura |
-|-----------------|---------------------|------------------------|
-| Pidgey, Rattata | 2 | ~95% |
-| Nidoran♀ | 3 | ~90% |
-| Pikachu | 6 | ~78% |
-| Clefairy | 9 | ~68% |
-| Eevee, Onix | 16 | ~41% |
-| Snorlax | 18 | ~36% |
-| Legendario | 50 | ~5% |
-
-> Los Pokémon comunes como Pidgey son fáciles de atrapar. Los raros como Eevee o Dratini requieren mucha más dedicación — ¡como en los juegos originales!
-
-### Si la captura falla...
-
-Se resetea el contador de derrotas. ¡Hay que volver a derrotarlo desde cero!
-
-### 🍬 Sistema de Caramelos
-
-Cuando capturas un Pokémon que **ya tienes**, en vez de crear un duplicado se convierte en un **caramelo**:
-
-- **+1 al contador de capturas** de tu Pokémon existente (para evolución y bonus)
-- Si el salvaje tenía un **grado mejor** (B, A, S, S+), tu Pokémon se **mejora**
-- Si era **shiny**, ¡tu Pokémon se vuelve shiny!
-- Recibes **monedas bonus**
-
-Los caramelos potencian a tu Pokémon:
-
-| Capturas totales | Bonus de daño |
-|------------------|--------------|
-| 5 | +10% |
-| 10 | +20% |
-| 20 | +40% |
-| 35 | +65% |
-| 50 | +100% |
-
-> **Tip**: Farmear caramelos de tu líder es una de las mejores formas de hacerte más fuerte.
-
-### Mejores Pokéballs
-
-Se desbloquean al derrotar Gym Leaders:
-
-| Ball | Desbloqueo | Bonus |
-|------|-----------|-------|
-| Pokéball | Inicio | Base |
-| Great Ball | Gym 2 (Misty) | +15% captura |
-| Ultra Ball | Gym 4 (Erika) | +30% captura |
-
----
-
-## ✨ Pokémon Shiny
-
-- **0.5% de probabilidad** de que aparezca un Pokémon shiny
-- Se reconocen por un **destello de estrellas** y un tinte dorado
-- Valen **x50 monedas** extra al capturarlos
-- ¡Son extremadamente raros y valiosos!
-
----
-
-## 🔄 Evoluciones
-
-Para evolucionar un Pokémon necesitas **2 cosas**:
-
-### Evolución por nivel
-1. **8 capturas** del mismo Pokémon (caramelos)
-2. **Nivel mínimo** alcanzado
-
-| Ejemplo | Capturas | Nivel mín | Resultado |
-|---------|----------|-----------|-----------|
-| Charmander → Charmeleon | 8 Charmanders | Lv.16 | Stats de Charmeleon |
-| Charmeleon → Charizard | 20 Charmeleons | Lv.36 | Stats de Charizard |
-| Pidgey → Pidgeotto | 8 Pidgeys | Lv.18 | Stats de Pidgeotto |
-
-### Evolución por piedra
-Algunos Pokémon evolucionan con **piedras evolutivas** (se compran en la tienda):
-
-| Pokémon | Piedra | Evolución |
-|---------|--------|-----------|
-| Eevee | Piedra Agua 💧 | Vaporeon |
-| Eevee | Piedra Trueno ⚡ | Jolteon |
-| Eevee | Piedra Fuego 🔥 | Flareon |
-| Pikachu | Piedra Trueno ⚡ | Raichu |
-| Vulpix | Piedra Fuego 🔥 | Ninetales |
-
-**Nota**: Las evoluciones por piedra no requieren nivel mínimo, solo las 8 capturas + la piedra.
-
-### Cómo evolucionar
-
-Ve a la pantalla de **Equipo** (👥). Si un Pokémon puede evolucionar, verás un botón verde **"⬆ Evolucionar"**.
-
----
-
-## 🗺️ Mapa y Rutas
-
-### Kanto hibrido: capitulos + rutas reales compactas
-
-El mapa ahora mezcla lo mejor de ambos mundos:
-- **8 capitulos** (progreso claro por gimnasio)
-- **Rutas reales de Kanto** en formato compacto (loop rapido estilo idle)
-
-| Capitulo | Rutas incluidas | Nivel recomendado |
-|---|---|---|
-| 1 (inicio) | Ruta 1, Ruta 2, Bosque Verde, Ruta 3 | 2-10 |
-| 2 (post-Brock) | Mt. Moon, Ruta 4, Ruta 24, Ruta 25 | 10-19 |
-| 3 (post-Misty) | Ruta 5, Ruta 6, Muelle S.S. Anne, Ruta 11 | 16-25 |
-| 4 (post-Surge) | Ruta 9, Ruta 10, Tunel Roca, Ruta 8, Ruta 7 | 20-30 |
-| 5 (post-Erika) | Ruta 16, Ruta 17, Ruta 18, Zona Safari | 26-35 |
-| 6 (post-Koga) | Ruta 12, Ruta 13, Ruta 14, Ruta 15, Planta Electrica | 30-42 |
-| 7 (post-Sabrina) | Ruta 19, Ruta 20, Islas Espuma, Ruta 21, Mansion Pokemon | 38-50 |
-| 8 (post-Blaine) | Ruta 22, Ruta 23, Victory Road | 45-63 |
-
-### Cómo desbloquear rutas
-
-La progresion ahora es **por etapas**:
-- Empiezas solo en **Ruta 1**
-- Completar oleadas en tu ruta mas alta desbloqueada abre la **siguiente ruta secuencial**
-- Cada gimnasio habilita la **primera ruta del siguiente capitulo** (no el bloque completo)
-
-Ejemplo:
-- Inicio -> Ruta 1; luego desbloqueas Ruta 2, Bosque Verde y Ruta 3 en orden
-- Vences a Brock -> habilitas Mt. Moon; despues sigues secuencial a Ruta 4, Ruta 24 y Ruta 25
-
-### Cómo cambiar de ruta
-
-Toca el ícono del **Mapa** (🗺️) en la barra de navegación inferior. Toca cualquier ruta desbloqueada para viajar a ella.
-
-**Consejo**: Puedes volver a rutas anteriores para farmear Pokémon que te falten.
-
----
-
-## ⚔️ Gimnasios
-
-### Los 8 Gym Leaders de Kanto
-
-| # | Líder | Tipo | Pokémon | Niveles | Recompensa |
-|---|-------|------|---------|---------|------------|
-| 1 | **Brock** | Roca | Geodude, Onix | 12, 14 | +10% XP |
-| 2 | **Misty** | Agua | Staryu, Starmie | 18, 21 | Great Ball |
-| 3 | **Lt. Surge** | Eléctrico | Voltorb, Raichu | 21, 24 | +20% monedas |
-| 4 | **Erika** | Planta | Tangela, Vileplume | 29, 32 | Ultra Ball |
-| 5 | **Koga** | Veneno | Venomoth, Muk | 37, 40 | +30% XP |
-| 6 | **Sabrina** | Psíquico | Mr. Mime, Alakazam | 38, 43 | +50% DPS idle |
-| 7 | **Blaine** | Fuego | Arcanine, Rapidash | 42, 47 | Badge Volcano |
-| 8 | **Giovanni** | Tierra | Rhydon, Nidoking, Nidoqueen | 45-50 | Victory Road |
-
-### Cómo funcionan las batallas de gimnasio
-
-1. Toca **⚔️** en la barra de navegación
-2. Verás el próximo gimnasio disponible
-3. Toca **¡COMENZAR!** para iniciar la batalla
-4. Tienes un **timer** (3-5 minutos) para derrotar todos los Pokémon del líder
-5. Tapea lo más rápido posible + usa tus habilidades activas
-6. Si el timer llega a 0, **pierdes** (puedes reintentar)
-
-El DPS idle también ayuda en gimnasios, pero con potencia reducida. Aunque sea bajo, se acumula poco a poco con el tiempo, así que siempre empuja la barra de vida; tapear sigue siendo la forma principal de ganar antes del timer.
-
-### Estrategia para gimnasios
-
-- **Arma tu equipo con ventaja de tipo**:
-  - vs Brock (Roca) → usa Agua o Planta
-  - vs Misty (Agua) → usa Planta o Eléctrico
-  - vs Lt. Surge (Eléctrico) → usa Tierra
-  - vs Erika (Planta) → usa Fuego o Volador
-  - vs Koga (Veneno) → usa Psíquico o Tierra
-  - vs Sabrina (Psíquico) → usa Fantasma o Bicho
-  - vs Blaine (Fuego) → usa Agua o Tierra
-  - vs Giovanni (Tierra) → usa Agua o Planta
-
-- **Sube el upgrade de daño** en la tienda antes de intentar un gym difícil
-- **Usa tus habilidades activas** durante la pelea (no las guardes)
-
-### Elite Four (post-Gym 8)
-
-Después de derrotar a Giovanni y pasar Victory Road, enfrentas a la **Elite Four**:
-
-| Entrenador | Tipo | Pokémon | Niveles |
-|-----------|------|---------|---------|
-| Lorelei | Hielo | 5 Pokémon | 53-56 |
-| Bruno | Lucha | 5 Pokémon | 53-58 |
-| Agatha | Fantasma | 5 Pokémon | 55-60 |
-| Lance | Dragón | 5 Pokémon | 56-62 |
-
----
-
-## 🌟 Pokémon Legendarios
-
-Los legendarios de Kanto son **los Pokémon más difíciles de obtener**. No aparecen en rutas normales — cada uno requiere completar una **misión especial** basada en coleccionar Pokémon o lograr hitos.
-
-### Las 3 Aves Legendarias
-
-| Legendario | Misión | HP | Timer | Catch Rate |
-|------------|--------|-----|-------|-----------|
-| ❄️ **Articuno** (Lv.45) | Captura 10 Pokémon tipo **Agua** | 75,000 | 2 min | ~8-20% |
-| 🔥 **Moltres** (Lv.48) | Captura 8 Pokémon tipo **Fuego** | 100,000 | 2 min | ~8-20% |
-| ⚡ **Zapdos** (Lv.50) | Captura 5 Pokémon tipo **Eléctrico** | 120,000 | 2 min | ~8-20% |
-
-**Cómo desbloquear las aves:**
-1. Captura la cantidad requerida de Pokémon del tipo indicado (cuentan especies distintas en tu Pokédex)
-2. Una vez cumplida la misión, el ave legendaria se desbloquea como encuentro especial
-3. Inicia la batalla — tienes un timer para reducir su HP a 0
-4. Si lo logras, se intenta la captura automáticamente (¡probabilidad MUY baja!)
-5. Si falla la captura o se acaba el timer, puedes reintentar
-
-**Tips para las aves:**
-- Para Articuno: farmea Ruta 4 (todos los Pokémon ahí son tipo Agua)
-- Para Moltres: farmea Ruta 7 (zona de Fuego)
-- Para Zapdos: necesitas Pikachu (Ruta 2) + Magneton/Electrode (Ruta 8) + Jolteon (Eevee + Piedra Trueno)
-- Sube tu daño lo máximo posible antes de intentar — ¡son tanques!
-- Los **golpes críticos** y **habilidades activas** son clave para derrotarlos a tiempo
-
-### Mewtwo — El Boss Final
-
-| Legendario | Misión | HP | Timer | Catch Rate |
-|------------|--------|-----|-------|-----------|
-| 🔮 **Mewtwo** (Lv.70) | Derrota la Elite Four + captura las 3 aves | 500,000 | 3 min | ~4-12% |
-
-Mewtwo es el **desafío definitivo de Kanto**. Con 500,000 HP y solo 3 minutos, necesitas un equipo extremadamente fuerte. Y aun si lo derrotas, la captura es de apenas 4-12%.
-
-### Mew — El Completionist
-
-| Legendario | Misión | HP | Timer | Catch Rate |
-|------------|--------|-----|-------|-----------|
-| 🌸 **Mew** (Lv.60) | Captura 140+ especies en tu Pokédex | 300,000 | 2:30 min | ~5-15% |
-
-Mew es el premio para quienes completan casi toda la Pokédex de Kanto. Requiere 140 de las 151 especies — eso incluye evoluciones, raros, y los otros 3 legendarios.
-
-### Tabla de Monedas por Legendario
-
-| Legendario | Monedas al derrotar | Monedas si Shiny |
-|------------|--------------------|--------------------|
-| Articuno | 10,000 | +375,000 |
-| Moltres | 15,000 | +500,000 |
-| Zapdos | 18,000 | +600,000 |
-| Mewtwo | 50,000 | +2,500,000 |
-| Mew | 30,000 | +1,500,000 |
-
-> ⚠️ **La probabilidad de captura es MUY baja** (~8-20% para aves, ~4-12% para Mewtwo). Mejorar tu **Señuelo** en la tienda y tener **Ultra Ball** ayuda, pero los bonuses solo aplican parcialmente a legendarios. ¡Paciencia!
-
----
-
-## 💫 Habilidades Activas
-
-Cada Pokémon de tu equipo tiene hasta **3 habilidades** que se desbloquean por nivel:
-
-| Nivel | Tipo de habilidad | Cooldown |
-|-------|-------------------|----------|
-| 10 | Ataque (x5 daño) | 30 segundos |
-| 20 | Buff/Utilidad | 60 segundos |
-| 30 | Ultimate (x8-x12 daño) | 120 segundos |
-
-### Habilidades por tipo de Pokémon
-
-| Tipo | Habilidad 1 | Habilidad 2 | Habilidad 3 |
-|------|-------------|-------------|-------------|
-| 🔥 Fuego | Lanzallamas (x5) | Llamarada (x3, 8s) | Mega Ígneo (x10, 10s) |
-| 💧 Agua | Hidrobomba (x5) | Surf (x3, 8s) | Mega Cañón (x8, 10s) |
-| 🌿 Planta | Drenadoras (x5 monedas) | Esporas (slow) | Planta Solar (x12 hit) |
-| ⚡ Eléctrico | Rayo (x5) | Onda Trueno (slow) | Trueno (x10, 10s) |
-| 🔮 Psíquico | Confusión (x5) | Psíquico (x4, 8s) | Mega Mente (x8, 10s) |
-| 👊 Lucha | Golpe Karate (x5) | Puño Dinámico (+crit) | Sumisión (x10, 10s) |
-
-Los botones aparecen **debajo de tu equipo** en la pantalla de batalla. El cooldown se muestra visualmente.
-
-**Consejo**: Guarda tus ultimates para batallas de gimnasio donde el timer importa.
-
----
-
-## 🏪 Tienda
-
-Accede desde el ícono **🏪** en la barra de navegación.
-
-### Mejoras permanentes
-
-| Mejora | Efecto | Costo inicial | Escalado |
-|--------|--------|---------------|----------|
-| Fuerza de Golpe | +10% daño tap por nivel | 50₽ | x1.8 |
-| Entrenamiento | +10% DPS idle por nivel | 75₽ | x1.8 |
-| Amuleto Moneda | +10% monedas por nivel | 100₽ | x2.0 |
-| Señuelo | +5% prob. captura por nivel | 150₽ | x2.0 |
-
-> **Nota**: Los críticos ya no están en la tienda. Se obtienen comprando los items **Lente Alcance** (+crit rate) y **Garra Afilada** (+crit damage) en la sección de objetos.
-
-**Cada nivel es mas caro que el anterior** (costo x escalado).
-
-### Piedras evolutivas
-
-| Piedra | Precio | Para |
-|--------|--------|------|
-| Piedra Fuego | 5,000 | Eevee-Flareon, Vulpix-Ninetales, Growlithe-Arcanine |
-| Piedra Agua | 5,000 | Eevee-Vaporeon, Poliwhirl-Poliwrath, Shellder-Cloyster |
-| Piedra Trueno | 5,000 | Eevee-Jolteon, Pikachu-Raichu |
-| Piedra Hoja | 5,000 | Oddish-Vileplume, Exeggcute-Exeggutor |
-| Piedra Lunar | 8,000 | Clefairy-Clefable, Jigglypuff-Wigglytuff, Nidorina/Nidorino |
-
-### Objetos equipables (Held Items)
-
-Tu lider de equipo puede llevar UN objeto equipado. Cada objeto sube de nivel con monedas.
-
-#### Potenciadores de Tipo (18 items)
-
-| Objeto | Tipo | Costo base | Escalado | Efecto por nivel |
-|--------|------|-----------|----------|-----------------|
-| Charcoal | Fuego | 300 | x1.12 | +2% dano Fuego |
-| Mystic Water | Agua | 300 | x1.12 | +2% dano Agua |
-| Magnet | Electrico | 300 | x1.12 | +2% dano Electrico |
-| Miracle Seed | Planta | 300 | x1.12 | +2% dano Planta |
-| Never-Melt Ice | Hielo | 300 | x1.12 | +2% dano Hielo |
-| Black Belt | Lucha | 300 | x1.12 | +2% dano Lucha |
-| Poison Barb | Veneno | 300 | x1.12 | +2% dano Veneno |
-| Silver Powder | Bicho | 300 | x1.12 | +2% dano Bicho |
-| Silk Scarf | Normal | 300 | x1.12 | +2% dano Normal |
-| Soft Sand | Tierra | 300 | x1.12 | +2% dano Tierra |
-| Sharp Beak | Volador | 300 | x1.12 | +2% dano Volador |
-| Twisted Spoon | Psiquico | 300 | x1.12 | +2% dano Psiquico |
-| Hard Stone | Roca | 300 | x1.12 | +2% dano Roca |
-| Spell Tag | Fantasma | 300 | x1.12 | +2% dano Fantasma |
-| Dragon Fang | Dragon | 300 | x1.12 | +2% dano Dragon |
-| Black Glasses | Siniestro | 300 | x1.12 | +2% dano Siniestro |
-| Metal Coat | Acero | 300 | x1.12 | +2% dano Acero |
-| Pixie Plate | Hada | 300 | x1.12 | +2% dano Hada |
-
-#### Items de Combate (5 items)
-
-| Objeto | Costo base | Escalado | Efecto por nivel |
-|--------|-----------|----------|-----------------|
-| Scope Lens | 500 | x1.12 | +2% prob. critico |
-| Razor Claw | 500 | x1.12 | +2% dano critico |
-| Choice Band | 800 | x1.13 | +1.5% dano base |
-| Shell Bell | 600 | x1.12 | +2% captura |
-| Leftovers | 600 | x1.12 | +2% monedas |
-
-#### Items Estrategicos (3 items)
-
-| Objeto | Costo base | Escalado | Efecto por nivel |
-|--------|-----------|----------|-----------------|
-| Lucky Egg | 500 | x1.12 | +1.5% XP bonus |
-| Quick Claw | 400 | x1.13 | +1% velocidad encuentro |
-| Expert Belt | 800 | x1.14 | +1.5% dano super efectivo |
-
-### Prioridad de compra recomendada
-
-1. **Charcoal/Mystic Water** (el tipo de tu lider) - mas dano inmediato
-2. **Choice Band** - dano base para todos los tipos
-3. **Shell Bell** - facilita capturas
-4. **Lucky Egg** - mas XP, sube de nivel mas rapido
-5. **Scope Lens + Razor Claw** - combo de criticos
-6. **Quick Claw** - encuentros mas rapidos
-7. **Leftovers** - mas monedas para financiar upgrades
-8. **Expert Belt** - devastador con super efectividad
-9. Potenciadores de tipo secundario segun tu equipo
-10. Las piedras cuando las necesites
----
-
-## 📖 Pokédex
-
-Accede desde el ícono **📖** en la barra de navegación.
-
-Muestra una cuadrícula con los 151 Pokémon de Kanto:
-- **Sprite visible** = capturado ✅
-- **Signo "?"** = no capturado aún
-
-### Recompensas por completar la Pokédex
-
-| Pokémon capturados | Recompensa |
-|--------------------|------------|
-| 10 | +5% daño permanente |
-| 30 | Más spawns poco comunes |
-| 50 | +10% idle DPS permanente |
-| 80 | Más spawns raros |
-| 100 | Expediciones desbloqueadas |
-| 130 | +20% monedas permanente |
-| 140 | **¡Mew desbloqueado!** (legendario) |
-| **151** | **¡Pokédex completa!** (logro definitivo) |
-
----
-
-## 🎲 Eventos Aleatorios
-
-Cada 2-3 minutos puede aparecer un evento especial:
-
-| Evento | Efecto |
-|--------|--------|
-| ⚡ **Horda de Pokémon** | 5 aparecen a la vez, ¡tap rápido! |
-| 💰 **Lluvia de Monedas** | x10 income por 30 segundos |
-| � **Huevo Misterioso** | Ábrelo con 100 taps para recibir monedas |
-| 🚀 **Team Rocket** | Mini-boss defensivo |
-| 💪 **Furia Pokémon** | x2 daño por 20 segundos |
-
-Los eventos aparecen como un **banner** en la parte superior de la pantalla.
-
----
-
-## 😴 Recompensas AFK (Ausente)
-
-Cuando cierras el juego y vuelves después:
-
-- **Monedas acumuladas** según tu idle DPS
-- **XP para todo el equipo**
-- Pantalla de "¡Bienvenido de vuelta!" mostrando tus ganancias
-
-Cuanto más fuerte es tu equipo de soporte (slots 2-6), más ganas mientras no juegas.
-
----
-
-## 💾 Guardado
-
-### Auto-guardado
-El juego se guarda automáticamente **cada 30 segundos** en IndexedDB del navegador.
-
-### Exportar partida
-1. Ve a la **Tienda** (🏪)
-2. Toca **📤 Exportar**
-3. Se copia tu partida como texto codificado al portapapeles
-4. Pégalo en una nota o mensaje para guardarlo
-
-### Importar partida
-1. Copia el texto de tu partida exportada
-2. Ve a la **Tienda** (🏪)
-3. Toca **📥 Importar**
-4. Se restaura tu partida
-
-⚠️ **Si borras los datos del navegador, pierdes la partida!** Exporta regularmente.
-
----
-
-## 📱 Instalación como App (PWA)
-
-### iPhone (Safari)
-1. Abre el juego en Safari
-2. Toca el botón de **Compartir** (📤)
-3. Selecciona **"Añadir a pantalla de inicio"**
-4. El juego se instala como una app nativa
-
-### Android (Chrome)
-1. Abre el juego en Chrome
-2. Toca el menú de **3 puntos**
-3. Selecciona **"Instalar aplicación"**
-
----
-
-## 🎯 Guía de Progresión — Timeline
-
-### Día 1-2: Primeros pasos
-- [ ] Elige tu starter
-- [ ] Llena tu equipo de 6 con Pokémon de las rutas 1-2
-- [ ] Sube al líder a Lv.12+
-- [ ] Compra los primeros niveles de **Fuerza de Golpe**
-- [ ] Derrota a **Brock** (Gym 1)
-- [ ] Captura ~15-20 Pokémon distintos
-
-### Día 3-5: Crecimiento
-- [ ] Derrota a **Misty** y **Lt. Surge** (Gyms 2-3)
-- [ ] Consigue la Great Ball para mejores capturas
-- [ ] Captura ~40-60 Pokémon distintos
-- [ ] Evoluciona tus primeros Pokémon
-- [ ] Sube **Entrenamiento** y **Amuleto Moneda** en tienda
-
-### Día 5-8: Media partida
-- [ ] Derrota a **Erika** y **Koga** (Gyms 4-5)
-- [ ] Consigue la Ultra Ball
-- [ ] Compra piedras evolutivas para evoluciones especiales
-- [ ] Captura ~70-90 Pokémon distintos
-- [ ] Equipo principal en Lv.35+
-- [ ] Intenta desbloquear **Articuno** (10 tipo Agua) y **Moltres** (8 tipo Fuego)
-
-### Día 8-11: Fase avanzada
-- [ ] Derrota a **Sabrina**, **Blaine** y **Giovanni** (Gyms 6-8)
-- [ ] Captura ~100-120 Pokémon distintos
-- [ ] Completa Victory Road
-- [ ] Desbloquea y captura a **Zapdos** (5 tipo Eléctrico)
-- [ ] Equipo principal en Lv.50+
-
-### Día 12-15: Endgame
-- [ ] Derrota la **Elite Four** (Lorelei, Bruno, Agatha, Lance)
-- [ ] Desbloquea y captura a **Mewtwo** (E4 + 3 aves)
-- [ ] Completa la Pokédex hasta 140+ → desbloquea **Mew**
-- [ ] Intenta capturar a Mew: ¡151/151!
-- [ ] Equipo principal en Lv.60-70+
-
----
-
-## 🎨 Interfaz — Pantallas del Juego
-
-### Pantalla Principal (Batalla)
-```
-┌─────────────────────────┐
-│ Ruta 1          ₽ 1,234 │  ← HUD superior
-│ DPS: 45 | Tap: 120      │
-│                          │
-│    ───── HP Bar ─────    │
-│      Pidgey Lv.3         │
-│                          │
-│      [  Sprite del  ]    │  ← Zona de tap
-│      [ Pokémon wild ]    │
-│                          │
-│ x2.0 COMBO (25)         │
-│                          │
-│ [Hab1] [Hab2] [Hab3]    │  ← Habilidades activas
-│                          │
-│ [★P1] [P2] [P3] [P4]   │  ← Tu equipo
-│ [P5]  [P6]               │
-│                          │
-│ 🗺️  👥  📖  🏪  ⚔️     │  ← Navegación
-└─────────────────────────┘
-```
-
-### Barra de Navegación
-| Ícono | Pantalla | Función |
-|-------|----------|---------|
-| 🗺️ | Mapa | Ver rutas, cambiar de zona |
-| 👥 | Equipo | Gestionar tu equipo de 6 |
-| 📖 | Pokédex | Ver Pokémon capturados |
-| 🏪 | Tienda | Comprar mejoras y piedras |
-| ⚔️ | Gimnasio | Pelear contra el próximo Gym Leader |
-
----
-
-## 🎵 Sonido
-
-El juego tiene efectos de sonido procedurales (generados en tiempo real):
-
-| Acción | Sonido |
-|--------|--------|
-| Tap normal | Impacto corto (varía de pitch) |
-| Tap crítico | Impacto grave con reverb |
-| Pokéball rebota | Toc-toc |
-| Captura exitosa | Jingle ascendente ✨ |
-| Captura fallida | Pop suave |
-| Level up | Acordes mayores rápidos |
-| Shiny aparece | Tintineo de cristal |
-| Victoria de gym | Fanfarria de trompetas |
-
-Puedes activar/desactivar el sonido con el botón **🔊/🔇** en la esquina superior derecha.
-
----
-
-## 🏗️ Arquitectura Técnica
-
-### Stack
-| Tecnología | Uso |
-|-----------|-----|
-| **Phaser.js 3** | Motor de juego (Canvas/WebGL, tweens, partículas, scenes) |
-| **Tone.js** | Audio procedural (sonidos sin archivos) |
-| **PokéAPI** | Sprites y datos de los 151 Pokémon |
-| **IndexedDB** | Guardado persistente en el navegador |
-| **Service Worker** | Offline + cache de sprites |
-| **PWA** | Instalable como app nativa |
-
-### Estructura de archivos
-```
-pokeclicker/
-├── index.html              ← Página principal
-├── manifest.json           ← Config PWA
-├── sw.js                   ← Service Worker (offline)
-├── css/
-│   └── style.css           ← Estilos base
-├── js/
-│   ├── game.js             ← Entry point (config Phaser)
-│   ├── pokemon.js          ← Datos, tipos, clase PokemonInstance
-│   ├── player.js           ← Estado del jugador, equipo
-│   ├── combat.js           ← Tap, combos, crits, captura, idle
-│   ├── routes.js           ← rutas hibridas por capitulo con spawns por peso
-│   ├── gym.js              ← 8 Leaders + Elite Four
-│   ├── shop.js             ← Mejoras y piedras
-│   ├── abilities.js        ← Habilidades activas por tipo
-│   ├── events.js           ← Eventos aleatorios
-│   ├── juice.js            ← VFX (partículas, shake, números)
-│   ├── audio.js            ← SFX procedural (Tone.js)
-│   ├── ui.js               ← 8 Phaser scenes
-│   ├── save.js             ← IndexedDB + export/import
-│   └── sprites.js          ← Carga de sprites con cache
-├── data/
-│   └── pokemon.json        ← Datos de 151 Pokémon (PokéAPI)
-└── assets/
-    └── ui/                 ← Iconos PWA
-```
-
-### Sprites
-
-Los sprites vienen directamente de **PokéAPI** (GitHub):
-- **Artwork Home** (alta calidad) → pantalla de combate
-- **Sprites pixel** (96x96) → Pokédex, inventario
-- **Sprites shiny** → variantes brillantes
-
-Se cachean automáticamente para uso offline.
-
----
-
-## ❓ Preguntas Frecuentes
-
-**P: ¿Perdí mi partida, cómo la recupero?**
-R: Si exportaste antes, pega el código en la tienda → Importar. Si no exportaste y se borraron los datos del navegador, lamentablemente no se puede recuperar.
-
-**P: ¿Por qué no puedo capturar un Pokémon raro?**
-R: Los Pokémon raros tienen 40-60% de captura. Mejora tu ball (gyms 2 y 4) y compra "Señuelo" en la tienda.
-
-**P: ¿Cómo subo más rápido de nivel?**
-R: Tapeando en rutas con enemigos del nivel más alto que puedas manejar. Los gymn también dan mucha XP.
-
-**P: ¿El juego funciona sin internet?**
-R: Sí, después de la primera carga todo queda cacheado. Solo necesitas internet para cargar sprites nuevos por primera vez.
-
-**P: ¿Cómo evoluciono a Eevee?**
-R: Necesitas 3 capturas de Eevee + comprar la piedra correspondiente en la tienda (Fuego, Agua o Trueno = 5,000₽ cada una).
-
-**P: ¿Puedo jugar en PC?**
-R: Sí, funciona en cualquier navegador moderno. Solo haz click en vez de tap.
-
----
-
-*¡Buena suerte atrapándolos a todos! 🎮*
+### Mejor practica
+
+- Prioriza 6 Pokemon fuertes bien leveleados.
+- Evita repartir oro en muchos Pokemon de bajo impacto.
+- En cada fila del `Equipo` puedes ver el movimiento actual del Pokemon y cuál desbloquea en el próximo milestone.
+
+### Naturalezas (ajuste actual)
+
+- Las naturalezas siguen aportando identidad por Pokemon, pero el eje de `tap` se suavizo para reducir picos de burst.
+- Rango actual de modificadores de `tap`: entre `-6%` y `+6%` (con variantes intermedias como `+4%` y `-3%`).
+- El eje `idle` se mantiene sin cambios en este ajuste.
+
+## 7. Nuevo Viaje (Prestige)
+
+Cuando haces Nuevo Viaje:
+- Pierdes progreso de run (oro, roster comprado, niveles, zona actual, etc.).
+- Conservas progreso meta (Research Points, mejoras de lab, legendarios).
+
+Ganancia de RP:
+- Depende de tu zona maxima alcanzada.
+
+Cuando conviene:
+- Si ya no avanzas zonas con ritmo razonable.
+- Si necesitas invertir en mejoras permanentes para romper muro.
+
+## 8. Mejoras de laboratorio
+
+Mejoras disponibles actualmente:
+- Entrenamiento
+- Pokeball Plus
+- Suerte
+- Velocidad
+- Critico
+- Devastacion
+- Economia
+- Idle Mastery
+
+## 9. Legendarios
+
+El juego muestra un Santuario Legendario en Laboratorio con estados accionables.
+
+Estados posibles:
+- Bloqueado
+- Rastreable
+- Reto disponible
+- Capturado
+
+Cada legendario tiene checklist vivo con 3 requisitos:
+- Progreso (zona/gym/coleccion)
+- Maestria por tipo (capturas acumuladas del tipo)
+- Rendimiento (hito de torre o boss)
+
+Desbloqueos actuales:
+- Articuno: foco en progreso zona 35 + maestria tipo hielo + victoria Gym 7
+- Zapdos: foco en progreso zona 40 + maestria tipo electrico + victoria Gym 8
+- Moltres: foco en 8 gyms + maestria tipo fuego + hito de torre
+- Mewtwo: foco en zona 50 + maestria tipo psiquico + victoria de campeon
+- Mew: foco en coleccion completa + maestria tipo hada + 1 ascension
+
+## 10. Guardado
+
+- Auto-save cada 30 segundos.
+- En Laboratorio tienes panel `Save Backup` con:
+	- `Copiar Save` (export base64 al portapapeles)
+	- `Importar Save` (pegar save base64)
+	- `Reset Save` (borrado completo con confirmacion)
+- Todo se guarda en el navegador del dispositivo.
+
+## 10.1 Recompensas Pokédex (estado actual)
+
+- Cada Pokemon nuevo que compras/registras suma `+1% oro global` automaticamente.
+- Hay hitos de Pokédex visibles en Laboratorio.
+- Hitos con bonus activos de combate/meta:
+	- 10 registrados: `+5% DPS global`
+	- 30 registrados: `+10% DPS global`
+	- 50 registrados: `+15% DPS global`
+	- 75 registrados: `+20% rewards de expediciones`
+	- 100 registrados: `+25% DPS global`
+	- 151 registrados: `x2 DPS global`
+- Mastery por tipo:
+	- completar un tipo en Pokédex: `+20% DPS` para ese tipo
+	- completar todos los tipos: `+50% DPS global`
+- En el panel Pokédex del Laboratorio ahora ves:
+	- barra de progreso global a hitos
+	- progreso por tipo con badges de completado
+	- estado de Mastery global de tipos
+
+## 10.2 Held items (estado actual)
+
+- Bosses y entrenadores ya pueden dropear held items con grado `★/★★/★★★`.
+- En batalla aparece un popup de drop cuando cae un item.
+- En Laboratorio (PrestigeScene) ya puedes ver inventario de held items y forjar `3→1` por grado.
+- Ya puedes equipar/quitar held items desde ese panel seleccionando slot activo (`S1..S6`) como objetivo.
+- Los efectos base ya impactan combate: DPS, click, crit, oro y velocidad.
+- Cada Pokémon activo sigue limitado a 1 held item equipado (el segundo slot por Pokémon sigue pendiente por hito Pokédex 40).
+
+## 10.3 Expediciones (estado actual)
+
+- Ya existe panel de expediciones en Laboratorio.
+- Puedes enviar expediciones por slot usando Pokémon de reserva (los que no estan en tu equipo activo de 6), eligiendo manualmente 1-3 miembros para cada envio.
+- Cada slot incluye opcion `Auto` para armar party rapida con la mejor reserva disponible.
+- El panel permite cambiar ruta y duración antes de enviar.
+- Duraciones disponibles por progreso:
+	- 1h / 4h / 8h base
+	- 12h tras gym zona 30
+	- 24h tras gym zona 40
+- Balance actual de expediciones:
+	- el oro por duración está suavizado para evitar picos excesivos en 12h/24h
+	- el bonus por tipo/manada existe, pero con impacto moderado para reducir varianza
+- Slots disponibles por progreso:
+	- 1 slot base
+	- +1 slot al vencer gym de zona 15
+	- +1 slot al vencer gym de zona 30
+- Al terminar, reclamas recompensas desde el mismo panel:
+	- oro
+	- held items reales con grado `★/★★/★★★` (entran a inventario de held items)
+	- huevos reales (entran a inventario de huevos)
+	- scouting de Pokemon (puede desbloquear Pokemon no comprados; si no hay candidatos, se compensa con oro)
+	- si un scouting sale duplicado, se abre un modal en juego para elegir si te quedas con el Pokemon actual o aceptas la nueva recaptura
+- Hay bonus de recompensa por tipo favorable de ruta y por enviar manada del mismo tipo.
+	- bonus tipo favorable: `x1.4`
+	- bonus manada (3 del mismo tipo primario): `x1.6`
+
+Notas utiles:
+- El panel muestra resumen del ultimo claim (items/huevos/scouting) para que sepas que gano cada slot.
+- Los huevos se incuban automaticamente en slots activos y avanzan con cada tap en batalla.
+- Ademas, en combate puedes conseguir huevos: `3%` al derrotar salvajes y `10%` al completar entrenadores.
+
+## 10.5 Torre de Combate (estado actual)
+
+- La Torre ya usa tuning de primera pasada en runtime:
+	- timer por piso de `75s`
+	- escalado de HP por tramos (sube progresivo y no explota tan temprano)
+	- fatiga progresiva por piso (sube mas lento en early, mas fuerte en late)
+- Objetivo actual de diseño: runs mas estables en pisos bajos/medios sin quitar presion en pisos altos.
+- Cuando eclosionan pueden desbloquear Pokemon nuevos; si sale duplicado, entra en flujo de re-captura con modal en juego (incluye sugerencia e impacto estimado) para elegir si mantener el actual o aceptar el nuevo roll. Igual te da caramelos + compensacion en oro.
+
+## 10.4 Naturalezas, Estrellas y Caramelos (estado actual)
+
+- Cada Pokemon que obtienes ahora tiene:
+	- una `naturaleza`
+	- un nivel de `estrellas` (`☆` a `★★★`)
+	- mejoras por caramelos (`+5% DPS` por mejora)
+- Las estrellas ya afectan el DPS base del Pokemon:
+	- `☆ +0%`, `★ +10%`, `★★ +20%`, `★★★ +35%`.
+- Las naturalezas ya afectan combate en runtime:
+	- modificador de DPS idle del Pokemon
+	- modificador de tap promedio del equipo activo (ajustado para que el impacto sea mas suave y estable)
+- Los duplicados (de huevos y scouting de expediciones) ahora:
+	- generan caramelos de esa especie
+	- pueden reemplazar naturaleza/estrellas si eliges conservar la nueva recaptura (tambien hay recomendacion automatica)
+- En la pantalla `Equipo` tienes boton de caramelos por especie:
+	- costo `5 caramelos`
+	- efecto `+5% DPS` para ese Pokemon
+	- limite `20` mejoras por especie
+	- boton adicional `Evo -3` con costo `50 caramelos` para adelantar el siguiente milestone de evolucion en `-3 niveles` (hasta 2 usos si la especie tiene 2 evoluciones)
+
+## 11. Que no esta como feature jugable completa
+
+Estos sistemas no estan en estado final para jugador:
+- sistema avanzado de held items (pendiente 2do slot por Pokémon + capas avanzadas)
+- huevos (parcial avanzado: obtencion + incubacion + eclosion ya jugables; faltan capas avanzadas)
+- pokedex rewards completas (hay baseline activo, faltan capas avanzadas)
+- battle tower endgame
+
+## 12. Consejos practicos
+
+1. Compra pronto un equipo base de 6.
+2. Sube niveles en bloques (`x10`/`Max`) para milestones.
+3. Usa `Entrenar` para farmear cuando un boss te frene.
+4. Usa `Curar` cuando fatiga te corte el ritmo.
+5. Guarda habilidades para boss/trainer cuando el timer aprieta.
+6. Haz Nuevo Viaje antes de quedarte totalmente estancado.
