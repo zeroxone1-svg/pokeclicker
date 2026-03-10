@@ -330,7 +330,20 @@ export function playGymVictory() {
 export function playClick() {
   if (!ensureAudio()) return;
   try {
-    clickSynth.triggerAttackRelease(880, '64n');
+    const now = Tone.now();
+    const baseFreq = 820 + Math.random() * 60;
+    clickSynth.frequency.setValueAtTime(baseFreq, now);
+    clickSynth.frequency.exponentialRampToValueAtTime(baseFreq * 0.86, now + 0.035);
+    clickSynth.triggerAttackRelease('96n', now);
+  } catch { /* silent */ }
+}
+
+export function playUiConfirm() {
+  if (!ensureAudio()) return;
+  try {
+    const now = Tone.now();
+    purchaseSynth.triggerAttackRelease('C6', '32n', now);
+    purchaseSynth.triggerAttackRelease('G6', '16n', now + 0.05);
   } catch { /* silent */ }
 }
 
@@ -338,10 +351,12 @@ export function playMenuOpen() {
   if (!ensureAudio()) return;
   try {
     const now = Tone.now();
-    // Game Boy-style ascending arpeggio (very short + bright)
-    clickSynth.triggerAttackRelease('E5', '128n', now);
-    clickSynth.triggerAttackRelease('B5', '128n', now + 0.02);
-    clickSynth.triggerAttackRelease('E6', '128n', now + 0.04);
+    if (!playMenuOpen._lastAt) playMenuOpen._lastAt = 0;
+    if ((now - playMenuOpen._lastAt) < 0.08) return;
+    playMenuOpen._lastAt = now;
+    clickSynth.triggerAttackRelease('F5', '96n', now);
+    purchaseSynth.triggerAttackRelease('A5', '96n', now + 0.025);
+    purchaseSynth.triggerAttackRelease('C6', '96n', now + 0.05);
   } catch { /* silent */ }
 }
 
@@ -349,10 +364,12 @@ export function playMenuClose() {
   if (!ensureAudio()) return;
   try {
     const now = Tone.now();
-    // Game Boy-style descending arpeggio
-    clickSynth.triggerAttackRelease('E6', '128n', now);
-    clickSynth.triggerAttackRelease('B5', '128n', now + 0.02);
-    clickSynth.triggerAttackRelease('E5', '128n', now + 0.04);
+    if (!playMenuClose._lastAt) playMenuClose._lastAt = 0;
+    if ((now - playMenuClose._lastAt) < 0.08) return;
+    playMenuClose._lastAt = now;
+    purchaseSynth.triggerAttackRelease('C6', '96n', now);
+    purchaseSynth.triggerAttackRelease('A5', '96n', now + 0.028);
+    clickSynth.triggerAttackRelease('F5', '96n', now + 0.055);
   } catch { /* silent */ }
 }
 
@@ -417,6 +434,26 @@ export function playPokemonCenterJingle() {
       purchaseSynth.triggerAttackRelease(note, '16n', now + offset);
     });
     levelSynth.triggerAttackRelease(['G4', 'B4', 'D5'], '4n', now + 0.92);
+  } catch { /* silent */ }
+}
+
+let _lastCoinPickupTime = 0;
+let _coinPickupPitch = 0;
+export function playCoinPickup() {
+  if (!ensureAudio()) return;
+  try {
+    const now = Tone.now();
+    // Ascending pitch for rapid consecutive pickups (like Clicker Heroes)
+    const elapsed = now - _lastCoinPickupTime;
+    if (elapsed < 0.15) {
+      _coinPickupPitch = Math.min(_coinPickupPitch + 1, 8);
+    } else {
+      _coinPickupPitch = 0;
+    }
+    _lastCoinPickupTime = now;
+    const baseNote = 76 + _coinPickupPitch * 2; // E5 and up
+    const freq = 440 * Math.pow(2, (baseNote - 69) / 12);
+    clickSynth.triggerAttackRelease(freq, '32n', now);
   } catch { /* silent */ }
 }
 

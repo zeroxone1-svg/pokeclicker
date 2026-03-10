@@ -1,0 +1,252 @@
+[
+  {
+    "id": 1,
+    "name": "hardy",
+    "nameEn": "Hardy",
+    "nameEs": "Fuerte",
+    "increasedStat": null,
+    "decreasedStat": null,
+    "likesFlavor": null,
+    "hatesFlavor": null
+  },
+  {
+    "id": 2,
+    "name": "bold",
+    "nameEn": "Bold",
+    "nameEs": "Osada",
+    "increasedStat": "defense",
+    "decreasedStat": "attack",
+    "likesFlavor": "sour",
+    "hatesFlavor": "spicy"
+  },
+  {
+    "id": 3,
+    "name": "modest",
+    "nameEn": "Modest",
+    "nameEs": "Modesta",
+    "increasedStat": "special-attack",
+    "decreasedStat": "attack",
+    "likesFlavor": "dry",
+    "hatesFlavor": "spicy"
+  },
+  {
+    "id": 4,
+    "name": "calm",
+    "nameEn": "Calm",
+    "nameEs": "Serena",
+    "increasedStat": "special-defense",
+    "decreasedStat": "attack",
+    "likesFlavor": "bitter",
+    "hatesFlavor": "spicy"
+  },
+  {
+    "id": 5,
+    "name": "timid",
+    "nameEn": "Timid",
+    "nameEs": "Miedosa",
+    "increasedStat": "speed",
+    "decreasedStat": "attack",
+    "likesFlavor": "sweet",
+    "hatesFlavor": "spicy"
+  },
+  {
+    "id": 6,
+    "name": "lonely",
+    "nameEn": "Lonely",
+    "nameEs": "Huraña",
+    "increasedStat": "attack",
+    "decreasedStat": "defense",
+    "likesFlavor": "spicy",
+    "hatesFlavor": "sour"
+  },
+  {
+    "id": 7,
+    "name": "docile",
+    "nameEn": "Docile",
+    "nameEs": "Dócil",
+    "increasedStat": null,
+    "decreasedStat": null,
+    "likesFlavor": null,
+    "hatesFlavor": null
+  },
+  {
+    "id": 8,
+    "name": "mild",
+    "nameEn": "Mild",
+    "nameEs": "Afable",
+    "increasedStat": "special-attack",
+    "decreasedStat": "defense",
+    "likesFlavor": "dry",
+    "hatesFlavor": "sour"
+  },
+  {
+    "id": 9,
+    "name": "gentle",
+    "nameEn": "Gentle",
+    "nameEs": "Amable",
+    "increasedStat": "special-defense",
+    "decreasedStat": "defense",
+    "likesFlavor": "bitter",
+    "hatesFlavor": "sour"
+  },
+  {
+    "id": 10,
+    "name": "hasty",
+    "nameEn": "Hasty",
+    "nameEs": "Activa",
+    "increasedStat": "speed",
+    "decreasedStat": "defense",
+    "likesFlavor": "sweet",
+    "hatesFlavor": "sour"
+  },
+  {
+    "id": 11,
+    "name": "adamant",
+    "nameEn": "Adamant",
+    "nameEs": "Firme",
+    "increasedStat": "attack",
+    "decreasedStat": "special-attack",
+    "likesFlavor": "spicy",
+    "hatesFlavor": "dry"
+  },
+  {
+    "id": 12,
+    "name": "impish",
+    "nameEn": "Impish",
+    "nameEs": "Agitada",
+    "increasedStat": "defense",
+    "decreasedStat": "special-attack",
+    "likesFlavor": "sour",
+    "hatesFlavor": "dry"
+  },
+  {
+    "id": 13,
+    "name": "bashful",
+    "nameEn": "Bashful",
+    "nameEs": "Tímida",
+    "increasedStat": null,
+    "decreasedStat": null,
+    "likesFlavor": null,
+    "hatesFlavor": null
+  },
+  {
+    "id": 14,
+    "name": "careful",
+    "nameEn": "Careful",
+    "nameEs": "Cauta",
+    "increasedStat": "special-defense",
+    "decreasedStat": "special-attack",
+    "likesFlavor": "bitter",
+    "hatesFlavor": "dry"
+  },
+  {
+    "id": 15,
+    "name": "rash",
+    "nameEn": "Rash",
+    "nameEs": "Alocada",
+    "increasedStat": "special-attack",
+    "decreasedStat": "special-defense",
+    "likesFlavor": "dry",
+    "hatesFlavor": "bitter"
+  },
+  {
+    "id": 16,
+    "name": "jolly",
+    "nameEn": "Jolly",
+    "nameEs": "Alegre",
+    "increasedStat": "speed",
+    "decreasedStat": "special-attack",
+    "likesFlavor": "sweet",
+    "hatesFlavor": "dry"
+  },
+  {
+    "id": 17,
+    "name": "naughty",
+    "nameEn": "Naughty",
+    "nameEs": "Pícara",
+    "increasedStat": "attack",
+    "decreasedStat": "special-defense",
+    "likesFlavor": "spicy",
+    "hatesFlavor": "bitter"
+  },
+  {
+    "id": 18,
+    "name": "lax",
+    "nameEn": "Lax",
+    "nameEs": "Floja",
+    "increasedStat": "defense",
+    "decreasedStat": "special-defense",
+    "likesFlavor": "sour",
+    "hatesFlavor": "bitter"
+  },
+  {
+    "id": 19,
+    "name": "quirky",
+    "nameEn": "Quirky",
+    "nameEs": "Rara",
+    "increasedStat": null,
+    "decreasedStat": null,
+    "likesFlavor": null,
+    "hatesFlavor": null
+  },
+  {
+    "id": 20,
+    "name": "naive",
+    "nameEn": "Naive",
+    "nameEs": "Ingenua",
+    "increasedStat": "speed",
+    "decreasedStat": "special-defense",
+    "likesFlavor": "sweet",
+    "hatesFlavor": "bitter"
+  },
+  {
+    "id": 21,
+    "name": "brave",
+    "nameEn": "Brave",
+    "nameEs": "Audaz",
+    "increasedStat": "attack",
+    "decreasedStat": "speed",
+    "likesFlavor": "spicy",
+    "hatesFlavor": "sweet"
+  },
+  {
+    "id": 22,
+    "name": "relaxed",
+    "nameEn": "Relaxed",
+    "nameEs": "Plácida",
+    "increasedStat": "defense",
+    "decreasedStat": "speed",
+    "likesFlavor": "sour",
+    "hatesFlavor": "sweet"
+  },
+  {
+    "id": 23,
+    "name": "quiet",
+    "nameEn": "Quiet",
+    "nameEs": "Mansa",
+    "increasedStat": "special-attack",
+    "decreasedStat": "speed",
+    "likesFlavor": "dry",
+    "hatesFlavor": "sweet"
+  },
+  {
+    "id": 24,
+    "name": "sassy",
+    "nameEn": "Sassy",
+    "nameEs": "Grosera",
+    "increasedStat": "special-defense",
+    "decreasedStat": "speed",
+    "likesFlavor": "bitter",
+    "hatesFlavor": "sweet"
+  },
+  {
+    "id": 25,
+    "name": "serious",
+    "nameEn": "Serious",
+    "nameEs": "Seria",
+    "increasedStat": null,
+    "decreasedStat": null,
+    "likesFlavor": null,
+    "hatesFlavor": null
+  }
+]

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <radialGradient id="pc-coin-rim" cx="34%" cy="26%" r="84%">
+      <stop offset="0" stop-color="#fff2ae"/>
+      <stop offset="0.5" stop-color="#f0b128"/>
+      <stop offset="1" stop-color="#8d5310"/>
+    </radialGradient>
+    <radialGradient id="pc-coin-face" cx="36%" cy="29%" r="78%">
+      <stop offset="0" stop-color="#fffbe3"/>
+      <stop offset="0.42" stop-color="#ffe175"/>
+      <stop offset="0.78" stop-color="#f3b62f"/>
+      <stop offset="1" stop-color="#c77e18"/>
+    </radialGradient>
+    <linearGradient id="pc-coin-band" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f9cf56"/>
+      <stop offset="1" stop-color="#c27a1f"/>
+    </linearGradient>
+    <filter id="pc-coin-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#512f06" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#pc-coin-shadow)">
+    <circle cx="128" cy="128" r="114" fill="url(#pc-coin-rim)"/>
+    <circle cx="128" cy="128" r="95" fill="url(#pc-coin-face)"/>
+  </g>
+
+  <circle cx="128" cy="128" r="103" fill="none" stroke="#ffe9a8" stroke-opacity="0.85" stroke-width="5"/>
+  <circle cx="128" cy="128" r="86" fill="none" stroke="#b27016" stroke-opacity="0.45" stroke-width="3"/>
+
+  <path d="M128 59c-29 0-52 13-52 30 0 16 23 29 52 29s52-13 52-29c0-17-23-30-52-30zm-6 69c-15 0-25 8-25 18 0 9 9 16 24 18v18h15v-18c17-2 27-11 27-23 0-12-10-19-31-23-12-2-17-5-17-9s5-8 15-8c8 0 15 2 22 6l10-14c-8-5-16-8-25-9V73h-15v12c-16 3-25 12-25 24 0 13 9 20 30 24 12 2 18 4 18 9 0 5-6 9-17 9-11 0-20-4-28-10l-10 14c9 7 21 11 33 12v15h15v-15c18-2 29-12 29-25 0-14-10-21-30-25z"
+    fill="#7f4c0f" fill-opacity="0.57"/>
+
+  <path d="M81 101c12-17 30-25 47-25" fill="none" stroke="#fff7d1" stroke-opacity="0.56" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="94" cy="78" rx="50" ry="25" fill="#ffffff" fill-opacity="0.34"/>
+
+  <path d="M171 76l4 9 9 4-9 4-4 9-4-9-9-4 9-4z" fill="#fff9de" fill-opacity="0.9"/>
+  <path d="M64 146l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#ffeeb3" fill-opacity="0.72"/>
+
+  <circle cx="128" cy="128" r="92" fill="none" stroke="url(#pc-coin-band)" stroke-opacity="0.8" stroke-width="2"/>
+</svg>

@@ -1,9 +1,14 @@
 // player.js — Player state for Clicker Heroes model
 import { abilities } from './abilities.js';
-import { getAllRoster, getRosterPokemon, getTeamDps, getLevelUpCost, getOwnedPokemonLevel } from './pokemon.js';
+import { getAllRoster, getRosterPokemon, getOwnedTeamDps, getLevelUpCost, getOwnedPokemonLevel } from './pokemon.js';
 
 const ACTIVE_TEAM_SIZE = 6;
 const MAX_EXPEDITION_SLOTS = 3;
+const MAX_SUPPORT_SLOTS = 10;
+const SUPPORT_DPS_BONUS = 0.05; // +5% global DPS per support equipped
+const TYPE_CAPTURE_DPS_STEP = 10; // every N captures of a type
+const TYPE_CAPTURE_DPS_BONUS = 0.02; // +2% per step
+const TYPE_CAPTURE_DPS_MAX = 0.20; // max +20% per type
 
 const MAX_CANDY_DPS_UPGRADES = 20;
 const CANDY_EVOLUTION_BOOST_COST = 50;
@@ -141,6 +146,8 @@ class PlayerState {
 
     // Legendaries: { legendaryId: true }
     this.legendaries = {};
+    this.legendaryRaids = {};
+    this.legendaryRaidBlessings = PlayerState.createDefaultLegendaryRaidBlessings();
 
     // Pokédex rewards progression
     this.pokedexRewards = PlayerState.createDefaultPokedexRewards();
@@ -172,6 +179,18 @@ class PlayerState {
     this.towerMegaStones = 0;
     this.towerTrophies = 0;
 
+    // Pokédex: captured wild Pokémon { pokedexId: { nature, stars, capturedAt } }
+    this.pokedex = {};
+    this.totalCaptures = 0;
+
+    // Support slots: captured Pokémon equipped as supports (unlocked by gym medals)
+    // Array of { pokedexId, types } or null
+    this.supports = Array(MAX_SUPPORT_SLOTS).fill(null);
+    this.supportSlotsUnlocked = 0;
+
+    // Gym challenge tracking (weekly re-challenge)
+    this.gymChallenges = {}; // { zone: { lastChallengeAt, totalChallenges } }
+
     // Abilities
     this.unlockedAbilities = [];  // ability IDs unlocked via gym medals
 
@@ -198,6 +217,11 @@ class PlayerState {
     this.gold -= cost;
     // Route purchases through capture flow so type-capture progression stays consistent.
     const result = this.obtainPokemon(rosterId, { allowRecapture: false });
+    if (!result?.ok) {
+      // Safety guard: never consume gold if acquisition fails unexpectedly.
+      this.gold += cost;
+      return false;
+    }
     return !!result?.ok;
   }
 
@@ -337,7 +361,8 @@ class PlayerState {
   }
 
   getAverageTeamNatureTapMultiplier() {
-    const members = (Array.isArray(this.activeTeam) ? this.activeTeam : [])
+    const members = Object.keys(this.ownedPokemon || {})
+      .map((id) => normalizeRosterId(id))
       .filter((id) => Number.isFinite(id) && this.isOwned(id));
     if (members.length <= 0) {
       return 1;
@@ -477,11 +502,9 @@ class PlayerState {
       return { ok: false, reason: 'invalid_id' };
     }
 
-    // Capture tracking includes first-time catches and duplicates.
-    this.recordPokemonCapture(normalizedId, 1);
-
     const allowRecapture = options.allowRecapture !== false;
     const recaptureMode = resolveRecaptureMode(options.recaptureMode);
+    const respectPurchaseOrder = options.respectPurchaseOrder !== false;
     const bonusCandies = Number.isFinite(options.bonusCandies)
       ? Math.max(0, Math.floor(options.bonusCandies))
       : 0;
@@ -489,11 +512,23 @@ class PlayerState {
     const forcedStars = options.stars;
 
     if (!this.isOwned(normalizedId)) {
+      const nextPurchaseId = this.getNextPurchaseRosterId();
+      if (respectPurchaseOrder && nextPurchaseId !== null && normalizedId !== nextPurchaseId) {
+        return {
+          ok: false,
+          reason: 'out_of_order_locked',
+          blocked: true,
+          rosterId: normalizedId,
+          nextPurchaseRosterId: nextPurchaseId,
+        };
+      }
+
       this.ownedPokemon[normalizedId] = createOwnedEntry(1, {
         nature: forcedNature,
         stars: forcedStars,
       });
       this.addToActiveTeam(normalizedId);
+      this.recordPokemonCapture(normalizedId, 1);
       return {
         ok: true,
         isNew: true,
@@ -503,6 +538,9 @@ class PlayerState {
     }
 
     const entry = this.getOwnedEntry(normalizedId);
+    // Capture tracking includes first-time catches and duplicates.
+    this.recordPokemonCapture(normalizedId, 1);
+
     const candidateMeta = {
       nature: forcedNature || rollNatureId(),
       stars: normalizeStars(forcedStars ?? rollStars()),
@@ -640,7 +678,7 @@ class PlayerState {
   }
 
   autoFillActiveTeam() {
-    const rankedOwnedPokemon = Object.keys(this.ownedPokemon)
+    const allOwned = Object.keys(this.ownedPokemon)
       .map((rosterId) => {
         const normalizedId = normalizeRosterId(rosterId);
         const rosterPokemon = getRosterPokemon(normalizedId);
@@ -649,14 +687,20 @@ class PlayerState {
         return rosterPokemon ? {
           rosterId: normalizedId,
           power: rosterPokemon.baseDps * Math.max(1, level) * getEntryIdleDpsMultiplier(entry),
+          isClicker: rosterPokemon.role === 'clicker',
         } : null;
       })
-      .filter(Boolean)
-      .sort((a, b) => b.power - a.power)
-      .slice(0, ACTIVE_TEAM_SIZE);
+      .filter(Boolean);
+
+    // Clicker companions always go first (slot 1), then DPS sorted by power
+    const clickers = allOwned.filter((p) => p.isClicker);
+    const dpsHeroes = allOwned.filter((p) => !p.isClicker)
+      .sort((a, b) => b.power - a.power);
+
+    const selected = [...clickers, ...dpsHeroes].slice(0, ACTIVE_TEAM_SIZE);
 
     this.activeTeam = Array(ACTIVE_TEAM_SIZE).fill(null);
-    rankedOwnedPokemon.forEach((entry, index) => {
+    selected.forEach((entry, index) => {
       this.activeTeam[index] = entry.rosterId;
     });
   }
@@ -691,7 +735,7 @@ class PlayerState {
   get totalDps() {
     this.normalizeActiveTeam();
 
-    let total = getTeamDps(this.activeTeam, this.ownedPokemon);
+    let total = getOwnedTeamDps(this.ownedPokemon);
     total *= abilities.getDarkRitualMultiplier();
     // Apply all multipliers
     total *= this.getDpsMultiplier();
@@ -712,9 +756,14 @@ class PlayerState {
     // Legendary buffs
     if (this.legendaries['articuno']) mult *= 2;
     if (this.legendaries['mewtwo']) mult *= 3;
+    const raidBlessings = this.getLegendaryRaidBlessings();
+    mult *= raidBlessings.globalDpsMult;
+    mult *= raidBlessings.allMult;
     // Pokédex milestone rewards
     mult *= this.getPokedexDpsMultiplier();
     mult *= this.getPokedexGlobalTypeMasteryMultiplier();
+    // Support Pokémon bonus
+    mult *= this.getSupportDpsMultiplier();
     return mult;
   }
 
@@ -726,6 +775,9 @@ class PlayerState {
     mult *= Math.pow(1.15, sLevel);
     // Legendary
     if (this.legendaries['zapdos']) mult *= 2;
+    const raidBlessings = this.getLegendaryRaidBlessings();
+    mult *= raidBlessings.goldMult;
+    mult *= raidBlessings.allMult;
     // Pokédex individual rewards (+1% gold per new registration)
     mult *= this.getPokedexGoldMultiplier();
     return mult;
@@ -766,6 +818,8 @@ class PlayerState {
         mult *= 1.20;
       }
     }
+
+    mult *= this.getLegendaryRaidTypeMultiplier(types);
     return mult;
   }
 
@@ -813,11 +867,213 @@ class PlayerState {
       });
   }
 
+  // === CAPTURE SYSTEM ===
+
+  /**
+   * Attempt to capture a wild Pokémon (passive, on kill).
+   * Returns { captured, isNew, pokedexId } or null if no capture.
+   */
+  captureWildPokemon(pokedexId, types, catchRate) {
+    if (!Number.isFinite(pokedexId) || pokedexId <= 0) return null;
+    if (!Number.isFinite(catchRate) || catchRate <= 0) return null;
+
+    const captureChance = Math.min(0.50, (catchRate / 255) * this.getCaptureMultiplier());
+    if (Math.random() > captureChance) return null;
+
+    this.totalCaptures++;
+
+    // Track type captures for type DPS bonuses
+    const safeTypes = Array.isArray(types) ? types : [];
+    for (const typeId of safeTypes) {
+      if (typeof typeId === 'string' && typeId.length > 0) {
+        const current = this.getWildTypeCaptureCount(typeId);
+        if (!this.wildTypeCaptures) this.wildTypeCaptures = {};
+        this.wildTypeCaptures[typeId] = current + 1;
+      }
+    }
+
+    const isNew = !this.pokedex[pokedexId];
+    if (isNew) {
+      this.pokedex[pokedexId] = {
+        types: safeTypes,
+        capturedAt: Date.now(),
+      };
+    }
+
+    return { captured: true, isNew, pokedexId };
+  }
+
+  getCaptureMultiplier() {
+    let mult = 1;
+    const ballLevel = this.labUpgrades['pokeball_plus'] || 0;
+    mult *= 1 + (0.10 * ballLevel);
+    return mult;
+  }
+
+  getPokedexCount() {
+    return Object.keys(this.pokedex || {}).length;
+  }
+
+  isInPokedex(pokedexId) {
+    return !!this.pokedex?.[pokedexId];
+  }
+
+  getWildTypeCaptureCount(typeId) {
+    if (typeof typeId !== 'string' || typeId.length <= 0) return 0;
+    const value = this.wildTypeCaptures?.[typeId];
+    return Number.isFinite(value) ? Math.max(0, Math.floor(value)) : 0;
+  }
+
+  /**
+   * Get DPS multiplier from wild type captures.
+   * Every TYPE_CAPTURE_DPS_STEP captures of a type gives +TYPE_CAPTURE_DPS_BONUS to that type.
+   */
+  getWildTypeDpsMultiplier(types) {
+    if (!Array.isArray(types) || types.length <= 0) return 1;
+    let mult = 1;
+    for (const typeId of types) {
+      const captures = this.getWildTypeCaptureCount(typeId);
+      const steps = Math.floor(captures / TYPE_CAPTURE_DPS_STEP);
+      const bonus = Math.min(TYPE_CAPTURE_DPS_MAX, steps * TYPE_CAPTURE_DPS_BONUS);
+      mult *= (1 + bonus);
+    }
+    return mult;
+  }
+
+  // === SUPPORT SYSTEM ===
+
+  getUnlockedSupportSlots() {
+    return Math.min(MAX_SUPPORT_SLOTS, Math.max(0, this.supportSlotsUnlocked || 0));
+  }
+
+  unlockSupportSlot() {
+    if (this.supportSlotsUnlocked >= MAX_SUPPORT_SLOTS) return false;
+    this.supportSlotsUnlocked = (this.supportSlotsUnlocked || 0) + 1;
+    return true;
+  }
+
+  equipSupport(slotIndex, pokedexId) {
+    if (slotIndex < 0 || slotIndex >= this.getUnlockedSupportSlots()) return false;
+    if (!this.isInPokedex(pokedexId)) return false;
+
+    // Check not already equipped in another slot
+    for (let i = 0; i < MAX_SUPPORT_SLOTS; i++) {
+      if (this.supports[i]?.pokedexId === pokedexId) {
+        this.supports[i] = null;
+      }
+    }
+
+    const entry = this.pokedex[pokedexId];
+    this.supports[slotIndex] = {
+      pokedexId,
+      types: Array.isArray(entry?.types) ? [...entry.types] : [],
+    };
+    return true;
+  }
+
+  unequipSupport(slotIndex) {
+    if (slotIndex < 0 || slotIndex >= MAX_SUPPORT_SLOTS) return false;
+    this.supports[slotIndex] = null;
+    return true;
+  }
+
+  getEquippedSupports() {
+    const unlocked = this.getUnlockedSupportSlots();
+    const result = [];
+    for (let i = 0; i < unlocked; i++) {
+      if (this.supports[i]) {
+        result.push(this.supports[i]);
+      }
+    }
+    return result;
+  }
+
+  getSupportDpsMultiplier() {
+    const count = this.getEquippedSupports().length;
+    return 1 + (count * SUPPORT_DPS_BONUS);
+  }
+
+  /**
+   * Get support-based tower bonuses. Each support type gives a specific tower bonus.
+   */
+  getTowerSupportBonuses() {
+    const bonuses = {
+      dpsMult: 1,
+      hpReduction: 1,
+      timerBonus: 0,
+    };
+    const supports = this.getEquippedSupports();
+    for (const support of supports) {
+      const types = support.types || [];
+      if (types.includes('water'))    bonuses.dpsMult *= 1.10;
+      if (types.includes('fire'))     bonuses.dpsMult *= 1.10;
+      if (types.includes('dragon'))   bonuses.dpsMult *= 1.05;
+      if (types.includes('steel'))    bonuses.hpReduction *= 0.95;
+      if (types.includes('psychic'))  bonuses.timerBonus += 5;
+      if (types.includes('fighting')) bonuses.dpsMult *= 1.05;
+      if (types.includes('ice'))      bonuses.dpsMult *= 1.05;
+      if (types.includes('dark'))     bonuses.dpsMult *= 1.05;
+    }
+    return bonuses;
+  }
+
+  // === GYM RE-CHALLENGE ===
+
+  recordGymChallenge(zone) {
+    if (!this.gymChallenges) this.gymChallenges = {};
+    const entry = this.gymChallenges[zone] || { lastChallengeAt: 0, totalChallenges: 0 };
+    entry.lastChallengeAt = Date.now();
+    entry.totalChallenges++;
+    this.gymChallenges[zone] = entry;
+  }
+
   // Click damage multiplier
   getClickMultiplier() {
     let mult = 1;
     if (this.legendaries['moltres']) mult *= 2;
+    const raidBlessings = this.getLegendaryRaidBlessings();
+    mult *= raidBlessings.clickMult;
+    mult *= raidBlessings.allMult;
     return mult;
+  }
+
+  getLegendaryRaidBlessings() {
+    if (!this.legendaryRaidBlessings || typeof this.legendaryRaidBlessings !== 'object') {
+      this.legendaryRaidBlessings = PlayerState.createDefaultLegendaryRaidBlessings();
+    }
+
+    const defaults = PlayerState.createDefaultLegendaryRaidBlessings();
+    for (const [key, value] of Object.entries(defaults)) {
+      if (!Number.isFinite(this.legendaryRaidBlessings[key])) {
+        this.legendaryRaidBlessings[key] = value;
+      }
+    }
+
+    return this.legendaryRaidBlessings;
+  }
+
+  getLegendaryRaidTypeMultiplier(types) {
+    const blessings = this.getLegendaryRaidBlessings();
+    const safeTypes = Array.isArray(types) ? types : [];
+    if (safeTypes.length <= 0) {
+      return 1;
+    }
+
+    let mult = Math.max(1, Number(blessings.typeBonusMult || 1));
+    if (safeTypes.includes('dragon')) {
+      mult *= Math.max(1, Number(blessings.dragonMult || 1));
+    }
+    return mult;
+  }
+
+  getWeatherRaidMultiplier() {
+    const blessings = this.getLegendaryRaidBlessings();
+    return Math.max(1, Number(blessings.weatherMult || 1));
+  }
+
+  getPrestigePointMultiplier() {
+    const blessings = this.getLegendaryRaidBlessings();
+    return Math.max(1, Number(blessings.prestigeMult || 1)) * Math.max(1, Number(blessings.allMult || 1));
   }
 
   // Level-up cost multiplier (lower = cheaper)
@@ -876,6 +1132,12 @@ class PlayerState {
       ascensionCount: this.ascensionCount,
       labUpgrades: { ...this.labUpgrades },
       legendaries: { ...this.legendaries },
+      legendaryRaids: this.legendaryRaids && typeof this.legendaryRaids === 'object'
+        ? JSON.parse(JSON.stringify(this.legendaryRaids))
+        : {},
+      legendaryRaidBlessings: {
+        ...this.getLegendaryRaidBlessings(),
+      },
       pokedexRewards: {
         individualClaimed: Number(this.pokedexRewards?.individualClaimed || 0),
         milestonesClaimed: Array.isArray(this.pokedexRewards?.milestonesClaimed) ? [...this.pokedexRewards.milestonesClaimed] : [],
@@ -981,6 +1243,16 @@ class PlayerState {
       towerTrophies: Number.isFinite(this.towerTrophies) ? Math.max(0, Math.floor(this.towerTrophies)) : 0,
       unlockedAbilities: [...this.unlockedAbilities],
       defeatedGyms: [...this.defeatedGyms],
+      pokedex: JSON.parse(JSON.stringify(this.pokedex || {})),
+      totalCaptures: Number.isFinite(this.totalCaptures) ? this.totalCaptures : 0,
+      wildTypeCaptures: { ...(this.wildTypeCaptures || {}) },
+      supports: Array.from({ length: MAX_SUPPORT_SLOTS }, (_, i) => {
+        const s = Array.isArray(this.supports) ? this.supports[i] : null;
+        if (!s || !Number.isFinite(s.pokedexId)) return null;
+        return { pokedexId: s.pokedexId, types: Array.isArray(s.types) ? [...s.types] : [] };
+      }),
+      supportSlotsUnlocked: Math.max(0, Math.floor(this.supportSlotsUnlocked || 0)),
+      gymChallenges: JSON.parse(JSON.stringify(this.gymChallenges || {})),
       totalTaps: this.totalTaps,
       totalGoldEarned: this.totalGoldEarned,
       playTime: this.playTime,
@@ -1007,6 +1279,8 @@ class PlayerState {
     state.ascensionCount = data.ascensionCount || 0;
     state.labUpgrades = data.labUpgrades || {};
     state.legendaries = data.legendaries || {};
+    state.legendaryRaids = PlayerState.migrateLegendaryRaids(data.legendaryRaids);
+    state.legendaryRaidBlessings = PlayerState.migrateLegendaryRaidBlessings(data.legendaryRaidBlessings);
     state.pokedexRewards = PlayerState.migratePokedexRewards(data.pokedexRewards);
     state.heldItems = PlayerState.migrateHeldItems(data.heldItems);
     state.heldForge = PlayerState.migrateHeldForge(data.heldForge);
@@ -1029,6 +1303,14 @@ class PlayerState {
       abilities.darkRitualStacks = data.darkRitualStacks;
     }
     state.defeatedGyms = data.defeatedGyms || [];
+    state.pokedex = PlayerState.migratePokedex(data.pokedex);
+    state.totalCaptures = Number.isFinite(data.totalCaptures) ? Math.max(0, Math.floor(data.totalCaptures)) : 0;
+    state.wildTypeCaptures = PlayerState.migrateWildTypeCaptures(data.wildTypeCaptures);
+    state.supports = PlayerState.migrateSupports(data.supports);
+    state.supportSlotsUnlocked = Number.isFinite(data.supportSlotsUnlocked)
+      ? Math.max(0, Math.min(MAX_SUPPORT_SLOTS, Math.floor(data.supportSlotsUnlocked)))
+      : 0;
+    state.gymChallenges = PlayerState.migrateGymChallenges(data.gymChallenges);
     state.totalTaps = data.totalTaps || 0;
     state.totalGoldEarned = data.totalGoldEarned || 0;
     state.playTime = data.playTime || 0;
@@ -1134,6 +1416,75 @@ class PlayerState {
       milestonesClaimed: [],
       typesCompleted: [],
       allTypesCompletedClaimed: false,
+    };
+  }
+
+  static createDefaultLegendaryRaidBlessings() {
+    return {
+      globalDpsMult: 1,
+      goldMult: 1,
+      clickMult: 1,
+      typeBonusMult: 1,
+      weatherMult: 1,
+      prestigeMult: 1,
+      dragonMult: 1,
+      allMult: 1,
+    };
+  }
+
+  static migrateLegendaryRaids(legendaryRaids) {
+    if (!legendaryRaids || typeof legendaryRaids !== 'object') {
+      return {};
+    }
+
+    const migrated = {};
+    for (const [raidId, entry] of Object.entries(legendaryRaids)) {
+      if (!entry || typeof entry !== 'object') {
+        continue;
+      }
+      migrated[raidId] = {
+        completed: !!entry.completed,
+        attempts: Number.isFinite(entry.attempts) ? Math.max(0, Math.floor(entry.attempts)) : 0,
+        completions: Number.isFinite(entry.completions) ? Math.max(0, Math.floor(entry.completions)) : 0,
+        lastAttemptAt: Number.isFinite(entry.lastAttemptAt) ? Math.floor(entry.lastAttemptAt) : 0,
+        lastClearAt: Number.isFinite(entry.lastClearAt) ? Math.floor(entry.lastClearAt) : 0,
+      };
+    }
+
+    return migrated;
+  }
+
+  static migrateLegendaryRaidBlessings(legendaryRaidBlessings) {
+    const defaults = PlayerState.createDefaultLegendaryRaidBlessings();
+    if (!legendaryRaidBlessings || typeof legendaryRaidBlessings !== 'object') {
+      return defaults;
+    }
+
+    return {
+      globalDpsMult: Number.isFinite(legendaryRaidBlessings.globalDpsMult)
+        ? Math.max(1, legendaryRaidBlessings.globalDpsMult)
+        : defaults.globalDpsMult,
+      goldMult: Number.isFinite(legendaryRaidBlessings.goldMult)
+        ? Math.max(1, legendaryRaidBlessings.goldMult)
+        : defaults.goldMult,
+      clickMult: Number.isFinite(legendaryRaidBlessings.clickMult)
+        ? Math.max(1, legendaryRaidBlessings.clickMult)
+        : defaults.clickMult,
+      typeBonusMult: Number.isFinite(legendaryRaidBlessings.typeBonusMult)
+        ? Math.max(1, legendaryRaidBlessings.typeBonusMult)
+        : defaults.typeBonusMult,
+      weatherMult: Number.isFinite(legendaryRaidBlessings.weatherMult)
+        ? Math.max(1, legendaryRaidBlessings.weatherMult)
+        : defaults.weatherMult,
+      prestigeMult: Number.isFinite(legendaryRaidBlessings.prestigeMult)
+        ? Math.max(1, legendaryRaidBlessings.prestigeMult)
+        : defaults.prestigeMult,
+      dragonMult: Number.isFinite(legendaryRaidBlessings.dragonMult)
+        ? Math.max(1, legendaryRaidBlessings.dragonMult)
+        : defaults.dragonMult,
+      allMult: Number.isFinite(legendaryRaidBlessings.allMult)
+        ? Math.max(1, legendaryRaidBlessings.allMult)
+        : defaults.allMult,
     };
   }
 
@@ -1408,6 +1759,63 @@ class PlayerState {
       return 0;
     }
     return Math.max(0, Math.floor(value));
+  }
+
+  static migratePokedex(pokedex) {
+    if (!pokedex || typeof pokedex !== 'object') return {};
+    const migrated = {};
+    for (const [id, entry] of Object.entries(pokedex)) {
+      const numId = Number(id);
+      if (!Number.isFinite(numId) || numId <= 0) continue;
+      if (!entry || typeof entry !== 'object') {
+        migrated[numId] = { types: [], capturedAt: Date.now() };
+      } else {
+        migrated[numId] = {
+          types: Array.isArray(entry.types) ? entry.types.filter(t => typeof t === 'string') : [],
+          capturedAt: Number.isFinite(entry.capturedAt) ? Math.floor(entry.capturedAt) : Date.now(),
+        };
+      }
+    }
+    return migrated;
+  }
+
+  static migrateWildTypeCaptures(wildTypeCaptures) {
+    if (!wildTypeCaptures || typeof wildTypeCaptures !== 'object') return {};
+    const migrated = {};
+    for (const [typeId, value] of Object.entries(wildTypeCaptures)) {
+      if (typeof typeId !== 'string' || typeId.length <= 0) continue;
+      if (!Number.isFinite(value) || value <= 0) continue;
+      migrated[typeId] = Math.max(0, Math.floor(value));
+    }
+    return migrated;
+  }
+
+  static migrateSupports(supports) {
+    const normalized = Array(MAX_SUPPORT_SLOTS).fill(null);
+    if (!Array.isArray(supports)) return normalized;
+    for (let i = 0; i < MAX_SUPPORT_SLOTS; i++) {
+      const s = supports[i];
+      if (!s || typeof s !== 'object' || !Number.isFinite(s.pokedexId)) continue;
+      normalized[i] = {
+        pokedexId: Math.floor(s.pokedexId),
+        types: Array.isArray(s.types) ? s.types.filter(t => typeof t === 'string') : [],
+      };
+    }
+    return normalized;
+  }
+
+  static migrateGymChallenges(gymChallenges) {
+    if (!gymChallenges || typeof gymChallenges !== 'object') return {};
+    const migrated = {};
+    for (const [zone, entry] of Object.entries(gymChallenges)) {
+      const numZone = Number(zone);
+      if (!Number.isFinite(numZone) || !entry || typeof entry !== 'object') continue;
+      migrated[numZone] = {
+        lastChallengeAt: Number.isFinite(entry.lastChallengeAt) ? Math.floor(entry.lastChallengeAt) : 0,
+        totalChallenges: Number.isFinite(entry.totalChallenges) ? Math.max(0, Math.floor(entry.totalChallenges)) : 0,
+      };
+    }
+    return migrated;
   }
 }
 

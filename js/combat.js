@@ -1,14 +1,14 @@
 ﻿// combat.js — Combat engine for active-team combat model
 import { player } from './player.js';
-import { getActiveTeamBreakdown, getPokemonData } from './pokemon.js';
+import { getOwnedTeamBreakdown, getPokemonData, getOwnedClickerCompanionDamage } from './pokemon.js';
 import {
   getZoneEnemyHP,
   getZoneGoldReward,
   getBossHP,
   getBossGoldReward,
+  getBossTimerSec,
   isBossZone,
   KILLS_PER_ZONE,
-  BOSS_TIMER_SEC,
   getRandomWildPokemon,
   createTrainerEncounter,
   getNextTrainerKillTarget,
@@ -20,8 +20,9 @@ import {
   getDayPhaseDpsMultiplier,
   getDayPhaseGoldMultiplier,
   getDayPhaseLabel,
+  getEnemyHPStagger,
 } from './routes.js';
-import { getGymLeader } from './gym.js';
+import { getGymLeader, buildGymGauntlet, getTypeAdvantageMultiplier, canRechallengeGym, GYM_RECHALLENGE_HP_SCALE_PER_PRESTIGE } from './gym.js';
 import { abilities } from './abilities.js';
 import {
   rollHeldItemDrop,
@@ -42,6 +43,8 @@ const MAX_FATIGUE = 100;
 const FATIGUE_FLOOR = 0.90;
 const FATIGUE_PER_KILL = 1;
 const HEAL_BUFF_DURATION_SEC = 300;
+const CORE_LOOP_SIMPLE_UNTIL_ZONE = 8;
+const TRAINER_ENCOUNTER_UNLOCK_ZONE = 8;
 
 // === Combat State ===
 class CombatManager {
@@ -97,6 +100,26 @@ class CombatManager {
     this.lastEggDrop = null;
     this.totalWildKillsSinceTrainer = 0;
     this.nextTrainerAt = getNextTrainerKillTarget();
+
+    // Ground-loot economy (gold is collected manually/automatically from battle scene).
+    this.uncollectedGold = 0;
+    this.lastCollectedGold = 0;
+
+    // Zone progression state
+    this.zoneCompleted = false;
+    this.autoAdvance = true;
+
+    // Gym gauntlet state
+    this.gymGauntlet = null;           // array of phases or null
+    this.gymGauntletPhase = 0;         // current phase index (0-2)
+    this.gymGauntletLeader = null;     // gym leader data
+    this.gymAuraActive = false;        // leader DPS-reduce aura active
+    this.gymAuraTimer = 0;            // time since last aura pulse
+    this.gymGauntletJustCompleted = false;
+    this.isGymRechallenge = false;     // is this a re-challenge fight
+
+    // Capture events for UI
+    this.lastCapture = null;           // { captured, isNew, pokedexId } or null
   }
 
   initializeWorldState() {
@@ -149,7 +172,28 @@ class CombatManager {
     return (1 / Math.pow(0.95, speedLevel)) * this.getHeldCombatModifiers().combatSpeed;
   }
 
+  isCoreLoopSimplified() {
+    const reachedZone = Number(player.maxZoneReached || 1);
+    const ascensions = Number(player.ascensionCount || 0);
+    return reachedZone < CORE_LOOP_SIMPLE_UNTIL_ZONE && ascensions < 1;
+  }
+
+  canSpawnTrainerEncounters() {
+    if (!this.isCoreLoopSimplified()) {
+      return true;
+    }
+    return Number(player.currentZone || 1) >= TRAINER_ENCOUNTER_UNLOCK_ZONE;
+  }
+
+  canUseAdvancedDrops() {
+    return !this.isCoreLoopSimplified();
+  }
+
   getFatigueMultiplier() {
+    if (this.isCoreLoopSimplified()) {
+      return 1;
+    }
+
     const fatigue = Math.min(MAX_FATIGUE, Math.max(0, player.fatigue || 0));
     return Math.max(FATIGUE_FLOOR, 1 - fatigue * 0.001);
   }
@@ -169,16 +213,29 @@ class CombatManager {
   }
 
   getEffectiveTeamDps() {
-    const team = getActiveTeamBreakdown(player.activeTeam, player.ownedPokemon);
+    const team = getOwnedTeamBreakdown(player.ownedPokemon);
     const heldModifiers = this.getHeldCombatModifiers();
+    const useAdvancedEnvironment = !this.isCoreLoopSimplified();
     let total = 0;
 
     for (const member of team) {
       let memberDps = member.dps;
-      memberDps *= getWeatherDamageMultiplier(member.types, this.currentWeather);
-      memberDps *= getDayPhaseDpsMultiplier(member.types, this.dayPhase);
+      if (useAdvancedEnvironment) {
+        memberDps *= getWeatherDamageMultiplier(member.types, this.currentWeather);
+        memberDps *= getDayPhaseDpsMultiplier(member.types, this.dayPhase);
+      }
       memberDps *= player.getPokedexTypeDpsMultiplier(member.types);
+      memberDps *= player.getWildTypeDpsMultiplier(member.types);
       memberDps *= this.getHeldTypeDpsMultiplier(member, heldModifiers.typeBonuses);
+      // Gym gauntlet type advantage bonus
+      if (this.gymGauntlet && this.gymGauntletLeader?.gymType) {
+        memberDps *= getTypeAdvantageMultiplier(member.types, this.gymGauntletLeader.gymType);
+      }
+      // Leader aura penalty
+      if (this.gymAuraActive) {
+        const penalty = this.gymGauntletLeader?.leaderAura?.dpsPenalty || 0.20;
+        memberDps *= (1 - penalty);
+      }
       total += memberDps;
     }
 
@@ -189,6 +246,9 @@ class CombatManager {
     total *= this.getFatigueMultiplier();
     total *= this.getHealingBuffMultiplier();
     total *= heldModifiers.globalDps;
+    if (useAdvancedEnvironment) {
+      total *= player.getWeatherRaidMultiplier();
+    }
 
     total *= this.getIdleBonusMultiplier();
 
@@ -208,7 +268,7 @@ class CombatManager {
   }
 
   getHeldCombatModifiers() {
-    const equipped = getEquippedHeldItems(player.activeTeam);
+    const equipped = getEquippedHeldItems([]);
     const modifiers = {
       globalDps: 1,
       click: 1,
@@ -300,17 +360,45 @@ class CombatManager {
     this.bossFailed = false;
 
     if (this.isBoss) {
-      this.encounterType = 'boss';
-      this.enemyMaxHP = getBossHP(zone);
-      this.bossTimerMax = BOSS_TIMER_SEC;
-      this.bossTimerLeft = BOSS_TIMER_SEC;
-      this.bossGymLeader = getGymLeader(zone);
-      this.enemySpriteId = getRandomWildPokemon(zone, this.currentWeather, this.dayPhase);
-      this.enemyName = this.bossGymLeader ? `Boss ${this.bossGymLeader.name}` : 'Boss';
-      this.enemyTypes = [];
-      // Boss encounters should not carry route trainer state into the next zone.
-      this.pendingTrainerEncounter = null;
-      this.activeTrainerEncounter = null;
+      const gymLeader = getGymLeader(zone);
+      if (gymLeader && gymLeader.team) {
+        // Gym gauntlet: 3-phase fight
+        this.encounterType = 'gym';
+        const bossBaseHP = getBossHP(zone);
+        this.gymGauntlet = buildGymGauntlet(gymLeader, bossBaseHP);
+        this.gymGauntletLeader = gymLeader;
+        this.gymGauntletPhase = 0;
+        this.gymGauntletJustCompleted = false;
+        this.gymAuraActive = false;
+        this.gymAuraTimer = 0;
+        this.isGymRechallenge = false;
+
+        const phase = this.gymGauntlet[0];
+        this.enemyMaxHP = phase.hp;
+        this.bossTimerMax = gymLeader.timerSec;
+        this.bossTimerLeft = gymLeader.timerSec;
+        this.bossGymLeader = gymLeader;
+        this.enemySpriteId = phase.spriteId;
+        this.enemyName = `${gymLeader.name} · ${phase.name}`;
+        this.enemyTypes = getPokemonData(phase.spriteId)?.types || [];
+        this.pendingTrainerEncounter = null;
+        this.activeTrainerEncounter = null;
+      } else {
+        // Generic boss (non-gym zone)
+        this.encounterType = 'boss';
+        this.enemyMaxHP = getBossHP(zone);
+        const bossTimerSec = getBossTimerSec(zone);
+        this.bossTimerMax = bossTimerSec;
+        this.bossTimerLeft = bossTimerSec;
+        this.bossGymLeader = gymLeader;
+        this.enemySpriteId = getRandomWildPokemon(zone, this.currentWeather, this.dayPhase);
+        this.enemyName = 'Boss';
+        this.enemyTypes = [];
+        this.pendingTrainerEncounter = null;
+        this.activeTrainerEncounter = null;
+        this.gymGauntlet = null;
+        this.gymGauntletLeader = null;
+      }
     } else if (this.pendingTrainerEncounter) {
       const trainer = this.pendingTrainerEncounter;
       const pokemonId = trainer.pokemonIds[trainer.currentIndex]
@@ -329,7 +417,9 @@ class CombatManager {
       const pokemonId = getRandomWildPokemon(zone, this.currentWeather, this.dayPhase);
 
       this.encounterType = 'wild';
-      this.enemyMaxHP = getZoneEnemyHP(zone);
+      // Per-enemy HP stagger: first enemy in zone is weaker, last is tougher.
+      const stagger = getEnemyHPStagger(player.killsInZone);
+      this.enemyMaxHP = Math.max(1, Math.floor(getZoneEnemyHP(zone) * stagger));
       this.bossTimerLeft = 0;
       this.bossTimerMax = 0;
       this.bossGymLeader = null;
@@ -340,17 +430,19 @@ class CombatManager {
     }
 
     this.enemyHP = this.enemyMaxHP;
+    // Prevent fractional DPS carry-over from leaking into the next encounter.
+    this.dpsAccumulator = 0;
   }
 
   // Calculate tap (click) damage
   getClickDamage() {
-    // base_click * click_multipliers * (1 + 0.01 * total_dps)
-    let damage = BASE_CLICK_DAMAGE;
+    // (base_click + clicker_companion_dmg) * click_multipliers * (1 + 0.01 * total_dps)
+    let damage = BASE_CLICK_DAMAGE + getOwnedClickerCompanionDamage(player.ownedPokemon);
     damage *= player.getClickMultiplier();
     damage *= player.getAverageTeamNatureTapMultiplier();
     damage *= abilities.getClickMultiplier();
     damage *= this.getHeldCombatModifiers().click;
-    damage *= (1 + 0.01 * this.getEffectiveTeamDps());
+    damage *= (1 + 0.005 * this.getEffectiveTeamDps());
     damage *= this.getHealingBuffMultiplier();
     return Math.max(1, Math.floor(damage));
   }
@@ -403,7 +495,38 @@ class CombatManager {
           this.activeTrainerEncounter = null;
           this.trainerJustFailed = true;
           this.spawnEnemy();
+        } else if (this.encounterType === 'gym') {
+          // Gym gauntlet timer expired — fail the gauntlet
+          this.bossFailed = true;
+          this.gymGauntlet = null;
+          this.gymGauntletLeader = null;
+          this.gymGauntletPhase = 0;
+          this.gymAuraActive = false;
+          this.isGymRechallenge = false;
         }
+      }
+    }
+
+    // Gym leader aura pulse (only on leader phase = last phase)
+    if (this.encounterType === 'gym' && this.gymGauntlet && this.gymGauntletLeader?.leaderAura) {
+      const isLeaderPhase = this.gymGauntletPhase === this.gymGauntlet.length - 1;
+      if (isLeaderPhase) {
+        const aura = this.gymGauntletLeader.leaderAura;
+        this.gymAuraTimer += deltaSeconds;
+        if (this.gymAuraActive) {
+          if (this.gymAuraTimer >= aura.duration) {
+            this.gymAuraActive = false;
+            this.gymAuraTimer = 0;
+          }
+        } else {
+          if (this.gymAuraTimer >= aura.interval) {
+            this.gymAuraActive = true;
+            this.gymAuraTimer = 0;
+          }
+        }
+      } else {
+        this.gymAuraActive = false;
+        this.gymAuraTimer = 0;
       }
     }
 
@@ -414,8 +537,10 @@ class CombatManager {
     // Apply auto DPS
     const dps = this.getEffectiveTeamDps();
 
-    const damage = Math.floor(dps * deltaSeconds);
+    this.dpsAccumulator += Math.max(0, dps * deltaSeconds);
+    const damage = Math.floor(this.dpsAccumulator);
     if (damage > 0) {
+      this.dpsAccumulator -= damage;
       this.enemyHP = Math.max(0, this.enemyHP - damage);
       if (this.enemyHP <= 0) {
         this.onKill();
@@ -445,6 +570,109 @@ class CombatManager {
     const zone = player.currentZone;
     this.lastHeldItemDrop = null;
     this.lastEggDrop = null;
+    this.lastCapture = null;
+    this.gymGauntletJustCompleted = false;
+
+    // === GYM GAUNTLET PHASE ADVANCE ===
+    if (this.encounterType === 'gym' && this.gymGauntlet) {
+      const currentPhase = this.gymGauntletPhase;
+      const nextPhase = currentPhase + 1;
+
+      if (nextPhase < this.gymGauntlet.length) {
+        // Advance to next gym phase (don't count as zone kill, timer continues)
+        this.gymGauntletPhase = nextPhase;
+        const phase = this.gymGauntlet[nextPhase];
+        this.enemyMaxHP = phase.hp;
+        this.enemyHP = phase.hp;
+        this.enemySpriteId = phase.spriteId;
+        this.enemyName = `${this.gymGauntletLeader.name} · ${phase.name}`;
+        this.enemyTypes = getPokemonData(phase.spriteId)?.types || [];
+        this.gymAuraActive = false;
+        this.gymAuraTimer = 0;
+        this.dpsAccumulator = 0;
+        return; // Don't process gold/kill-count yet
+      }
+
+      // === GYM GAUNTLET COMPLETED ===
+      this.gymGauntletJustCompleted = true;
+      const gymLeader = this.gymGauntletLeader;
+
+      // Gold from gym
+      let gold = getBossGoldReward(zone);
+      if (this.isGymRechallenge && gymLeader?.rechallenge) {
+        gold = Math.floor(gold * gymLeader.rechallenge.goldMultiplier);
+      }
+
+      this.lastKillWasBoss = true;
+      this.bossJustDefeated = true;
+
+      // First-time gym defeat rewards
+      if (!this.isGymRechallenge) {
+        if (gymLeader?.unlocksAbility) {
+          abilities.unlock(gymLeader.unlocksAbility);
+          if (!player.unlockedAbilities.includes(gymLeader.unlocksAbility)) {
+            player.unlockedAbilities.push(gymLeader.unlocksAbility);
+          }
+          this.abilityJustUnlocked = gymLeader.unlocksAbility;
+        }
+
+        if (!player.defeatedGyms) player.defeatedGyms = [];
+        if (!player.defeatedGyms.includes(zone)) {
+          player.defeatedGyms.push(zone);
+        }
+
+        // Unlock support slot on first gym defeat
+        if (gymLeader?.supportType) {
+          player.unlockSupportSlot();
+        }
+
+        if (this.canUseAdvancedDrops()) {
+          const bossDrop = rollHeldItemDrop(zone, 'boss');
+          if (bossDrop) {
+            this.lastHeldItemDrop = addHeldItemDropToInventory(bossDrop);
+          }
+        }
+      } else {
+        // Re-challenge rewards: candies
+        player.recordGymChallenge(zone);
+      }
+
+      // Clean up gauntlet state
+      this.gymGauntlet = null;
+      this.gymGauntletLeader = null;
+      this.gymGauntletPhase = 0;
+      this.gymAuraActive = false;
+      this.isGymRechallenge = false;
+
+      // Apply gold multipliers
+      const heldGoldMult = this.getHeldCombatModifiers().gold;
+      const dayPhaseGoldMult = this.isCoreLoopSimplified() ? 1 : getDayPhaseGoldMultiplier(this.dayPhase);
+      gold = Math.floor(gold * dayPhaseGoldMult * player.getGoldMultiplier() * abilities.getGoldMultiplier() * heldGoldMult);
+
+      this.uncollectedGold += gold;
+      this.lastKillGold = gold;
+      this.increaseFatigue();
+
+      // Advance kill counter
+      player.killsInZone++;
+
+      if (player.killsInZone >= KILLS_PER_ZONE) {
+        player.killsInZone = 0;
+        if (!player.farmMode) {
+          player.currentZone++;
+          if (player.currentZone > player.maxZoneReached) {
+            player.maxZoneReached = player.currentZone;
+          }
+          this.zoneJustAdvanced = true;
+        } else {
+          this.zoneJustAdvanced = false;
+        }
+        this.zoneCompleted = false;
+      }
+
+      this.spawnEnemy();
+      return;
+    }
 
     // Calculate gold reward
     let gold;
@@ -473,9 +701,11 @@ class CombatManager {
         }
       }
 
-      const bossDrop = rollHeldItemDrop(zone, 'boss');
-      if (bossDrop) {
-        this.lastHeldItemDrop = addHeldItemDropToInventory(bossDrop);
+      if (this.canUseAdvancedDrops()) {
+        const bossDrop = rollHeldItemDrop(zone, 'boss');
+        if (bossDrop) {
+          this.lastHeldItemDrop = addHeldItemDropToInventory(bossDrop);
+        }
       }
     } else {
       gold = getZoneGoldReward(zone);
@@ -496,48 +726,82 @@ class CombatManager {
         this.pendingTrainerEncounter = null;
         this.activeTrainerEncounter = null;
 
-        const trainerDrop = rollHeldItemDrop(zone, 'trainer');
-        if (trainerDrop) {
-          this.lastHeldItemDrop = addHeldItemDropToInventory(trainerDrop);
+        if (this.canUseAdvancedDrops()) {
+          const trainerDrop = rollHeldItemDrop(zone, 'trainer');
+          if (trainerDrop) {
+            this.lastHeldItemDrop = addHeldItemDropToInventory(trainerDrop);
+          }
         }
 
-        this.lastEggDrop = rollCombatEggDrop('trainer', zone);
+        this.lastEggDrop = this.canUseAdvancedDrops() ? rollCombatEggDrop('trainer', zone) : null;
       } else {
         this.totalWildKillsSinceTrainer++;
-        if (this.totalWildKillsSinceTrainer >= this.nextTrainerAt) {
+        if (this.canSpawnTrainerEncounters() && this.totalWildKillsSinceTrainer >= this.nextTrainerAt) {
           this.scheduleTrainerEncounter();
         }
 
-        this.lastEggDrop = rollCombatEggDrop('wild', zone);
+        this.lastEggDrop = this.canUseAdvancedDrops() ? rollCombatEggDrop('wild', zone) : null;
+
+        // Passive capture attempt on wild kill
+        const wildData = getPokemonData(this.enemySpriteId);
+        if (wildData && Number.isFinite(wildData.catchRate) && wildData.catchRate > 0) {
+          this.lastCapture = player.captureWildPokemon(this.enemySpriteId, this.enemyTypes, wildData.catchRate);
+        }
       }
     }
 
     // Apply gold multipliers
     const heldGoldMult = this.getHeldCombatModifiers().gold;
-    gold = Math.floor(gold * getDayPhaseGoldMultiplier(this.dayPhase) * player.getGoldMultiplier() * abilities.getGoldMultiplier() * heldGoldMult);
+    const dayPhaseGoldMult = this.isCoreLoopSimplified() ? 1 : getDayPhaseGoldMultiplier(this.dayPhase);
+    gold = Math.floor(gold * dayPhaseGoldMult * player.getGoldMultiplier() * abilities.getGoldMultiplier() * heldGoldMult);
 
-    player.gold += gold;
-    player.totalGoldEarned += gold;
+    this.uncollectedGold += gold;
     this.lastKillGold = gold;
     this.increaseFatigue();
 
     // Advance kill counter
     player.killsInZone++;
 
-    // Check zone advancement
+    // Zone progression: advance immediately when kill target is reached.
     if (player.killsInZone >= KILLS_PER_ZONE) {
       player.killsInZone = 0;
-      if (!player.farmMode || this.isBoss) {
+
+      if (!player.farmMode) {
         player.currentZone++;
         if (player.currentZone > player.maxZoneReached) {
           player.maxZoneReached = player.currentZone;
         }
         this.zoneJustAdvanced = true;
+      } else {
+        // Farm mode keeps player in the same zone without interruption.
+        this.zoneJustAdvanced = false;
       }
+
+      this.zoneCompleted = false;
     }
 
-    // Spawn next enemy
+    // Spawn next enemy (same zone if not advanced)
     this.spawnEnemy();
+  }
+
+  collectDroppedGold(amount = null) {
+    const available = Math.max(0, Math.floor(this.uncollectedGold || 0));
+    if (available <= 0) {
+      this.lastCollectedGold = 0;
+      return 0;
+    }
+
+    const requested = amount === null
+      ? available
+      : Math.max(0, Math.floor(amount));
+    const collected = Math.min(available, requested);
+
+    this.uncollectedGold = available - collected;
+    player.gold += collected;
+    player.totalGoldEarned += collected;
+    this.lastCollectedGold = collected;
+
+    return collected;
   }
 
   // Retry boss (after failure)
@@ -546,11 +810,69 @@ class CombatManager {
     this.spawnEnemy();
   }
 
+  // Clicker Heroes: Manual zone advance (player clicks "Next Zone" button)
+  advanceZone() {
+    if (!this.zoneCompleted) return false;
+    player.currentZone++;
+    if (player.currentZone > player.maxZoneReached) {
+      player.maxZoneReached = player.currentZone;
+    }
+    player.killsInZone = 0;
+    this.zoneCompleted = false;
+    this.zoneJustAdvanced = true;
+    this.pendingTrainerEncounter = null;
+    this.activeTrainerEncounter = null;
+    this.spawnEnemy();
+    return true;
+  }
+
+  // Toggle auto-advance (Clicker Heroes progression mode)
+  toggleAutoAdvance(enabled = null) {
+    this.autoAdvance = enabled !== null ? !!enabled : !this.autoAdvance;
+    return this.autoAdvance;
+  }
+
+  // Start a gym re-challenge fight (weekly)
+  startGymRechallenge(zone) {
+    const gymLeader = getGymLeader(zone);
+    if (!gymLeader || !gymLeader.team) return false;
+    if (!player.defeatedGyms?.includes(zone)) return false;
+    if (!canRechallengeGym(zone, player.gymChallenges)) return false;
+
+    const bossBaseHP = getBossHP(zone);
+    const prestigeScale = Math.pow(GYM_RECHALLENGE_HP_SCALE_PER_PRESTIGE, player.ascensionCount || 0);
+    const scaledHP = Math.floor(bossBaseHP * prestigeScale);
+
+    this.encounterType = 'gym';
+    this.gymGauntlet = buildGymGauntlet(gymLeader, scaledHP);
+    this.gymGauntletLeader = gymLeader;
+    this.gymGauntletPhase = 0;
+    this.gymGauntletJustCompleted = false;
+    this.gymAuraActive = false;
+    this.gymAuraTimer = 0;
+    this.isGymRechallenge = true;
+    this.isBoss = true;
+    this.bossFailed = false;
+
+    const phase = this.gymGauntlet[0];
+    this.enemyMaxHP = phase.hp;
+    this.enemyHP = phase.hp;
+    this.bossTimerMax = gymLeader.timerSec;
+    this.bossTimerLeft = gymLeader.timerSec;
+    this.bossGymLeader = gymLeader;
+    this.enemySpriteId = phase.spriteId;
+    this.enemyName = `${gymLeader.name} · ${phase.name}`;
+    this.enemyTypes = getPokemonData(phase.spriteId)?.types || [];
+    this.dpsAccumulator = 0;
+    return true;
+  }
+
   // Go back to a previous zone (for farming)
   goToZone(zone) {
     if (zone < 1 || zone > player.maxZoneReached) return;
     player.currentZone = zone;
     player.killsInZone = 0;
+    this.zoneCompleted = false;
     this.pendingTrainerEncounter = null;
     this.activeTrainerEncounter = null;
     this.bossFailed = false;

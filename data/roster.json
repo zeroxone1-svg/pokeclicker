@@ -1,513 +1,1901 @@
 [
   {
     "id": 1,
-    "name": "Caterpie",
-    "pokedexId": 10,
+    "name": "Pichu",
+    "pokedexId": 172,
     "purchaseCost": 50,
     "baseDps": 1,
     "evolutions": [
-      { "level": 10, "name": "Metapod", "pokedexId": 11, "multiplier": 4 },
-      { "level": 25, "name": "Butterfree", "pokedexId": 12, "multiplier": 4 }
-    ]
+      {
+        "level": 10,
+        "name": "Pikachu",
+        "pokedexId": 25,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Raichu",
+        "pokedexId": 26,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 9,
+        "name": "Static",
+        "nameEs": "Elec. Estática",
+        "effect": "Has a 30% chance of paralyzing attacking Pokémon on contact.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 31,
+        "name": "Lightning Rod",
+        "nameEs": "Pararrayos",
+        "effect": "Redirects single-target electric moves to this Pokémon where possible.  Absorbs Electric moves, raising Special Attack o",
+        "dpsMultiplier": 2
+      }
+    ],
+    "role": "clicker"
   },
   {
     "id": 2,
-    "name": "Weedle",
-    "pokedexId": 13,
-    "purchaseCost": 200,
-    "baseDps": 3,
+    "name": "Bulbasaur",
+    "pokedexId": 1,
+    "purchaseCost": 130,
+    "baseDps": 2,
     "evolutions": [
-      { "level": 10, "name": "Kakuna", "pokedexId": 14, "multiplier": 4 },
-      { "level": 25, "name": "Beedrill", "pokedexId": 15, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Ivysaur",
+        "pokedexId": 2,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Venusaur",
+        "pokedexId": 3,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 34,
+        "name": "Chlorophyll",
+        "nameEs": "Clorofila",
+        "effect": "Doubles Speed during strong sunlight.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 65,
+        "name": "Overgrow",
+        "nameEs": "Espesura",
+        "effect": "Strengthens grass moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 3,
-    "name": "Pidgey",
-    "pokedexId": 16,
-    "purchaseCost": 750,
-    "baseDps": 8,
+    "name": "Charmander",
+    "pokedexId": 4,
+    "purchaseCost": 338,
+    "baseDps": 4,
     "evolutions": [
-      { "level": 10, "name": "Pidgeotto", "pokedexId": 17, "multiplier": 4 },
-      { "level": 25, "name": "Pidgeot", "pokedexId": 18, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Charmeleon",
+        "pokedexId": 5,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Charizard",
+        "pokedexId": 6,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 66,
+        "name": "Blaze",
+        "nameEs": "Mar Llamas",
+        "effect": "Strengthens fire moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 94,
+        "name": "Solar Power",
+        "nameEs": "Poder Solar",
+        "effect": "Increases Special Attack to 1.5× but costs 1/8 max HP after each turn during strong sunlight.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 4,
-    "name": "Rattata",
-    "pokedexId": 19,
-    "purchaseCost": 2500,
-    "baseDps": 20,
+    "name": "Squirtle",
+    "pokedexId": 7,
+    "purchaseCost": 879,
+    "baseDps": 8,
     "evolutions": [
-      { "level": 25, "name": "Raticate", "pokedexId": 20, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Wartortle",
+        "pokedexId": 8,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Blastoise",
+        "pokedexId": 9,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 44,
+        "name": "Rain Dish",
+        "nameEs": "Cura Lluvia",
+        "effect": "Heals for 1/16 max HP after each turn during rain.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 67,
+        "name": "Torrent",
+        "nameEs": "Torrente",
+        "effect": "Strengthens water moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 5,
-    "name": "Spearow",
-    "pokedexId": 21,
-    "purchaseCost": 8000,
-    "baseDps": 50,
+    "name": "Abra",
+    "pokedexId": 63,
+    "purchaseCost": 2285,
+    "baseDps": 16,
     "evolutions": [
-      { "level": 25, "name": "Fearow", "pokedexId": 22, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Kadabra",
+        "pokedexId": 64,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Alakazam",
+        "pokedexId": 65,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 28,
+        "name": "Synchronize",
+        "nameEs": "Sincronía",
+        "effect": "Copies burns, paralysis, and poison received onto the Pokémon that inflicted them.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 39,
+        "name": "Inner Focus",
+        "nameEs": "Foco Interno",
+        "effect": "Prevents flinching.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 98,
+        "name": "Magic Guard",
+        "nameEs": "Muro Mágico",
+        "effect": "Protects against damage not directly caused by a move.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 6,
-    "name": "Pikachu",
-    "pokedexId": 25,
-    "purchaseCost": 25000,
-    "baseDps": 125,
+    "name": "Gastly",
+    "pokedexId": 92,
+    "purchaseCost": 5941,
+    "baseDps": 32,
     "evolutions": [
-      { "level": 25, "name": "Raichu", "pokedexId": 26, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Haunter",
+        "pokedexId": 93,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Gengar",
+        "pokedexId": 94,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 130,
+        "name": "Cursed Body",
+        "nameEs": "Cuerpo Maldito",
+        "effect": "Has a 30% chance of Disabling any move that hits the Pokémon.",
+        "dpsMultiplier": 1.5
+      }
     ]
   },
   {
     "id": 7,
-    "name": "Nidoran♂",
-    "pokedexId": 32,
-    "purchaseCost": 80000,
-    "baseDps": 310,
+    "name": "Growlithe",
+    "pokedexId": 58,
+    "purchaseCost": 15446,
+    "baseDps": 64,
     "evolutions": [
-      { "level": 10, "name": "Nidorino", "pokedexId": 33, "multiplier": 4 },
-      { "level": 25, "name": "Nidoking", "pokedexId": 34, "multiplier": 4 }
+      {
+        "level": 15,
+        "name": "Arcanine",
+        "pokedexId": 59,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 18,
+        "name": "Flash Fire",
+        "nameEs": "Absorbe Fuego",
+        "effect": "Protects against fire moves.  Once one has been blocked, the Pokémon's own Fire moves inflict 1.5× damage until it leave",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 22,
+        "name": "Intimidate",
+        "nameEs": "Intimidación",
+        "effect": "Lowers opponents' Attack one stage upon entering battle.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 154,
+        "name": "Justified",
+        "nameEs": "Justiciero",
+        "effect": "Raises Attack one stage upon taking damage from a dark move.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 8,
-    "name": "Nidoran♀",
-    "pokedexId": 29,
-    "purchaseCost": 250000,
-    "baseDps": 780,
+    "name": "Magikarp",
+    "pokedexId": 129,
+    "purchaseCost": 40159,
+    "baseDps": 128,
     "evolutions": [
-      { "level": 10, "name": "Nidorina", "pokedexId": 30, "multiplier": 4 },
-      { "level": 25, "name": "Nidoqueen", "pokedexId": 31, "multiplier": 4 }
+      {
+        "level": 20,
+        "name": "Gyarados",
+        "pokedexId": 130,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 22,
+        "name": "Intimidate",
+        "nameEs": "Intimidación",
+        "effect": "Lowers opponents' Attack one stage upon entering battle.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 153,
+        "name": "Moxie",
+        "nameEs": "Autoestima",
+        "effect": "Raises Attack one stage upon KOing a Pokémon.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 9,
-    "name": "Clefairy",
-    "pokedexId": 35,
-    "purchaseCost": 800000,
-    "baseDps": 1950,
+    "name": "Eevee",
+    "pokedexId": 133,
+    "purchaseCost": 104414,
+    "baseDps": 256,
     "evolutions": [
-      { "level": 25, "name": "Clefable", "pokedexId": 36, "multiplier": 4 }
+      {
+        "level": 15,
+        "name": "Umbreon",
+        "pokedexId": 197,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 28,
+        "name": "Synchronize",
+        "nameEs": "Sincronía",
+        "effect": "Copies burns, paralysis, and poison received onto the Pokémon that inflicted them.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 39,
+        "name": "Inner Focus",
+        "nameEs": "Foco Interno",
+        "effect": "Prevents flinching.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 10,
-    "name": "Vulpix",
-    "pokedexId": 37,
-    "purchaseCost": 2500000,
-    "baseDps": 4900,
-    "evolutions": [
-      { "level": 25, "name": "Ninetales", "pokedexId": 38, "multiplier": 4 }
+    "name": "Lapras",
+    "pokedexId": 131,
+    "purchaseCost": 271475,
+    "baseDps": 512,
+    "evolutions": [],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 11,
+        "name": "Water Absorb",
+        "nameEs": "Absorbe Agua",
+        "effect": "Absorbs water moves, healing for 1/4 max HP.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 75,
+        "name": "Shell Armor",
+        "nameEs": "Caparazón",
+        "effect": "Protects against critical hits.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 93,
+        "name": "Hydration",
+        "nameEs": "Hidratación",
+        "effect": "Cures any major status ailment after each turn during rain.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 11,
-    "name": "Zubat",
-    "pokedexId": 41,
-    "purchaseCost": 8000000,
-    "baseDps": 12200,
-    "evolutions": [
-      { "level": 10, "name": "Golbat", "pokedexId": 42, "multiplier": 4 },
-      { "level": 25, "name": "Crobat", "pokedexId": 169, "multiplier": 4 }
+    "name": "Snorlax",
+    "pokedexId": 143,
+    "purchaseCost": 705835,
+    "baseDps": 1024,
+    "evolutions": [],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 17,
+        "name": "Immunity",
+        "nameEs": "Inmunidad",
+        "effect": "Prevents poison.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 47,
+        "name": "Thick Fat",
+        "nameEs": "Sebo",
+        "effect": "Halves damage from fire and ice moves.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 82,
+        "name": "Gluttony",
+        "nameEs": "Gula",
+        "effect": "Makes the Pokémon eat any held Berry triggered by low HP below 1/2 its max HP.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 12,
-    "name": "Oddish",
-    "pokedexId": 43,
-    "purchaseCost": 25000000,
-    "baseDps": 30500,
+    "name": "Dratini",
+    "pokedexId": 147,
+    "purchaseCost": 1835172,
+    "baseDps": 2048,
     "evolutions": [
-      { "level": 10, "name": "Gloom", "pokedexId": 44, "multiplier": 4 },
-      { "level": 25, "name": "Vileplume", "pokedexId": 45, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Dragonair",
+        "pokedexId": 148,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Dragonite",
+        "pokedexId": 149,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 39,
+        "name": "Inner Focus",
+        "nameEs": "Foco Interno",
+        "effect": "Prevents flinching.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 136,
+        "name": "Multiscale",
+        "nameEs": "Multiescamas",
+        "effect": "Halves damage taken from full HP.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 13,
-    "name": "Meowth",
-    "pokedexId": 52,
-    "purchaseCost": 80000000,
-    "baseDps": 76000,
+    "name": "Cyndaquil",
+    "pokedexId": 155,
+    "purchaseCost": 4771448,
+    "baseDps": 4096,
     "evolutions": [
-      { "level": 25, "name": "Persian", "pokedexId": 53, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Quilava",
+        "pokedexId": 156,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Typhlosion",
+        "pokedexId": 157,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 18,
+        "name": "Flash Fire",
+        "nameEs": "Absorbe Fuego",
+        "effect": "Protects against fire moves.  Once one has been blocked, the Pokémon's own Fire moves inflict 1.5× damage until it leave",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 66,
+        "name": "Blaze",
+        "nameEs": "Mar Llamas",
+        "effect": "Strengthens fire moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 14,
-    "name": "Psyduck",
-    "pokedexId": 54,
-    "purchaseCost": 250000000,
-    "baseDps": 190000,
+    "name": "Totodile",
+    "pokedexId": 158,
+    "purchaseCost": 12405764,
+    "baseDps": 8192,
     "evolutions": [
-      { "level": 25, "name": "Golduck", "pokedexId": 55, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Croconaw",
+        "pokedexId": 159,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Feraligatr",
+        "pokedexId": 160,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 67,
+        "name": "Torrent",
+        "nameEs": "Torrente",
+        "effect": "Strengthens water moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 125,
+        "name": "Sheer Force",
+        "nameEs": "Potencia Bruta",
+        "effect": "Strengthens moves with extra effects to 1.3× their power, but prevents their extra effects.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 15,
-    "name": "Machop",
-    "pokedexId": 66,
-    "purchaseCost": 800000000,
-    "baseDps": 475000,
+    "name": "Togepi",
+    "pokedexId": 175,
+    "purchaseCost": 32254987,
+    "baseDps": 16384,
     "evolutions": [
-      { "level": 10, "name": "Machoke", "pokedexId": 67, "multiplier": 4 },
-      { "level": 25, "name": "Machamp", "pokedexId": 68, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Togetic",
+        "pokedexId": 176,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Togekiss",
+        "pokedexId": 468,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 32,
+        "name": "Serene Grace",
+        "nameEs": "Dicha",
+        "effect": "Doubles the chance of moves' extra effects occurring.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 55,
+        "name": "Hustle",
+        "nameEs": "Entusiasmo",
+        "effect": "Strengthens physical moves to inflict 1.5× damage, but decreases their accuracy to 0.8×.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 105,
+        "name": "Super Luck",
+        "nameEs": "Afortunado",
+        "effect": "Raises moves' critical hit rates one stage.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 16,
-    "name": "Geodude",
-    "pokedexId": 74,
-    "purchaseCost": 2500000000,
-    "baseDps": 1200000,
+    "name": "Mareep",
+    "pokedexId": 179,
+    "purchaseCost": 83862967,
+    "baseDps": 32768,
     "evolutions": [
-      { "level": 10, "name": "Graveler", "pokedexId": 75, "multiplier": 4 },
-      { "level": 25, "name": "Golem", "pokedexId": 76, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Flaaffy",
+        "pokedexId": 180,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Ampharos",
+        "pokedexId": 181,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 9,
+        "name": "Static",
+        "nameEs": "Elec. Estática",
+        "effect": "Has a 30% chance of paralyzing attacking Pokémon on contact.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 57,
+        "name": "Plus",
+        "nameEs": "Más",
+        "effect": "Increases Special Attack to 1.5× when a friendly Pokémon has plus or minus.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 17,
-    "name": "Ponyta",
-    "pokedexId": 77,
-    "purchaseCost": 8000000000,
-    "baseDps": 3000000,
+    "name": "Larvitar",
+    "pokedexId": 246,
+    "purchaseCost": 218043714,
+    "baseDps": 65536,
     "evolutions": [
-      { "level": 25, "name": "Rapidash", "pokedexId": 78, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Pupitar",
+        "pokedexId": 247,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Tyranitar",
+        "pokedexId": 248,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 45,
+        "name": "Sand Stream",
+        "nameEs": "Chorro Arena",
+        "effect": "Summons a sandstorm that lasts indefinitely upon entering battle.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 127,
+        "name": "Unnerve",
+        "nameEs": "Nerviosismo",
+        "effect": "Prevents opposing Pokémon from eating held Berries.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 18,
-    "name": "Slowpoke",
-    "pokedexId": 79,
-    "purchaseCost": 25000000000,
-    "baseDps": 7500000,
+    "name": "Sneasel",
+    "pokedexId": 215,
+    "purchaseCost": 566913658,
+    "baseDps": 131072,
     "evolutions": [
-      { "level": 25, "name": "Slowbro", "pokedexId": 80, "multiplier": 4 }
+      {
+        "level": 20,
+        "name": "Weavile",
+        "pokedexId": 461,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 46,
+        "name": "Pressure",
+        "nameEs": "Presión",
+        "effect": "Increases the PP cost of moves targetting the Pokémon by one.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 124,
+        "name": "Pickpocket",
+        "nameEs": "Hurto",
+        "effect": "Steals attacking Pokémon's held items on contact.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 19,
-    "name": "Magnemite",
-    "pokedexId": 81,
-    "purchaseCost": 80000000000,
-    "baseDps": 18700000,
-    "evolutions": [
-      { "level": 10, "name": "Magneton", "pokedexId": 82, "multiplier": 4 },
-      { "level": 25, "name": "Magnezone", "pokedexId": 462, "multiplier": 4 }
+    "name": "Heracross",
+    "pokedexId": 214,
+    "purchaseCost": 1473975510,
+    "baseDps": 262144,
+    "evolutions": [],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 62,
+        "name": "Guts",
+        "nameEs": "Agallas",
+        "effect": "Increases Attack to 1.5× with a major status ailment.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 68,
+        "name": "Swarm",
+        "nameEs": "Enjambre",
+        "effect": "Strengthens bug moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 153,
+        "name": "Moxie",
+        "nameEs": "Autoestima",
+        "effect": "Raises Attack one stage upon KOing a Pokémon.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 20,
-    "name": "Gastly",
-    "pokedexId": 92,
-    "purchaseCost": 250000000000,
-    "baseDps": 47000000,
+    "name": "Torchic",
+    "pokedexId": 255,
+    "purchaseCost": 3832336326,
+    "baseDps": 524288,
     "evolutions": [
-      { "level": 10, "name": "Haunter", "pokedexId": 93, "multiplier": 4 },
-      { "level": 25, "name": "Gengar", "pokedexId": 94, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Combusken",
+        "pokedexId": 256,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Blaziken",
+        "pokedexId": 257,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 3,
+        "name": "Speed Boost",
+        "nameEs": "Impulso",
+        "effect": "Raises Speed one stage after each turn.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 66,
+        "name": "Blaze",
+        "nameEs": "Mar Llamas",
+        "effect": "Strengthens fire moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 21,
-    "name": "Onix",
-    "pokedexId": 95,
-    "purchaseCost": 800000000000,
-    "baseDps": 117000000,
+    "name": "Mudkip",
+    "pokedexId": 258,
+    "purchaseCost": 9964074448,
+    "baseDps": 1048576,
     "evolutions": [
-      { "level": 25, "name": "Steelix", "pokedexId": 208, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Marshtomp",
+        "pokedexId": 259,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Swampert",
+        "pokedexId": 260,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 6,
+        "name": "Damp",
+        "nameEs": "Humedad",
+        "effect": "Prevents self destruct, explosion, and aftermath from working while the Pokémon is in battle.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 67,
+        "name": "Torrent",
+        "nameEs": "Torrente",
+        "effect": "Strengthens water moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 22,
-    "name": "Drowzee",
-    "pokedexId": 96,
-    "purchaseCost": 2500000000000,
-    "baseDps": 293000000,
+    "name": "Ralts",
+    "pokedexId": 280,
+    "purchaseCost": 25906593564,
+    "baseDps": 2097152,
     "evolutions": [
-      { "level": 25, "name": "Hypno", "pokedexId": 97, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Kirlia",
+        "pokedexId": 281,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Gardevoir",
+        "pokedexId": 282,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 28,
+        "name": "Synchronize",
+        "nameEs": "Sincronía",
+        "effect": "Copies burns, paralysis, and poison received onto the Pokémon that inflicted them.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 36,
+        "name": "Trace",
+        "nameEs": "Rastro",
+        "effect": "Copies an opponent's ability upon entering battle.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 140,
+        "name": "Telepathy",
+        "nameEs": "Telepatía",
+        "effect": "Protects against friendly Pokémon's damaging moves.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 23,
-    "name": "Krabby",
-    "pokedexId": 98,
-    "purchaseCost": 8000000000000,
-    "baseDps": 732000000,
+    "name": "Bagon",
+    "pokedexId": 371,
+    "purchaseCost": 67357143266,
+    "baseDps": 4194304,
     "evolutions": [
-      { "level": 25, "name": "Kingler", "pokedexId": 99, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Shelgon",
+        "pokedexId": 372,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Salamence",
+        "pokedexId": 373,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 22,
+        "name": "Intimidate",
+        "nameEs": "Intimidación",
+        "effect": "Lowers opponents' Attack one stage upon entering battle.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 153,
+        "name": "Moxie",
+        "nameEs": "Autoestima",
+        "effect": "Raises Attack one stage upon KOing a Pokémon.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 24,
-    "name": "Voltorb",
-    "pokedexId": 100,
-    "purchaseCost": 25000000000000,
-    "baseDps": 1800000000,
+    "name": "Beldum",
+    "pokedexId": 374,
+    "purchaseCost": 175128572491,
+    "baseDps": 8388608,
     "evolutions": [
-      { "level": 25, "name": "Electrode", "pokedexId": 101, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Metang",
+        "pokedexId": 375,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Metagross",
+        "pokedexId": 376,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 29,
+        "name": "Clear Body",
+        "nameEs": "Cuerpo Puro",
+        "effect": "Prevents stats from being lowered by other Pokémon.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 135,
+        "name": "Light Metal",
+        "nameEs": "Metal Liviano",
+        "effect": "Halves the Pokémon's weight.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 25,
-    "name": "Cubone",
-    "pokedexId": 104,
-    "purchaseCost": 80000000000000,
-    "baseDps": 4600000000,
-    "evolutions": [
-      { "level": 25, "name": "Marowak", "pokedexId": 105, "multiplier": 4 }
+    "name": "Absol",
+    "pokedexId": 359,
+    "purchaseCost": 455334288477,
+    "baseDps": 16777216,
+    "evolutions": [],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 46,
+        "name": "Pressure",
+        "nameEs": "Presión",
+        "effect": "Increases the PP cost of moves targetting the Pokémon by one.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 105,
+        "name": "Super Luck",
+        "nameEs": "Afortunado",
+        "effect": "Raises moves' critical hit rates one stage.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 154,
+        "name": "Justified",
+        "nameEs": "Justiciero",
+        "effect": "Raises Attack one stage upon taking damage from a dark move.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 26,
-    "name": "Hitmonchan",
-    "pokedexId": 107,
-    "purchaseCost": 250000000000000,
-    "baseDps": 11400000000,
-    "evolutions": []
+    "name": "Trapinch",
+    "pokedexId": 328,
+    "purchaseCost": 1183869150040,
+    "baseDps": 33554432,
+    "evolutions": [
+      {
+        "level": 10,
+        "name": "Vibrava",
+        "pokedexId": 329,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Flygon",
+        "pokedexId": 330,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 26,
+        "name": "Levitate",
+        "nameEs": "Levitación",
+        "effect": "Evades ground moves.",
+        "dpsMultiplier": 1.5
+      }
+    ]
   },
   {
     "id": 27,
-    "name": "Lickitung",
-    "pokedexId": 108,
-    "purchaseCost": 800000000000000,
-    "baseDps": 28500000000,
+    "name": "Shinx",
+    "pokedexId": 403,
+    "purchaseCost": 3078059790104,
+    "baseDps": 67108864,
     "evolutions": [
-      { "level": 25, "name": "Lickilicky", "pokedexId": 463, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Luxio",
+        "pokedexId": 404,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Luxray",
+        "pokedexId": 405,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 22,
+        "name": "Intimidate",
+        "nameEs": "Intimidación",
+        "effect": "Lowers opponents' Attack one stage upon entering battle.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 62,
+        "name": "Guts",
+        "nameEs": "Agallas",
+        "effect": "Increases Attack to 1.5× with a major status ailment.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 79,
+        "name": "Rivalry",
+        "nameEs": "Rivalidad",
+        "effect": "Increases damage inflicted to 1.25× against Pokémon of the same gender, but decreases damage to 0.75× against the opposi",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 28,
-    "name": "Rhyhorn",
-    "pokedexId": 111,
-    "purchaseCost": 2500000000000000,
-    "baseDps": 71000000000,
+    "name": "Gible",
+    "pokedexId": 443,
+    "purchaseCost": 8002955454269,
+    "baseDps": 134217728,
     "evolutions": [
-      { "level": 10, "name": "Rhydon", "pokedexId": 112, "multiplier": 4 },
-      { "level": 25, "name": "Rhyperior", "pokedexId": 464, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Gabite",
+        "pokedexId": 444,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Garchomp",
+        "pokedexId": 445,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 8,
+        "name": "Sand Veil",
+        "nameEs": "Velo Arena",
+        "effect": "Increases evasion to 1.25× during a sandstorm.  Protects against sandstorm damage.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 24,
+        "name": "Rough Skin",
+        "nameEs": "Piel Tosca",
+        "effect": "Damages attacking Pokémon for 1/8 their max HP on contact.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 29,
-    "name": "Chansey",
-    "pokedexId": 113,
-    "purchaseCost": 8000000000000000,
-    "baseDps": 178000000000,
+    "name": "Riolu",
+    "pokedexId": 447,
+    "purchaseCost": 20807684181100,
+    "baseDps": 268435456,
     "evolutions": [
-      { "level": 25, "name": "Blissey", "pokedexId": 242, "multiplier": 4 }
+      {
+        "level": 15,
+        "name": "Lucario",
+        "pokedexId": 448,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 39,
+        "name": "Inner Focus",
+        "nameEs": "Foco Interno",
+        "effect": "Prevents flinching.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 80,
+        "name": "Steadfast",
+        "nameEs": "Impasible",
+        "effect": "Raises Speed one stage upon flinching.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 154,
+        "name": "Justified",
+        "nameEs": "Justiciero",
+        "effect": "Raises Attack one stage upon taking damage from a dark move.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 30,
-    "name": "Tangela",
-    "pokedexId": 114,
-    "purchaseCost": 25000000000000000,
-    "baseDps": 445000000000,
+    "name": "Chimchar",
+    "pokedexId": 390,
+    "purchaseCost": 54099978870861,
+    "baseDps": 536870912,
     "evolutions": [
-      { "level": 25, "name": "Tangrowth", "pokedexId": 465, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Monferno",
+        "pokedexId": 391,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Infernape",
+        "pokedexId": 392,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 66,
+        "name": "Blaze",
+        "nameEs": "Mar Llamas",
+        "effect": "Strengthens fire moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 89,
+        "name": "Iron Fist",
+        "nameEs": "Puño Férreo",
+        "effect": "Strengthens punch-based moves to 1.2× their power.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 31,
-    "name": "Horsea",
-    "pokedexId": 116,
-    "purchaseCost": 80000000000000000,
-    "baseDps": 1100000000000,
+    "name": "Piplup",
+    "pokedexId": 393,
+    "purchaseCost": 140659945064237,
+    "baseDps": 1073741824,
     "evolutions": [
-      { "level": 10, "name": "Seadra", "pokedexId": 117, "multiplier": 4 },
-      { "level": 25, "name": "Kingdra", "pokedexId": 230, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Prinplup",
+        "pokedexId": 394,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Empoleon",
+        "pokedexId": 395,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 67,
+        "name": "Torrent",
+        "nameEs": "Torrente",
+        "effect": "Strengthens water moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 172,
+        "name": "Competitive",
+        "nameEs": "Tenacidad",
+        "effect": "Raises Special Attack by two stages upon having any stat lowered.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 32,
-    "name": "Staryu",
-    "pokedexId": 120,
-    "purchaseCost": 250000000000000000,
-    "baseDps": 2800000000000,
-    "evolutions": [
-      { "level": 25, "name": "Starmie", "pokedexId": 121, "multiplier": 4 }
+    "name": "Spiritomb",
+    "pokedexId": 442,
+    "purchaseCost": 365715857167017,
+    "baseDps": 2147483648,
+    "evolutions": [],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 46,
+        "name": "Pressure",
+        "nameEs": "Presión",
+        "effect": "Increases the PP cost of moves targetting the Pokémon by one.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 151,
+        "name": "Infiltrator",
+        "nameEs": "Allanamiento",
+        "effect": "Bypasses light screen, reflect, and safeguard.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 33,
-    "name": "Scyther",
-    "pokedexId": 123,
-    "purchaseCost": 800000000000000000,
-    "baseDps": 7000000000000,
+    "name": "Axew",
+    "pokedexId": 610,
+    "purchaseCost": 950861228634245,
+    "baseDps": 4294967296,
     "evolutions": [
-      { "level": 25, "name": "Scizor", "pokedexId": 212, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Fraxure",
+        "pokedexId": 611,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Haxorus",
+        "pokedexId": 612,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 79,
+        "name": "Rivalry",
+        "nameEs": "Rivalidad",
+        "effect": "Increases damage inflicted to 1.25× against Pokémon of the same gender, but decreases damage to 0.75× against the opposi",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 104,
+        "name": "Mold Breaker",
+        "nameEs": "Rompemoldes",
+        "effect": "Bypasses targets' abilities if they could hinder or prevent a move.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 127,
+        "name": "Unnerve",
+        "nameEs": "Nerviosismo",
+        "effect": "Prevents opposing Pokémon from eating held Berries.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 34,
-    "name": "Electabuzz",
-    "pokedexId": 125,
-    "purchaseCost": 2.5e18,
-    "baseDps": 17500000000000,
+    "name": "Litwick",
+    "pokedexId": 607,
+    "purchaseCost": 2472239194449038,
+    "baseDps": 8589934592,
     "evolutions": [
-      { "level": 25, "name": "Electivire", "pokedexId": 466, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Lampent",
+        "pokedexId": 608,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Chandelure",
+        "pokedexId": 609,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 18,
+        "name": "Flash Fire",
+        "nameEs": "Absorbe Fuego",
+        "effect": "Protects against fire moves.  Once one has been blocked, the Pokémon's own Fire moves inflict 1.5× damage until it leave",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 49,
+        "name": "Flame Body",
+        "nameEs": "Cuerpo Llama",
+        "effect": "Has a 30% chance of burning attacking Pokémon on contact.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 151,
+        "name": "Infiltrator",
+        "nameEs": "Allanamiento",
+        "effect": "Bypasses light screen, reflect, and safeguard.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 35,
-    "name": "Magmar",
-    "pokedexId": 126,
-    "purchaseCost": 8e18,
-    "baseDps": 43700000000000,
+    "name": "Deino",
+    "pokedexId": 633,
+    "purchaseCost": 6427821905567498,
+    "baseDps": 17179869184,
     "evolutions": [
-      { "level": 25, "name": "Magmortar", "pokedexId": 467, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Zweilous",
+        "pokedexId": 634,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Hydreigon",
+        "pokedexId": 635,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 26,
+        "name": "Levitate",
+        "nameEs": "Levitación",
+        "effect": "Evades ground moves.",
+        "dpsMultiplier": 1.5
+      }
     ]
   },
   {
     "id": 36,
-    "name": "Pinsir",
-    "pokedexId": 127,
-    "purchaseCost": 2.5e19,
-    "baseDps": 109000000000000,
-    "evolutions": []
+    "name": "Zorua",
+    "pokedexId": 570,
+    "purchaseCost": 16712336954475494,
+    "baseDps": 34359738368,
+    "evolutions": [
+      {
+        "level": 15,
+        "name": "Zoroark",
+        "pokedexId": 571,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 149,
+        "name": "Illusion",
+        "nameEs": "Ilusión",
+        "effect": "Takes the appearance of the last conscious party Pokémon upon being sent out until hit by a damaging move.",
+        "dpsMultiplier": 1.5
+      }
+    ]
   },
   {
     "id": 37,
-    "name": "Tauros",
-    "pokedexId": 128,
-    "purchaseCost": 8e19,
-    "baseDps": 273000000000000,
-    "evolutions": []
+    "name": "Larvesta",
+    "pokedexId": 636,
+    "purchaseCost": 43452076081636290,
+    "baseDps": 68719476736,
+    "evolutions": [
+      {
+        "level": 20,
+        "name": "Volcarona",
+        "pokedexId": 637,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 49,
+        "name": "Flame Body",
+        "nameEs": "Cuerpo Llama",
+        "effect": "Has a 30% chance of burning attacking Pokémon on contact.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 68,
+        "name": "Swarm",
+        "nameEs": "Enjambre",
+        "effect": "Strengthens bug moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 2
+      }
+    ]
   },
   {
     "id": 38,
-    "name": "Gyarados",
-    "pokedexId": 130,
-    "purchaseCost": 2.5e20,
-    "baseDps": 683000000000000,
+    "name": "Froakie",
+    "pokedexId": 656,
+    "purchaseCost": 112975397812254350,
+    "baseDps": 137438953472,
     "evolutions": [
-      { "level": 25, "name": "Mega Gyarados", "pokedexId": 130, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Frogadier",
+        "pokedexId": 657,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Greninja",
+        "pokedexId": 658,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 67,
+        "name": "Torrent",
+        "nameEs": "Torrente",
+        "effect": "Strengthens water moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 168,
+        "name": "Protean",
+        "nameEs": "Mutatipo",
+        "effect": "Changes the bearer's type to match each move it uses.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 39,
-    "name": "Lapras",
-    "pokedexId": 131,
-    "purchaseCost": 8e20,
-    "baseDps": 1.7e15,
-    "evolutions": []
+    "name": "Honedge",
+    "pokedexId": 679,
+    "purchaseCost": 293736034311861300,
+    "baseDps": 274877906944,
+    "evolutions": [
+      {
+        "level": 10,
+        "name": "Doublade",
+        "pokedexId": 680,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Aegislash",
+        "pokedexId": 681,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 176,
+        "name": "Stance Change",
+        "nameEs": "Cambio Táctico",
+        "effect": "Changes aegislash to Blade Forme before using a damaging move, or Shield Forme before using kings shield.",
+        "dpsMultiplier": 1.5
+      }
+    ]
   },
   {
     "id": 40,
-    "name": "Eevee",
-    "pokedexId": 133,
-    "purchaseCost": 2.5e21,
-    "baseDps": 4.3e15,
+    "name": "Goomy",
+    "pokedexId": 704,
+    "purchaseCost": 763713689210839600,
+    "baseDps": 549755813888,
     "evolutions": [
-      { "level": 25, "name": "Eeveelution", "pokedexId": 136, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Sliggoo",
+        "pokedexId": 705,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Goodra",
+        "pokedexId": 706,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 93,
+        "name": "Hydration",
+        "nameEs": "Hidratación",
+        "effect": "Cures any major status ailment after each turn during rain.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 157,
+        "name": "Sap Sipper",
+        "nameEs": "Herbívoro",
+        "effect": "Absorbs grass moves, raising Attack one stage.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 183,
+        "name": "Gooey",
+        "nameEs": "Baba",
+        "effect": "Lowers attacking Pokémon's Speed by one stage on contact.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 41,
-    "name": "Snorlax",
-    "pokedexId": 143,
-    "purchaseCost": 8e21,
-    "baseDps": 1.07e16,
-    "evolutions": []
+    "name": "Noibat",
+    "pokedexId": 714,
+    "purchaseCost": 1985655591948182800,
+    "baseDps": 1099511627776,
+    "evolutions": [
+      {
+        "level": 15,
+        "name": "Noivern",
+        "pokedexId": 715,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 119,
+        "name": "Frisk",
+        "nameEs": "Cacheo",
+        "effect": "Reveals an opponent's held item upon entering battle.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 140,
+        "name": "Telepathy",
+        "nameEs": "Telepatía",
+        "effect": "Protects against friendly Pokémon's damaging moves.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 151,
+        "name": "Infiltrator",
+        "nameEs": "Allanamiento",
+        "effect": "Bypasses light screen, reflect, and safeguard.",
+        "dpsMultiplier": 3
+      }
+    ]
   },
   {
     "id": 42,
-    "name": "Aerodactyl",
-    "pokedexId": 142,
-    "purchaseCost": 2.5e22,
-    "baseDps": 2.67e16,
+    "name": "Rowlet",
+    "pokedexId": 722,
+    "purchaseCost": 5162704539065275000,
+    "baseDps": 2199023255552,
     "evolutions": [
-      { "level": 25, "name": "Mega Aerodactyl", "pokedexId": 142, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Dartrix",
+        "pokedexId": 723,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Decidueye",
+        "pokedexId": 724,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 65,
+        "name": "Overgrow",
+        "nameEs": "Espesura",
+        "effect": "Strengthens grass moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 203,
+        "name": "Long Reach",
+        "nameEs": "Remoto",
+        "effect": "This Pokémon's moves do not make contact.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 43,
-    "name": "Dratini",
-    "pokedexId": 147,
-    "purchaseCost": 8e22,
-    "baseDps": 6.7e16,
+    "name": "Litten",
+    "pokedexId": 725,
+    "purchaseCost": 13423031801569714000,
+    "baseDps": 4398046511104,
     "evolutions": [
-      { "level": 10, "name": "Dragonair", "pokedexId": 148, "multiplier": 4 },
-      { "level": 25, "name": "Dragonite", "pokedexId": 149, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Torracat",
+        "pokedexId": 726,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Incineroar",
+        "pokedexId": 727,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 22,
+        "name": "Intimidate",
+        "nameEs": "Intimidación",
+        "effect": "Lowers opponents' Attack one stage upon entering battle.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 66,
+        "name": "Blaze",
+        "nameEs": "Mar Llamas",
+        "effect": "Strengthens fire moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 44,
-    "name": "Chikorita",
-    "pokedexId": 152,
-    "purchaseCost": 2.5e23,
-    "baseDps": 1.67e17,
-    "evolutions": [
-      { "level": 10, "name": "Bayleef", "pokedexId": 153, "multiplier": 4 },
-      { "level": 25, "name": "Meganium", "pokedexId": 154, "multiplier": 4 }
+    "name": "Mimikyu",
+    "pokedexId": 778,
+    "purchaseCost": 34899882684081263000,
+    "baseDps": 8796093022208,
+    "evolutions": [],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 209,
+        "name": "Disguise",
+        "nameEs": "Disfraz",
+        "effect": "Prevents the first instance of battle damage.",
+        "dpsMultiplier": 1.5
+      }
     ]
   },
   {
     "id": 45,
-    "name": "Cyndaquil",
-    "pokedexId": 155,
-    "purchaseCost": 8e23,
-    "baseDps": 4.18e17,
+    "name": "Dreepy",
+    "pokedexId": 885,
+    "purchaseCost": 90739694978611280000,
+    "baseDps": 17592186044416,
     "evolutions": [
-      { "level": 10, "name": "Quilava", "pokedexId": 156, "multiplier": 4 },
-      { "level": 25, "name": "Typhlosion", "pokedexId": 157, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Drakloak",
+        "pokedexId": 886,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Dragapult",
+        "pokedexId": 887,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 29,
+        "name": "Clear Body",
+        "nameEs": "Cuerpo Puro",
+        "effect": "Prevents stats from being lowered by other Pokémon.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 130,
+        "name": "Cursed Body",
+        "nameEs": "Cuerpo Maldito",
+        "effect": "Has a 30% chance of Disabling any move that hits the Pokémon.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 151,
+        "name": "Infiltrator",
+        "nameEs": "Allanamiento",
+        "effect": "Bypasses light screen, reflect, and safeguard.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 46,
-    "name": "Totodile",
-    "pokedexId": 158,
-    "purchaseCost": 2.5e24,
-    "baseDps": 1e18,
+    "name": "Scorbunny",
+    "pokedexId": 813,
+    "purchaseCost": 235923206944389330000,
+    "baseDps": 35184372088832,
     "evolutions": [
-      { "level": 10, "name": "Croconaw", "pokedexId": 159, "multiplier": 4 },
-      { "level": 25, "name": "Feraligatr", "pokedexId": 160, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Raboot",
+        "pokedexId": 814,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Cinderace",
+        "pokedexId": 815,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 66,
+        "name": "Blaze",
+        "nameEs": "Mar Llamas",
+        "effect": "Strengthens fire moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 236,
+        "name": "Libero",
+        "nameEs": "Líbero",
+        "effect": "Libero changes the Pokémon's type to that of its previously used attack.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 47,
-    "name": "Larvitar",
-    "pokedexId": 246,
-    "purchaseCost": 8e24,
-    "baseDps": 2.6e18,
+    "name": "Rookidee",
+    "pokedexId": 821,
+    "purchaseCost": 613400338055412300000,
+    "baseDps": 70368744177664,
     "evolutions": [
-      { "level": 10, "name": "Pupitar", "pokedexId": 247, "multiplier": 4 },
-      { "level": 25, "name": "Tyranitar", "pokedexId": 248, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Corvisquire",
+        "pokedexId": 822,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Corviknight",
+        "pokedexId": 823,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 46,
+        "name": "Pressure",
+        "nameEs": "Presión",
+        "effect": "Increases the PP cost of moves targetting the Pokémon by one.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 127,
+        "name": "Unnerve",
+        "nameEs": "Nerviosismo",
+        "effect": "Prevents opposing Pokémon from eating held Berries.",
+        "dpsMultiplier": 2
+      },
+      {
+        "level": 200,
+        "abilityId": 240,
+        "name": "Mirror Armor",
+        "nameEs": "Coraza Reflejo",
+        "effect": "Reflects any stat-lowering effects.",
+        "dpsMultiplier": 3
+      }
     ]
   },
   {
     "id": 48,
-    "name": "Ralts",
-    "pokedexId": 280,
-    "purchaseCost": 2.5e25,
-    "baseDps": 6.5e18,
+    "name": "Fuecoco",
+    "pokedexId": 909,
+    "purchaseCost": 1.594840878944072e+21,
+    "baseDps": 140737488355328,
     "evolutions": [
-      { "level": 10, "name": "Kirlia", "pokedexId": 281, "multiplier": 4 },
-      { "level": 25, "name": "Gardevoir", "pokedexId": 282, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Crocalor",
+        "pokedexId": 910,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Skeledirge",
+        "pokedexId": 911,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 66,
+        "name": "Blaze",
+        "nameEs": "Mar Llamas",
+        "effect": "Strengthens fire moves to inflict 1.5× damage at 1/3 max HP or less.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 109,
+        "name": "Unaware",
+        "nameEs": "Ignorante",
+        "effect": "Ignores other Pokémon's stat modifiers for damage and accuracy calculation.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 49,
-    "name": "Beldum",
-    "pokedexId": 374,
-    "purchaseCost": 8e25,
-    "baseDps": 1.63e19,
+    "name": "Frigibax",
+    "pokedexId": 996,
+    "purchaseCost": 4.146586285254588e+21,
+    "baseDps": 281474976710656,
     "evolutions": [
-      { "level": 10, "name": "Metang", "pokedexId": 375, "multiplier": 4 },
-      { "level": 25, "name": "Metagross", "pokedexId": 376, "multiplier": 4 }
+      {
+        "level": 10,
+        "name": "Arctibax",
+        "pokedexId": 997,
+        "multiplier": 4
+      },
+      {
+        "level": 25,
+        "name": "Baxcalibur",
+        "pokedexId": 998,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 115,
+        "name": "Ice Body",
+        "nameEs": "Gélido",
+        "effect": "Heals for 1/16 max HP after each turn during hail.  Protects against hail damage.",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 270,
+        "name": "Thermal Exchange",
+        "nameEs": "Termoscambio",
+        "effect": "Raises Attack when hit by a Fire-type move. Cannot be burned.",
+        "dpsMultiplier": 2
+      }
     ]
   },
   {
     "id": 50,
-    "name": "Deino",
-    "pokedexId": 633,
-    "purchaseCost": 2.5e26,
-    "baseDps": 4.07e19,
+    "name": "Charcadet",
+    "pokedexId": 935,
+    "purchaseCost": 1.0781124341661929e+22,
+    "baseDps": 562949953421312,
     "evolutions": [
-      { "level": 10, "name": "Zweilous", "pokedexId": 634, "multiplier": 4 },
-      { "level": 25, "name": "Hydreigon", "pokedexId": 635, "multiplier": 4 }
+      {
+        "level": 15,
+        "name": "Ceruledge",
+        "pokedexId": 937,
+        "multiplier": 4
+      }
+    ],
+    "abilities": [
+      {
+        "level": 50,
+        "abilityId": 18,
+        "name": "Flash Fire",
+        "nameEs": "Absorbe Fuego",
+        "effect": "Protects against fire moves.  Once one has been blocked, the Pokémon's own Fire moves inflict 1.5× damage until it leave",
+        "dpsMultiplier": 1.5
+      },
+      {
+        "level": 100,
+        "abilityId": 133,
+        "name": "Weak Armor",
+        "nameEs": "Armadura Frágil",
+        "effect": "Raises Speed and lowers Defense by one stage each upon being hit by a physical move.",
+        "dpsMultiplier": 2
+      }
     ]
   }
 ]

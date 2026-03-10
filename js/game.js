@@ -8,6 +8,9 @@ import { combat } from './combat.js';
 import { abilities } from './abilities.js';
 import * as expeditions from './expeditions.js';
 
+const APP_BUILD_TAG = 'ui-hotfix-v21';
+const SW_CACHE_VERSION = 'pokeclicker-v21';
+
 // Register Service Worker (skip in extension contexts)
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   navigator.serviceWorker.register('sw.js').catch(() => {});
@@ -18,6 +21,8 @@ const config = {
   type: Phaser.AUTO,
   width: 460,
   height: 844,
+  // Fixed resolution prevents UI scale shifts when changing device emulation/screen settings.
+  resolution: 1,
   parent: 'game-container',
   backgroundColor: '#0B1120',
   scale: {
@@ -54,6 +59,8 @@ if (typeof globalThis !== 'undefined') {
     combat,
     abilities,
     expeditions,
+    buildTag: APP_BUILD_TAG,
+    swCacheVersion: SW_CACHE_VERSION,
     getBattlePerformance() {
       try {
         const scene = game.scene.getScene('BattleScene');

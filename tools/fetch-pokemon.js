@@ -1,5 +1,5 @@
 /**
- * Fetches Gen 1 Pokemon data from PokéAPI and saves to data/pokemon.json
+ * Fetches full National Dex Pokemon data from PokéAPI and saves to data/pokemon.json
  * Run with: node tools/fetch-pokemon.js
  */
 
@@ -7,7 +7,6 @@ const fs = require('fs');
 const path = require('path');
 
 const API = 'https://pokeapi.co/api/v2';
-const TOTAL = 151;
 const BATCH_SIZE = 20;
 
 async function fetchJSON(url) {
@@ -70,13 +69,18 @@ async function fetchPokemon(id) {
   };
 }
 
-async function fetchEvolutionChains() {
-  // Fetch evolution chains for Gen 1 Pokemon
+async function fetchTotalPokemonSpecies() {
+  const summary = await fetchJSON(`${API}/pokemon-species?limit=1`);
+  return summary.count;
+}
+
+async function fetchEvolutionChains(total) {
+  // Fetch evolution chains for the full National Dex range.
   const chains = {};
   const chainIds = new Set();
 
   // First get all species to find chain IDs
-  for (let id = 1; id <= TOTAL; id++) {
+  for (let id = 1; id <= total; id++) {
     try {
       const species = await fetchJSON(`${API}/pokemon-species/${id}`);
       const chainUrl = species.evolution_chain.url;
@@ -91,7 +95,7 @@ async function fetchEvolutionChains() {
   for (const chainId of chainIds) {
     try {
       const chain = await fetchJSON(`${API}/evolution-chain/${chainId}`);
-      parseChain(chain.chain, chains);
+      parseChain(chain.chain, chains, null, total);
     } catch (e) {
       console.error(`Error fetching chain ${chainId}:`, e.message);
     }
@@ -100,11 +104,11 @@ async function fetchEvolutionChains() {
   return chains;
 }
 
-function parseChain(node, chains, fromId = null) {
+function parseChain(node, chains, fromId = null, total = Number.MAX_SAFE_INTEGER) {
   const speciesUrl = node.species.url;
   const id = parseInt(speciesUrl.split('/').filter(Boolean).pop());
 
-  if (id > TOTAL) return; // Skip non-Gen 1
+  if (id > total) return;
 
   const evolveDetails = node.evolution_details[0] || null;
 
@@ -121,19 +125,21 @@ function parseChain(node, chains, fromId = null) {
   }
 
   for (const child of node.evolves_to) {
-    parseChain(child, chains, id);
+    parseChain(child, chains, id, total);
   }
 }
 
 async function main() {
   console.log('Fetching Pokemon data from PokéAPI...');
-  console.log('This will take a minute or two.\n');
+  const total = await fetchTotalPokemonSpecies();
+  console.log(`Detected ${total} species in PokéAPI.`);
+  console.log('This may take several minutes.\n');
 
   const allPokemon = [];
 
   // Fetch Pokemon data in batches
-  for (let start = 1; start <= TOTAL; start += BATCH_SIZE) {
-    const end = Math.min(start + BATCH_SIZE - 1, TOTAL);
+  for (let start = 1; start <= total; start += BATCH_SIZE) {
+    const end = Math.min(start + BATCH_SIZE - 1, total);
     const batch = [];
 
     for (let id = start; id <= end; id++) {
@@ -147,7 +153,7 @@ async function main() {
 
   // Fetch evolution chains
   console.log('\nFetching evolution chains...');
-  const chains = await fetchEvolutionChains();
+  const chains = await fetchEvolutionChains(total);
 
   // Merge evolution data
   for (const pokemon of allPokemon) {

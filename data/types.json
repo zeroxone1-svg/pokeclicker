@@ -1,0 +1,684 @@
+[
+  {
+    "id": 1,
+    "name": "normal",
+    "nameEn": "Normal",
+    "nameEs": "Normal",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [],
+      "doubleDamageFrom": [
+        "fighting"
+      ],
+      "halfDamageTo": [
+        "rock",
+        "steel"
+      ],
+      "halfDamageFrom": [],
+      "noDamageTo": [
+        "ghost"
+      ],
+      "noDamageFrom": [
+        "ghost"
+      ]
+    },
+    "pokemonCount": 160,
+    "moveCount": 200
+  },
+  {
+    "id": 2,
+    "name": "fighting",
+    "nameEn": "Fighting",
+    "nameEs": "Lucha",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "normal",
+        "rock",
+        "steel",
+        "ice",
+        "dark"
+      ],
+      "doubleDamageFrom": [
+        "flying",
+        "psychic",
+        "fairy"
+      ],
+      "halfDamageTo": [
+        "flying",
+        "poison",
+        "bug",
+        "psychic",
+        "fairy"
+      ],
+      "halfDamageFrom": [
+        "rock",
+        "bug",
+        "dark"
+      ],
+      "noDamageTo": [
+        "ghost"
+      ],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 109,
+    "moveCount": 57
+  },
+  {
+    "id": 3,
+    "name": "flying",
+    "nameEn": "Flying",
+    "nameEs": "Volador",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "fighting",
+        "bug",
+        "grass"
+      ],
+      "doubleDamageFrom": [
+        "rock",
+        "electric",
+        "ice"
+      ],
+      "halfDamageTo": [
+        "rock",
+        "steel",
+        "electric"
+      ],
+      "halfDamageFrom": [
+        "fighting",
+        "bug",
+        "grass"
+      ],
+      "noDamageTo": [],
+      "noDamageFrom": [
+        "ground"
+      ]
+    },
+    "pokemonCount": 154,
+    "moveCount": 31
+  },
+  {
+    "id": 4,
+    "name": "poison",
+    "nameEn": "Poison",
+    "nameEs": "Veneno",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "grass",
+        "fairy"
+      ],
+      "doubleDamageFrom": [
+        "ground",
+        "psychic"
+      ],
+      "halfDamageTo": [
+        "poison",
+        "ground",
+        "rock",
+        "ghost"
+      ],
+      "halfDamageFrom": [
+        "fighting",
+        "poison",
+        "bug",
+        "grass",
+        "fairy"
+      ],
+      "noDamageTo": [
+        "steel"
+      ],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 106,
+    "moveCount": 36
+  },
+  {
+    "id": 5,
+    "name": "ground",
+    "nameEn": "Ground",
+    "nameEs": "Tierra",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "poison",
+        "rock",
+        "steel",
+        "fire",
+        "electric"
+      ],
+      "doubleDamageFrom": [
+        "water",
+        "grass",
+        "ice"
+      ],
+      "halfDamageTo": [
+        "bug",
+        "grass"
+      ],
+      "halfDamageFrom": [
+        "poison",
+        "rock"
+      ],
+      "noDamageTo": [
+        "flying"
+      ],
+      "noDamageFrom": [
+        "electric"
+      ]
+    },
+    "pokemonCount": 96,
+    "moveCount": 31
+  },
+  {
+    "id": 6,
+    "name": "rock",
+    "nameEn": "Rock",
+    "nameEs": "Roca",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "flying",
+        "bug",
+        "fire",
+        "ice"
+      ],
+      "doubleDamageFrom": [
+        "fighting",
+        "ground",
+        "steel",
+        "water",
+        "grass"
+      ],
+      "halfDamageTo": [
+        "fighting",
+        "ground",
+        "steel"
+      ],
+      "halfDamageFrom": [
+        "normal",
+        "flying",
+        "poison",
+        "fire"
+      ],
+      "noDamageTo": [],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 104,
+    "moveCount": 26
+  },
+  {
+    "id": 7,
+    "name": "bug",
+    "nameEn": "Bug",
+    "nameEs": "Bicho",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "grass",
+        "psychic",
+        "dark"
+      ],
+      "doubleDamageFrom": [
+        "flying",
+        "rock",
+        "fire"
+      ],
+      "halfDamageTo": [
+        "fighting",
+        "flying",
+        "poison",
+        "ghost",
+        "steel",
+        "fire",
+        "fairy"
+      ],
+      "halfDamageFrom": [
+        "fighting",
+        "ground",
+        "grass"
+      ],
+      "noDamageTo": [],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 106,
+    "moveCount": 34
+  },
+  {
+    "id": 8,
+    "name": "ghost",
+    "nameEn": "Ghost",
+    "nameEs": "Fantasma",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "ghost",
+        "psychic"
+      ],
+      "doubleDamageFrom": [
+        "ghost",
+        "dark"
+      ],
+      "halfDamageTo": [
+        "dark"
+      ],
+      "halfDamageFrom": [
+        "poison",
+        "bug"
+      ],
+      "noDamageTo": [
+        "normal"
+      ],
+      "noDamageFrom": [
+        "normal",
+        "fighting"
+      ]
+    },
+    "pokemonCount": 96,
+    "moveCount": 34
+  },
+  {
+    "id": 9,
+    "name": "steel",
+    "nameEn": "Steel",
+    "nameEs": "Acero",
+    "generation": "generation-ii",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "rock",
+        "ice",
+        "fairy"
+      ],
+      "doubleDamageFrom": [
+        "fighting",
+        "ground",
+        "fire"
+      ],
+      "halfDamageTo": [
+        "steel",
+        "fire",
+        "water",
+        "electric"
+      ],
+      "halfDamageFrom": [
+        "normal",
+        "flying",
+        "rock",
+        "bug",
+        "steel",
+        "grass",
+        "psychic",
+        "ice",
+        "dragon",
+        "fairy"
+      ],
+      "noDamageTo": [],
+      "noDamageFrom": [
+        "poison"
+      ]
+    },
+    "pokemonCount": 99,
+    "moveCount": 38
+  },
+  {
+    "id": 10,
+    "name": "fire",
+    "nameEn": "Fire",
+    "nameEs": "Fuego",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "bug",
+        "steel",
+        "grass",
+        "ice"
+      ],
+      "doubleDamageFrom": [
+        "ground",
+        "rock",
+        "water"
+      ],
+      "halfDamageTo": [
+        "rock",
+        "fire",
+        "water",
+        "dragon"
+      ],
+      "halfDamageFrom": [
+        "bug",
+        "steel",
+        "fire",
+        "grass",
+        "ice",
+        "fairy"
+      ],
+      "noDamageTo": [],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 109,
+    "moveCount": 47
+  },
+  {
+    "id": 11,
+    "name": "water",
+    "nameEn": "Water",
+    "nameEs": "Agua",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "ground",
+        "rock",
+        "fire"
+      ],
+      "doubleDamageFrom": [
+        "grass",
+        "electric"
+      ],
+      "halfDamageTo": [
+        "water",
+        "grass",
+        "dragon"
+      ],
+      "halfDamageFrom": [
+        "steel",
+        "fire",
+        "water",
+        "ice"
+      ],
+      "noDamageTo": [],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 192,
+    "moveCount": 49
+  },
+  {
+    "id": 12,
+    "name": "grass",
+    "nameEn": "Grass",
+    "nameEs": "Planta",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "ground",
+        "rock",
+        "water"
+      ],
+      "doubleDamageFrom": [
+        "flying",
+        "poison",
+        "bug",
+        "fire",
+        "ice"
+      ],
+      "halfDamageTo": [
+        "flying",
+        "poison",
+        "bug",
+        "steel",
+        "fire",
+        "grass",
+        "dragon"
+      ],
+      "halfDamageFrom": [
+        "ground",
+        "water",
+        "grass",
+        "electric"
+      ],
+      "noDamageTo": [],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 156,
+    "moveCount": 59
+  },
+  {
+    "id": 13,
+    "name": "electric",
+    "nameEn": "Electric",
+    "nameEs": "Eléctrico",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "flying",
+        "water"
+      ],
+      "doubleDamageFrom": [
+        "ground"
+      ],
+      "halfDamageTo": [
+        "grass",
+        "electric",
+        "dragon"
+      ],
+      "halfDamageFrom": [
+        "flying",
+        "steel",
+        "electric"
+      ],
+      "noDamageTo": [
+        "ground"
+      ],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 114,
+    "moveCount": 49
+  },
+  {
+    "id": 14,
+    "name": "psychic",
+    "nameEn": "Psychic",
+    "nameEs": "Psíquico",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "fighting",
+        "poison"
+      ],
+      "doubleDamageFrom": [
+        "bug",
+        "ghost",
+        "dark"
+      ],
+      "halfDamageTo": [
+        "steel",
+        "psychic"
+      ],
+      "halfDamageFrom": [
+        "fighting",
+        "psychic"
+      ],
+      "noDamageTo": [
+        "dark"
+      ],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 141,
+    "moveCount": 79
+  },
+  {
+    "id": 15,
+    "name": "ice",
+    "nameEn": "Ice",
+    "nameEs": "Hielo",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "flying",
+        "ground",
+        "grass",
+        "dragon"
+      ],
+      "doubleDamageFrom": [
+        "fighting",
+        "rock",
+        "steel",
+        "fire"
+      ],
+      "halfDamageTo": [
+        "steel",
+        "fire",
+        "water",
+        "ice"
+      ],
+      "halfDamageFrom": [
+        "ice"
+      ],
+      "noDamageTo": [],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 69,
+    "moveCount": 33
+  },
+  {
+    "id": 16,
+    "name": "dragon",
+    "nameEn": "Dragon",
+    "nameEs": "Dragón",
+    "generation": "generation-i",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "dragon"
+      ],
+      "doubleDamageFrom": [
+        "ice",
+        "dragon",
+        "fairy"
+      ],
+      "halfDamageTo": [
+        "steel"
+      ],
+      "halfDamageFrom": [
+        "fire",
+        "water",
+        "grass",
+        "electric"
+      ],
+      "noDamageTo": [
+        "fairy"
+      ],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 117,
+    "moveCount": 31
+  },
+  {
+    "id": 17,
+    "name": "dark",
+    "nameEn": "Dark",
+    "nameEs": "Siniestro",
+    "generation": "generation-ii",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "ghost",
+        "psychic"
+      ],
+      "doubleDamageFrom": [
+        "fighting",
+        "bug",
+        "fairy"
+      ],
+      "halfDamageTo": [
+        "fighting",
+        "dark",
+        "fairy"
+      ],
+      "halfDamageFrom": [
+        "ghost",
+        "dark"
+      ],
+      "noDamageTo": [],
+      "noDamageFrom": [
+        "psychic"
+      ]
+    },
+    "pokemonCount": 99,
+    "moveCount": 52
+  },
+  {
+    "id": 18,
+    "name": "fairy",
+    "nameEn": "Fairy",
+    "nameEs": "Hada",
+    "generation": "generation-vi",
+    "damageRelations": {
+      "doubleDamageTo": [
+        "fighting",
+        "dragon",
+        "dark"
+      ],
+      "doubleDamageFrom": [
+        "poison",
+        "steel"
+      ],
+      "halfDamageTo": [
+        "poison",
+        "steel",
+        "fire"
+      ],
+      "halfDamageFrom": [
+        "fighting",
+        "bug",
+        "dark"
+      ],
+      "noDamageTo": [],
+      "noDamageFrom": [
+        "dragon"
+      ]
+    },
+    "pokemonCount": 88,
+    "moveCount": 33
+  },
+  {
+    "id": 19,
+    "name": "stellar",
+    "nameEn": "Stellar",
+    "nameEs": "Astral",
+    "generation": "generation-ix",
+    "damageRelations": {
+      "doubleDamageTo": [],
+      "doubleDamageFrom": [],
+      "halfDamageTo": [],
+      "halfDamageFrom": [],
+      "noDamageTo": [],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 0,
+    "moveCount": 0
+  },
+  {
+    "id": 10001,
+    "name": "unknown",
+    "nameEn": "???",
+    "nameEs": "???",
+    "generation": "generation-ii",
+    "damageRelations": {
+      "doubleDamageTo": [],
+      "doubleDamageFrom": [],
+      "halfDamageTo": [],
+      "halfDamageFrom": [],
+      "noDamageTo": [],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 0,
+    "moveCount": 0
+  },
+  {
+    "id": 10002,
+    "name": "shadow",
+    "nameEn": "Shadow",
+    "nameEs": "shadow",
+    "generation": "generation-iii",
+    "damageRelations": {
+      "doubleDamageTo": [],
+      "doubleDamageFrom": [],
+      "halfDamageTo": [],
+      "halfDamageFrom": [],
+      "noDamageTo": [],
+      "noDamageFrom": []
+    },
+    "pokemonCount": 0,
+    "moveCount": 18
+  }
+]

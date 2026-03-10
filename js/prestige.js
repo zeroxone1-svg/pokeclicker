@@ -1,7 +1,7 @@
 // prestige.js — Prestige, Lab Upgrades, and Legendary system
 import { player } from './player.js';
 import { abilities } from './abilities.js';
-import { getZoneGoldReward } from './routes.js';
+import { getZoneEnemyHP, getZoneGoldReward } from './routes.js';
 
 export const POKEDEX_MILESTONES = [10, 20, 30, 40, 50, 75, 100, 120, 151];
 
@@ -39,6 +39,110 @@ export const LEGENDARIES = [
   { id: 'mewtwo', name: 'Mewtwo', pokedexId: 150, buff: 'x3 DPS total', condition: 'Derrota al Campeón (zona 50)' },
   { id: 'mew', name: 'Mew', pokedexId: 151, buff: '-50% costo de nivel', condition: 'Compra los 50 Pokémon' }
 ];
+
+export const LEGENDARY_RAIDS = [
+  {
+    id: 'kanto_birds',
+    name: 'Guarida de las Aves',
+    unlockZone: 50,
+    hpMultiplier: 50,
+    timerSec: 60,
+    reward: 'Bendición elemental (+50% daño por tipo)',
+  },
+  {
+    id: 'lugia_tower',
+    name: 'Torre del Mar (Lugia)',
+    unlockZone: 60,
+    hpMultiplier: 100,
+    timerSec: 90,
+    reward: 'Bendición oceánica (+35% DPS global)',
+  },
+  {
+    id: 'hooh_tower',
+    name: 'Torre Hojalata (Ho-Oh)',
+    unlockZone: 65,
+    hpMultiplier: 100,
+    timerSec: 90,
+    reward: 'Bendición solar (+35% oro global)',
+  },
+  {
+    id: 'mewtwo_cerulean',
+    name: 'Cueva Cerulean (Mewtwo)',
+    unlockZone: 70,
+    hpMultiplier: 200,
+    timerSec: 120,
+    reward: 'Bendición psíquica (+50% tap damage)',
+  },
+  {
+    id: 'legendary_beasts',
+    name: 'Perros Legendarios',
+    unlockZone: 75,
+    hpMultiplier: 75,
+    timerSec: 60,
+    reward: 'Sinergia tribal (+20% daño por tipo)',
+  },
+  {
+    id: 'weather_trio',
+    name: 'Trío del Clima',
+    unlockZone: 80,
+    hpMultiplier: 150,
+    timerSec: 90,
+    reward: 'Dominio del clima (+25% bonus de clima)',
+  },
+  {
+    id: 'creation_trio',
+    name: 'Trío de Creación',
+    unlockZone: 85,
+    hpMultiplier: 200,
+    timerSec: 120,
+    reward: 'Conocimiento antiguo (+25% Research Points)',
+  },
+  {
+    id: 'legendary_dragons',
+    name: 'Dragones Legendarios',
+    unlockZone: 90,
+    hpMultiplier: 250,
+    timerSec: 120,
+    reward: 'Juramento dracónico (+40% daño de dragón)',
+  },
+  {
+    id: 'arceus',
+    name: 'Juicio de Arceus',
+    unlockZone: 94,
+    hpMultiplier: 500,
+    timerSec: 180,
+    reward: 'Bendición total (+20% a todo)',
+  },
+  {
+    id: 'mew_mirage',
+    name: 'Isla Espejismo (Mew)',
+    unlockZone: 70,
+    hpMultiplier: 220,
+    timerSec: 120,
+    weekendOnly: true,
+    reward: 'Gracia mítica (+15% tap damage)',
+  },
+  {
+    id: 'celebi_forest',
+    name: 'Bosque Atemporal (Celebi)',
+    unlockZone: 80,
+    hpMultiplier: 260,
+    timerSec: 120,
+    weekendOnly: true,
+    reward: 'Flujo temporal (+15% oro global)',
+  },
+  {
+    id: 'jirachi_comet',
+    name: 'Cometa de los Deseos (Jirachi)',
+    unlockZone: 90,
+    hpMultiplier: 320,
+    timerSec: 150,
+    weekendOnly: true,
+    reward: 'Deseo estelar (+10% DPS global y +10% RP)',
+  },
+];
+
+const RAID_DAILY_COOLDOWN_MS = 24 * 60 * 60 * 1000;
 
 const LEGENDARY_RULES = {
   articuno: {
@@ -584,6 +688,187 @@ function randomFrom(list) {
   return list[Math.floor(Math.random() * list.length)] || null;
 }
 
+function ensureLegendaryRaidState() {
+  if (!player.legendaryRaids || typeof player.legendaryRaids !== 'object') {
+    player.legendaryRaids = {};
+  }
+
+  const blessings = player.getLegendaryRaidBlessings();
+  if (!Number.isFinite(blessings.globalDpsMult)) {
+    player.legendaryRaidBlessings = { ...player.getLegendaryRaidBlessings() };
+  }
+}
+
+function getRaidEntry(raidId) {
+  ensureLegendaryRaidState();
+  if (!player.legendaryRaids[raidId] || typeof player.legendaryRaids[raidId] !== 'object') {
+    player.legendaryRaids[raidId] = {
+      completed: false,
+      attempts: 0,
+      completions: 0,
+      lastAttemptAt: 0,
+      lastClearAt: 0,
+    };
+  }
+  return player.legendaryRaids[raidId];
+}
+
+function getRaidCooldownRemainingMs(lastAttemptAt, now = Date.now()) {
+  const attemptAt = Number(lastAttemptAt || 0);
+  if (attemptAt <= 0) {
+    return 0;
+  }
+  return Math.max(0, (attemptAt + RAID_DAILY_COOLDOWN_MS) - now);
+}
+
+function isWeekendForRaid(raid, now = Date.now()) {
+  if (!raid?.weekendOnly) {
+    return true;
+  }
+  const day = new Date(now).getDay();
+  return day === 0 || day === 6;
+}
+
+function getMsUntilWeekend(now = Date.now()) {
+  const current = new Date(now);
+  const day = current.getDay(); // 0 Sunday ... 6 Saturday
+  if (day === 0 || day === 6) {
+    return 0;
+  }
+
+  const daysUntilSaturday = 6 - day;
+  const nextSaturday = new Date(current);
+  nextSaturday.setDate(current.getDate() + daysUntilSaturday);
+  nextSaturday.setHours(0, 0, 0, 0);
+  return Math.max(0, nextSaturday.getTime() - now);
+}
+
+function applyRaidBlessing(raidId) {
+  const blessings = player.getLegendaryRaidBlessings();
+  switch (raidId) {
+    case 'kanto_birds':
+      blessings.typeBonusMult = Math.max(blessings.typeBonusMult, 1.5);
+      break;
+    case 'lugia_tower':
+      blessings.globalDpsMult = Math.max(blessings.globalDpsMult, 1.35);
+      break;
+    case 'hooh_tower':
+      blessings.goldMult = Math.max(blessings.goldMult, 1.35);
+      break;
+    case 'mewtwo_cerulean':
+      blessings.clickMult = Math.max(blessings.clickMult, 1.5);
+      break;
+    case 'legendary_beasts':
+      blessings.typeBonusMult = Math.max(blessings.typeBonusMult, 1.7);
+      break;
+    case 'weather_trio':
+      blessings.weatherMult = Math.max(blessings.weatherMult, 1.25);
+      break;
+    case 'creation_trio':
+      blessings.prestigeMult = Math.max(blessings.prestigeMult, 1.25);
+      break;
+    case 'legendary_dragons':
+      blessings.dragonMult = Math.max(blessings.dragonMult, 1.4);
+      break;
+    case 'arceus':
+      blessings.allMult = Math.max(blessings.allMult, 1.2);
+      break;
+    case 'mew_mirage':
+      blessings.clickMult = Math.max(blessings.clickMult, 1.65);
+      break;
+    case 'celebi_forest':
+      blessings.goldMult = Math.max(blessings.goldMult, 1.5);
+      break;
+    case 'jirachi_comet':
+      blessings.globalDpsMult = Math.max(blessings.globalDpsMult, 1.45);
+      blessings.prestigeMult = Math.max(blessings.prestigeMult, 1.35);
+      break;
+    default:
+      break;
+  }
+}
+
+export function getLegendaryRaidsState(now = Date.now()) {
+  ensureLegendaryRaidState();
+  return LEGENDARY_RAIDS.map((raid) => {
+    const entry = getRaidEntry(raid.id);
+    const unlocked = (player.maxZoneReached || 1) >= raid.unlockZone;
+    const weekendWindowOpen = isWeekendForRaid(raid, now);
+    const cooldownRemainingMs = getRaidCooldownRemainingMs(entry.lastAttemptAt, now);
+    const weekendRemainingMs = weekendWindowOpen ? 0 : getMsUntilWeekend(now);
+    const effectiveCooldownRemainingMs = Math.max(cooldownRemainingMs, weekendRemainingMs);
+    const canAttempt = unlocked && weekendWindowOpen && cooldownRemainingMs <= 0;
+    return {
+      ...raid,
+      unlocked,
+      canAttempt,
+      weekendWindowOpen,
+      cooldownRemainingMs: effectiveCooldownRemainingMs,
+      baseCooldownRemainingMs: cooldownRemainingMs,
+      completed: !!entry.completed,
+      attempts: Number(entry.attempts || 0),
+      completions: Number(entry.completions || 0),
+      lastAttemptAt: Number(entry.lastAttemptAt || 0),
+      lastClearAt: Number(entry.lastClearAt || 0),
+    };
+  });
+}
+
+export function attemptLegendaryRaid(raidId, now = Date.now()) {
+  const raid = LEGENDARY_RAIDS.find((entry) => entry.id === raidId);
+  if (!raid) {
+    return { ok: false, reason: 'raid_not_found' };
+  }
+
+  const entry = getRaidEntry(raid.id);
+  const unlocked = (player.maxZoneReached || 1) >= raid.unlockZone;
+  if (!unlocked) {
+    return { ok: false, reason: 'locked', unlockZone: raid.unlockZone };
+  }
+
+  if (!isWeekendForRaid(raid, now)) {
+    return { ok: false, reason: 'weekend_only' };
+  }
+
+  const cooldownRemainingMs = getRaidCooldownRemainingMs(entry.lastAttemptAt, now);
+  if (cooldownRemainingMs > 0) {
+    return { ok: false, reason: 'daily_lock', cooldownRemainingMs };
+  }
+
+  const raidZone = Math.max(raid.unlockZone, Math.floor(player.maxZoneReached || 1));
+  const enemyHp = Math.floor(getZoneEnemyHP(raidZone) * raid.hpMultiplier);
+  const effectiveDps = Math.max(1, Math.floor(player.totalDps));
+  const ttkSec = enemyHp / effectiveDps;
+  const success = ttkSec <= raid.timerSec;
+
+  entry.lastAttemptAt = now;
+  entry.attempts = Math.max(0, Number(entry.attempts || 0)) + 1;
+
+  let newClear = false;
+  if (success) {
+    entry.lastClearAt = now;
+    entry.completions = Math.max(0, Number(entry.completions || 0)) + 1;
+    if (!entry.completed) {
+      entry.completed = true;
+      newClear = true;
+      applyRaidBlessing(raid.id);
+    }
+  }
+
+  return {
+    ok: true,
+    raidId: raid.id,
+    success,
+    newClear,
+    enemyHp,
+    effectiveDps,
+    ttkSec,
+    timerSec: raid.timerSec,
+    nextAttemptMs: RAID_DAILY_COOLDOWN_MS,
+    reward: raid.reward,
+  };
+}
+
 export function rollHeldItemGrade() {
   const roll = Math.random();
   if (roll < 0.70) return 1;
@@ -783,7 +1068,8 @@ export function buyLabUpgrade(upgradeId) {
 
 // Calculate research points player would earn for a prestige at current maxZone
 export function calculateResearchPoints() {
-  return Math.floor(player.maxZoneReached * 0.5);
+  const base = Math.floor(Math.pow(Math.max(1, player.maxZoneReached || 1), 1.5));
+  return Math.floor(base * player.getPrestigePointMultiplier());
 }
 
 // Check and unlock legendaries based on current player state

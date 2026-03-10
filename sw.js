@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pokeclicker-v16';
+const CACHE_NAME = 'pokeclicker-v21';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -30,7 +30,18 @@ const PRECACHE_URLS = [
   '/assets/ui/eff-effective.svg',
   '/assets/ui/eff-immune.svg',
   '/assets/ui/eff-resist.svg',
-  '/assets/ui/eff-super.svg'
+  '/assets/ui/eff-super.svg',
+  '/assets/ui/coin-gold.svg',
+  '/assets/ui/pokebola.png',
+  '/assets/ui/pokebag.png',
+  '/assets/ui/pokestop.png',
+  '/assets/ui/instinto.png',
+  '/assets/ui/nav-team.png',
+  '/assets/ui/nav-map.png',
+  '/assets/ui/nav-shop.png',
+  '/assets/ui/nav-gym.png',
+  '/assets/ui/nav-pokedex.png',
+  '/assets/ui/nav-settings.svg'
 ];
 
 self.addEventListener('install', event => {

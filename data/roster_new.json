@@ -1,0 +1,546 @@
+[
+  {
+    "id": 1,
+    "name": "Caterpie",
+    "pokedexId": 10,
+    "purchaseCost": 50,
+    "baseDps": 1,
+    "evolutions": [
+      { "level": 10, "name": "Metapod", "pokedexId": 11, "multiplier": 4 },
+      { "level": 25, "name": "Butterfree", "pokedexId": 12, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Pidgey",
+    "pokedexId": 16,
+    "purchaseCost": 160,
+    "baseDps": 3,
+    "evolutions": [
+      { "level": 10, "name": "Pidgeotto", "pokedexId": 17, "multiplier": 4 },
+      { "level": 25, "name": "Pidgeot", "pokedexId": 18, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Pikachu",
+    "pokedexId": 25,
+    "purchaseCost": 520,
+    "baseDps": 8,
+    "evolutions": [
+      { "level": 25, "name": "Raichu", "pokedexId": 26, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Nidoran♂",
+    "pokedexId": 32,
+    "purchaseCost": 1700,
+    "baseDps": 20,
+    "evolutions": [
+      { "level": 10, "name": "Nidorino", "pokedexId": 33, "multiplier": 4 },
+      { "level": 25, "name": "Nidoking", "pokedexId": 34, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Machop",
+    "pokedexId": 66,
+    "purchaseCost": 5400,
+    "baseDps": 50,
+    "evolutions": [
+      { "level": 10, "name": "Machoke", "pokedexId": 67, "multiplier": 4 },
+      { "level": 25, "name": "Machamp", "pokedexId": 68, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Gastly",
+    "pokedexId": 92,
+    "purchaseCost": 17500,
+    "baseDps": 125,
+    "evolutions": [
+      { "level": 10, "name": "Haunter", "pokedexId": 93, "multiplier": 4 },
+      { "level": 25, "name": "Gengar", "pokedexId": 94, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Magikarp",
+    "pokedexId": 129,
+    "purchaseCost": 56000,
+    "baseDps": 310,
+    "evolutions": [
+      { "level": 25, "name": "Gyarados", "pokedexId": 130, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Dratini",
+    "pokedexId": 147,
+    "purchaseCost": 180000,
+    "baseDps": 780,
+    "evolutions": [
+      { "level": 10, "name": "Dragonair", "pokedexId": 148, "multiplier": 4 },
+      { "level": 25, "name": "Dragonite", "pokedexId": 149, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Chikorita",
+    "pokedexId": 152,
+    "purchaseCost": 580000,
+    "baseDps": 1950,
+    "evolutions": [
+      { "level": 10, "name": "Bayleef", "pokedexId": 153, "multiplier": 4 },
+      { "level": 25, "name": "Meganium", "pokedexId": 154, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Cyndaquil",
+    "pokedexId": 155,
+    "purchaseCost": 1850000,
+    "baseDps": 4900,
+    "evolutions": [
+      { "level": 10, "name": "Quilava", "pokedexId": 156, "multiplier": 4 },
+      { "level": 25, "name": "Typhlosion", "pokedexId": 157, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Totodile",
+    "pokedexId": 158,
+    "purchaseCost": 6000000,
+    "baseDps": 12200,
+    "evolutions": [
+      { "level": 10, "name": "Croconaw", "pokedexId": 159, "multiplier": 4 },
+      { "level": 25, "name": "Feraligatr", "pokedexId": 160, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Mareep",
+    "pokedexId": 179,
+    "purchaseCost": 19000000,
+    "baseDps": 30500,
+    "evolutions": [
+      { "level": 10, "name": "Flaaffy", "pokedexId": 180, "multiplier": 4 },
+      { "level": 25, "name": "Ampharos", "pokedexId": 181, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Eevee",
+    "pokedexId": 133,
+    "purchaseCost": 61000000,
+    "baseDps": 76000,
+    "evolutions": [
+      { "level": 25, "name": "Espeon", "pokedexId": 196, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Larvitar",
+    "pokedexId": 246,
+    "purchaseCost": 200000000,
+    "baseDps": 190000,
+    "evolutions": [
+      { "level": 10, "name": "Pupitar", "pokedexId": 247, "multiplier": 4 },
+      { "level": 25, "name": "Tyranitar", "pokedexId": 248, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Treecko",
+    "pokedexId": 252,
+    "purchaseCost": 640000000,
+    "baseDps": 475000,
+    "evolutions": [
+      { "level": 10, "name": "Grovyle", "pokedexId": 253, "multiplier": 4 },
+      { "level": 25, "name": "Sceptile", "pokedexId": 254, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Torchic",
+    "pokedexId": 255,
+    "purchaseCost": 2000000000,
+    "baseDps": 1200000,
+    "evolutions": [
+      { "level": 10, "name": "Combusken", "pokedexId": 256, "multiplier": 4 },
+      { "level": 25, "name": "Blaziken", "pokedexId": 257, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Mudkip",
+    "pokedexId": 258,
+    "purchaseCost": 6500000000,
+    "baseDps": 3000000,
+    "evolutions": [
+      { "level": 10, "name": "Marshtomp", "pokedexId": 259, "multiplier": 4 },
+      { "level": 25, "name": "Swampert", "pokedexId": 260, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Ralts",
+    "pokedexId": 280,
+    "purchaseCost": 21000000000,
+    "baseDps": 7500000,
+    "evolutions": [
+      { "level": 10, "name": "Kirlia", "pokedexId": 281, "multiplier": 4 },
+      { "level": 25, "name": "Gardevoir", "pokedexId": 282, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Aron",
+    "pokedexId": 304,
+    "purchaseCost": 67000000000,
+    "baseDps": 18700000,
+    "evolutions": [
+      { "level": 10, "name": "Lairon", "pokedexId": 305, "multiplier": 4 },
+      { "level": 25, "name": "Aggron", "pokedexId": 306, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Beldum",
+    "pokedexId": 374,
+    "purchaseCost": 215000000000,
+    "baseDps": 47000000,
+    "evolutions": [
+      { "level": 10, "name": "Metang", "pokedexId": 375, "multiplier": 4 },
+      { "level": 25, "name": "Metagross", "pokedexId": 376, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Turtwig",
+    "pokedexId": 387,
+    "purchaseCost": 690000000000,
+    "baseDps": 117000000,
+    "evolutions": [
+      { "level": 10, "name": "Grotle", "pokedexId": 388, "multiplier": 4 },
+      { "level": 25, "name": "Torterra", "pokedexId": 389, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Chimchar",
+    "pokedexId": 390,
+    "purchaseCost": 2200000000000,
+    "baseDps": 293000000,
+    "evolutions": [
+      { "level": 10, "name": "Monferno", "pokedexId": 391, "multiplier": 4 },
+      { "level": 25, "name": "Infernape", "pokedexId": 392, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Piplup",
+    "pokedexId": 393,
+    "purchaseCost": 7100000000000,
+    "baseDps": 732000000,
+    "evolutions": [
+      { "level": 10, "name": "Prinplup", "pokedexId": 394, "multiplier": 4 },
+      { "level": 25, "name": "Empoleon", "pokedexId": 395, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Shinx",
+    "pokedexId": 403,
+    "purchaseCost": 23000000000000,
+    "baseDps": 1800000000,
+    "evolutions": [
+      { "level": 10, "name": "Luxio", "pokedexId": 404, "multiplier": 4 },
+      { "level": 25, "name": "Luxray", "pokedexId": 405, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Gible",
+    "pokedexId": 443,
+    "purchaseCost": 74000000000000,
+    "baseDps": 4600000000,
+    "evolutions": [
+      { "level": 10, "name": "Gabite", "pokedexId": 444, "multiplier": 4 },
+      { "level": 25, "name": "Garchomp", "pokedexId": 445, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Riolu",
+    "pokedexId": 447,
+    "purchaseCost": 237000000000000,
+    "baseDps": 11400000000,
+    "evolutions": [
+      { "level": 25, "name": "Lucario", "pokedexId": 448, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Snivy",
+    "pokedexId": 495,
+    "purchaseCost": 760000000000000,
+    "baseDps": 28500000000,
+    "evolutions": [
+      { "level": 10, "name": "Servine", "pokedexId": 496, "multiplier": 4 },
+      { "level": 25, "name": "Serperior", "pokedexId": 497, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Tepig",
+    "pokedexId": 498,
+    "purchaseCost": 2430000000000000,
+    "baseDps": 71000000000,
+    "evolutions": [
+      { "level": 10, "name": "Pignite", "pokedexId": 499, "multiplier": 4 },
+      { "level": 25, "name": "Emboar", "pokedexId": 500, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Oshawott",
+    "pokedexId": 501,
+    "purchaseCost": 7800000000000000,
+    "baseDps": 178000000000,
+    "evolutions": [
+      { "level": 10, "name": "Dewott", "pokedexId": 502, "multiplier": 4 },
+      { "level": 25, "name": "Samurott", "pokedexId": 503, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Litwick",
+    "pokedexId": 607,
+    "purchaseCost": 25000000000000000,
+    "baseDps": 445000000000,
+    "evolutions": [
+      { "level": 10, "name": "Lampent", "pokedexId": 608, "multiplier": 4 },
+      { "level": 25, "name": "Chandelure", "pokedexId": 609, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Deino",
+    "pokedexId": 633,
+    "purchaseCost": 80000000000000000,
+    "baseDps": 1100000000000,
+    "evolutions": [
+      { "level": 10, "name": "Zweilous", "pokedexId": 634, "multiplier": 4 },
+      { "level": 25, "name": "Hydreigon", "pokedexId": 635, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Froakie",
+    "pokedexId": 656,
+    "purchaseCost": 256000000000000000,
+    "baseDps": 2800000000000,
+    "evolutions": [
+      { "level": 10, "name": "Frogadier", "pokedexId": 657, "multiplier": 4 },
+      { "level": 25, "name": "Greninja", "pokedexId": 658, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Honedge",
+    "pokedexId": 679,
+    "purchaseCost": 819000000000000000,
+    "baseDps": 7000000000000,
+    "evolutions": [
+      { "level": 10, "name": "Doublade", "pokedexId": 680, "multiplier": 4 },
+      { "level": 25, "name": "Aegislash", "pokedexId": 681, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Fletchling",
+    "pokedexId": 661,
+    "purchaseCost": 2.62e18,
+    "baseDps": 17500000000000,
+    "evolutions": [
+      { "level": 10, "name": "Fletchinder", "pokedexId": 662, "multiplier": 4 },
+      { "level": 25, "name": "Talonflame", "pokedexId": 663, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Goomy",
+    "pokedexId": 704,
+    "purchaseCost": 8.4e18,
+    "baseDps": 43700000000000,
+    "evolutions": [
+      { "level": 10, "name": "Sliggoo", "pokedexId": 705, "multiplier": 4 },
+      { "level": 25, "name": "Goodra", "pokedexId": 706, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 36,
+    "name": "Noibat",
+    "pokedexId": 714,
+    "purchaseCost": 2.7e19,
+    "baseDps": 109000000000000,
+    "evolutions": [
+      { "level": 25, "name": "Noivern", "pokedexId": 715, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Rowlet",
+    "pokedexId": 722,
+    "purchaseCost": 8.6e19,
+    "baseDps": 273000000000000,
+    "evolutions": [
+      { "level": 10, "name": "Dartrix", "pokedexId": 723, "multiplier": 4 },
+      { "level": 25, "name": "Decidueye", "pokedexId": 724, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Litten",
+    "pokedexId": 725,
+    "purchaseCost": 2.76e20,
+    "baseDps": 683000000000000,
+    "evolutions": [
+      { "level": 10, "name": "Torracat", "pokedexId": 726, "multiplier": 4 },
+      { "level": 25, "name": "Incineroar", "pokedexId": 727, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Popplio",
+    "pokedexId": 728,
+    "purchaseCost": 8.84e20,
+    "baseDps": 1.7e15,
+    "evolutions": [
+      { "level": 10, "name": "Brionne", "pokedexId": 729, "multiplier": 4 },
+      { "level": 25, "name": "Primarina", "pokedexId": 730, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 40,
+    "name": "Jangmo-o",
+    "pokedexId": 782,
+    "purchaseCost": 2.83e21,
+    "baseDps": 4.3e15,
+    "evolutions": [
+      { "level": 10, "name": "Hakamo-o", "pokedexId": 783, "multiplier": 4 },
+      { "level": 25, "name": "Kommo-o", "pokedexId": 784, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Rookidee",
+    "pokedexId": 821,
+    "purchaseCost": 9.06e21,
+    "baseDps": 1.07e16,
+    "evolutions": [
+      { "level": 10, "name": "Corvisquire", "pokedexId": 822, "multiplier": 4 },
+      { "level": 25, "name": "Corviknight", "pokedexId": 823, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Grookey",
+    "pokedexId": 810,
+    "purchaseCost": 2.9e22,
+    "baseDps": 2.67e16,
+    "evolutions": [
+      { "level": 10, "name": "Thwackey", "pokedexId": 811, "multiplier": 4 },
+      { "level": 25, "name": "Rillaboom", "pokedexId": 812, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Scorbunny",
+    "pokedexId": 813,
+    "purchaseCost": 9.28e22,
+    "baseDps": 6.7e16,
+    "evolutions": [
+      { "level": 10, "name": "Raboot", "pokedexId": 814, "multiplier": 4 },
+      { "level": 25, "name": "Cinderace", "pokedexId": 815, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Sobble",
+    "pokedexId": 816,
+    "purchaseCost": 2.97e23,
+    "baseDps": 1.67e17,
+    "evolutions": [
+      { "level": 10, "name": "Drizzile", "pokedexId": 817, "multiplier": 4 },
+      { "level": 25, "name": "Inteleon", "pokedexId": 818, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Dreepy",
+    "pokedexId": 885,
+    "purchaseCost": 9.5e23,
+    "baseDps": 4.18e17,
+    "evolutions": [
+      { "level": 10, "name": "Drakloak", "pokedexId": 886, "multiplier": 4 },
+      { "level": 25, "name": "Dragapult", "pokedexId": 887, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Sprigatito",
+    "pokedexId": 906,
+    "purchaseCost": 3.04e24,
+    "baseDps": 1e18,
+    "evolutions": [
+      { "level": 10, "name": "Floragato", "pokedexId": 907, "multiplier": 4 },
+      { "level": 25, "name": "Meowscarada", "pokedexId": 908, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Fuecoco",
+    "pokedexId": 909,
+    "purchaseCost": 9.73e24,
+    "baseDps": 2.6e18,
+    "evolutions": [
+      { "level": 10, "name": "Crocalor", "pokedexId": 910, "multiplier": 4 },
+      { "level": 25, "name": "Skeledirge", "pokedexId": 911, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Quaxly",
+    "pokedexId": 912,
+    "purchaseCost": 3.11e25,
+    "baseDps": 6.5e18,
+    "evolutions": [
+      { "level": 10, "name": "Quaxwell", "pokedexId": 913, "multiplier": 4 },
+      { "level": 25, "name": "Quaquaval", "pokedexId": 914, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Charcadet",
+    "pokedexId": 935,
+    "purchaseCost": 9.97e25,
+    "baseDps": 1.63e19,
+    "evolutions": [
+      { "level": 25, "name": "Armarouge", "pokedexId": 936, "multiplier": 4 }
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Frigibax",
+    "pokedexId": 996,
+    "purchaseCost": 3.19e26,
+    "baseDps": 4.07e19,
+    "evolutions": [
+      { "level": 10, "name": "Arctibax", "pokedexId": 997, "multiplier": 4 },
+      { "level": 25, "name": "Baxcalibur", "pokedexId": 998, "multiplier": 4 }
+    ]
+  }
+]

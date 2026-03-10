@@ -91,35 +91,37 @@ const STAR_DPS_BONUS = {
 // Milestones keep the original multipliers, but now each threshold is tied to
 // a named move to align progression flavor with Pokemon identity.
 const LEVEL_MILESTONES = [
-  { level: 10, multiplier: 4, key: 'stage2' },
-  { level: 25, multiplier: 4, key: 'stage3' },
+  { level: 10, multiplier: 2, key: 'stage2' },
+  { level: 25, multiplier: 3, key: 'stage3' },
   { level: 50, multiplier: 2, key: 'special' },
   { level: 100, multiplier: 4, key: 'final' },
   { level: 150, multiplier: 4, key: 'mega' },
   { level: 200, multiplier: 10, key: 'stellar' },
+  { level: 300, multiplier: 4, key: 'ultra' },
+  { level: 500, multiplier: 10, key: 'legend' },
 ];
 
 const EVOLUTION_ACCELERABLE_KEYS = new Set(['stage2', 'stage3']);
 
 const MILESTONE_MOVE_LIBRARY = {
-  normal:   { base: 'Placaje', stage2: 'Doble Filo', stage3: 'Hiper Rayo', special: 'Golpe Cuerpo', final: 'Megagolpe', mega: 'Giga Impacto', stellar: 'Golpe Estelar' },
-  fire:     { base: 'Ascuas', stage2: 'Rueda Fuego', stage3: 'Lanzallamas', special: 'Llamarada', final: 'Sofoco', mega: 'Anillo Igneo', stellar: 'Llama Estelar' },
-  water:    { base: 'Pistola Agua', stage2: 'Aqua Cola', stage3: 'Hidrobomba', special: 'Surf', final: 'Pulso Agua', mega: 'Hidrocanon', stellar: 'Marea Estelar' },
-  electric: { base: 'Impactrueno', stage2: 'Chispazo', stage3: 'Rayo', special: 'Trueno', final: 'Voltio Cruel', mega: 'Campo Electrico', stellar: 'Rayo Estelar' },
-  grass:    { base: 'Hoja Afilada', stage2: 'Drenadoras', stage3: 'Rayo Solar', special: 'Latigo Cepa', final: 'Tormenta Floral', mega: 'Planta Feroz', stellar: 'Brote Estelar' },
-  ice:      { base: 'Vaho Gelido', stage2: 'Viento Hielo', stage3: 'Rayo Hielo', special: 'Ventisca', final: 'Nieve Polvo', mega: 'Cero Absoluto', stellar: 'Cristal Estelar' },
-  fighting: { base: 'Golpe Karate', stage2: 'Doble Patada', stage3: 'A Bocajarro', special: 'Tajo Cruzado', final: 'Puño Drenaje', mega: 'Onda Certera', stellar: 'Impacto Estelar' },
-  poison:   { base: 'Picotazo Veneno', stage2: 'Acido', stage3: 'Bomba Lodo', special: 'Puya Nociva', final: 'Onda Toxica', mega: 'Lluvia Acida', stellar: 'Veneno Estelar' },
-  ground:   { base: 'Disparo Lodo', stage2: 'Bofeton Lodo', stage3: 'Terremoto', special: 'Taladradora', final: 'Fuerza Equina', mega: 'Fisura', stellar: 'Falla Estelar' },
-  flying:   { base: 'Ataque Ala', stage2: 'Picado', stage3: 'Pajaro Osado', special: 'Vendaval', final: 'Aire Afilado', mega: 'Viento Plata', stellar: 'Ala Estelar' },
-  psychic:  { base: 'Confusion', stage2: 'Psicorrayo', stage3: 'Psiquico', special: 'Premonicion', final: 'Fuerza Lunar', mega: 'Psicoataque', stellar: 'Mente Estelar' },
-  bug:      { base: 'Picadura', stage2: 'Tijera X', stage3: 'Megacuerno', special: 'Zumbido', final: 'Danza Aleteo', mega: 'Aguijon Letal', stellar: 'Enjambre Estelar' },
-  rock:     { base: 'Lanzarrocas', stage2: 'Avalancha', stage3: 'Roca Afilada', special: 'Poder Pasado', final: 'Pulimento', mega: 'Meteoro Roca', stellar: 'Roca Estelar' },
-  ghost:    { base: 'Lenguetazo', stage2: 'Sombra Vil', stage3: 'Bola Sombra', special: 'Infortunio', final: 'Golpe Umbrio', mega: 'Niebla Oscura', stellar: 'Sombra Estelar' },
-  dragon:   { base: 'Dragoaliento', stage2: 'Garra Dragon', stage3: 'Cometa Draco', special: 'Pulso Dragon', final: 'Enfado', mega: 'Ascenso Draco', stellar: 'Dragon Estelar' },
-  dark:     { base: 'Ataque Finta', stage2: 'Mordisco', stage3: 'Pulso Umbrio', special: 'Tajo Umbrio', final: 'Juego Sucio', mega: 'Alarido', stellar: 'Noche Estelar' },
-  steel:    { base: 'Cola Ferrea', stage2: 'Cuerpo Pesado', stage3: 'Cabeza de Hierro', special: 'Foco Resplandor', final: 'Metalaser', mega: 'Puño Meteoro', stellar: 'Acero Estelar' },
-  fairy:    { base: 'Voz Cautivadora', stage2: 'Brillo Magico', stage3: 'Fuerza Lunar', special: 'Carantoña', final: 'Velo Sagrado', mega: 'Beso Drenaje', stellar: 'Luz Estelar' },
+  normal:   { base: 'Placaje', stage2: 'Doble Filo', stage3: 'Hiper Rayo', special: 'Golpe Cuerpo', final: 'Megagolpe', mega: 'Giga Impacto', stellar: 'Golpe Estelar', ultra: 'Explosión', legend: 'Juicio Final' },
+  fire:     { base: 'Ascuas', stage2: 'Rueda Fuego', stage3: 'Lanzallamas', special: 'Llamarada', final: 'Sofoco', mega: 'Anillo Igneo', stellar: 'Llama Estelar', ultra: 'Erupción', legend: 'Nova Solar' },
+  water:    { base: 'Pistola Agua', stage2: 'Aqua Cola', stage3: 'Hidrobomba', special: 'Surf', final: 'Pulso Agua', mega: 'Hidrocanon', stellar: 'Marea Estelar', ultra: 'Tsunami', legend: 'Diluvio Ancestral' },
+  electric: { base: 'Impactrueno', stage2: 'Chispazo', stage3: 'Rayo', special: 'Trueno', final: 'Voltio Cruel', mega: 'Campo Electrico', stellar: 'Rayo Estelar', ultra: 'Electrocañón', legend: 'Descarga Divina' },
+  grass:    { base: 'Hoja Afilada', stage2: 'Drenadoras', stage3: 'Rayo Solar', special: 'Latigo Cepa', final: 'Tormenta Floral', mega: 'Planta Feroz', stellar: 'Brote Estelar', ultra: 'Florecimiento', legend: 'Gaia Ancestral' },
+  ice:      { base: 'Vaho Gelido', stage2: 'Viento Hielo', stage3: 'Rayo Hielo', special: 'Ventisca', final: 'Nieve Polvo', mega: 'Cero Absoluto', stellar: 'Cristal Estelar', ultra: 'Era Glacial', legend: 'Cero Cósmico' },
+  fighting: { base: 'Golpe Karate', stage2: 'Doble Patada', stage3: 'A Bocajarro', special: 'Tajo Cruzado', final: 'Puño Drenaje', mega: 'Onda Certera', stellar: 'Impacto Estelar', ultra: 'Puño Cósmico', legend: 'Golpe Supremo' },
+  poison:   { base: 'Picotazo Veneno', stage2: 'Acido', stage3: 'Bomba Lodo', special: 'Puya Nociva', final: 'Onda Toxica', mega: 'Lluvia Acida', stellar: 'Veneno Estelar', ultra: 'Toxina Ancestral', legend: 'Corrosión Eterna' },
+  ground:   { base: 'Disparo Lodo', stage2: 'Bofeton Lodo', stage3: 'Terremoto', special: 'Taladradora', final: 'Fuerza Equina', mega: 'Fisura', stellar: 'Falla Estelar', ultra: 'Tectónica', legend: 'Falla Continental' },
+  flying:   { base: 'Ataque Ala', stage2: 'Picado', stage3: 'Pajaro Osado', special: 'Vendaval', final: 'Aire Afilado', mega: 'Viento Plata', stellar: 'Ala Estelar', ultra: 'Huracán', legend: 'Cielo Supremo' },
+  psychic:  { base: 'Confusion', stage2: 'Psicorrayo', stage3: 'Psiquico', special: 'Premonicion', final: 'Fuerza Lunar', mega: 'Psicoataque', stellar: 'Mente Estelar', ultra: 'Onda Mental', legend: 'Cosmos Infinito' },
+  bug:      { base: 'Picadura', stage2: 'Tijera X', stage3: 'Megacuerno', special: 'Zumbido', final: 'Danza Aleteo', mega: 'Aguijon Letal', stellar: 'Enjambre Estelar', ultra: 'Enjambre Total', legend: 'Plaga Ancestral' },
+  rock:     { base: 'Lanzarrocas', stage2: 'Avalancha', stage3: 'Roca Afilada', special: 'Poder Pasado', final: 'Pulimento', mega: 'Meteoro Roca', stellar: 'Roca Estelar', ultra: 'Meteorito', legend: 'Cataclismo Pétreo' },
+  ghost:    { base: 'Lenguetazo', stage2: 'Sombra Vil', stage3: 'Bola Sombra', special: 'Infortunio', final: 'Golpe Umbrio', mega: 'Niebla Oscura', stellar: 'Sombra Estelar', ultra: 'Eclipse Umbral', legend: 'Abismo Eterno' },
+  dragon:   { base: 'Dragoaliento', stage2: 'Garra Dragon', stage3: 'Cometa Draco', special: 'Pulso Dragon', final: 'Enfado', mega: 'Ascenso Draco', stellar: 'Dragon Estelar', ultra: 'Dragón Supremo', legend: 'Origen Dracónico' },
+  dark:     { base: 'Ataque Finta', stage2: 'Mordisco', stage3: 'Pulso Umbrio', special: 'Tajo Umbrio', final: 'Juego Sucio', mega: 'Alarido', stellar: 'Noche Estelar', ultra: 'Noche Eterna', legend: 'Vacío Absoluto' },
+  steel:    { base: 'Cola Ferrea', stage2: 'Cuerpo Pesado', stage3: 'Cabeza de Hierro', special: 'Foco Resplandor', final: 'Metalaser', mega: 'Puño Meteoro', stellar: 'Acero Estelar', ultra: 'Forja Divina', legend: 'Aleación Cósmica' },
+  fairy:    { base: 'Voz Cautivadora', stage2: 'Brillo Magico', stage3: 'Fuerza Lunar', special: 'Carantoña', final: 'Velo Sagrado', mega: 'Beso Drenaje', stellar: 'Luz Estelar', ultra: 'Aurora Boreal', legend: 'Luz Primigenia' },
 };
 
 function cloneTypes(types) {
@@ -259,22 +261,54 @@ function getCandyEvolutionBoostCount(rosterPokemon, ownedEntry) {
 
 function getEffectiveMilestones(rosterPokemon, ownedEntry = null) {
   const boostCount = getCandyEvolutionBoostCount(rosterPokemon, ownedEntry);
-  if (boostCount <= 0) {
-    return LEVEL_MILESTONES;
-  }
+  const evoCount = Array.isArray(rosterPokemon?.evolutions) ? rosterPokemon.evolutions.length : 0;
 
   let remaining = boostCount;
   return LEVEL_MILESTONES.map((milestone) => {
+    let adjusted = { ...milestone };
+
+    // Candy evolution boost: accelerate stage2/stage3 thresholds
     if (remaining > 0 && EVOLUTION_ACCELERABLE_KEYS.has(milestone.key)) {
       remaining -= 1;
-      return {
-        ...milestone,
-        level: Math.max(1, milestone.level - 3),
-      };
+      adjusted.level = Math.max(1, adjusted.level - 3);
     }
 
-    return milestone;
+    // Balance: fewer evolutions → stronger milestone multipliers to compensate
+    // 0-evo Pokémon get +50% on stage2/stage3, 1-evo get +25% on stage3
+    if (evoCount === 0 && (milestone.key === 'stage2' || milestone.key === 'stage3')) {
+      adjusted.multiplier = Math.round(adjusted.multiplier * 1.5);
+    } else if (evoCount === 1 && milestone.key === 'stage3') {
+      adjusted.multiplier = Math.round(adjusted.multiplier * 1.25);
+    }
+
+    return adjusted;
   });
+}
+
+// ===== ABILITY MULTIPLIER =====
+// Abilities from roster.json unlock at specific levels and give DPS multipliers
+export function getAbilityMultiplier(rosterPokemon, level) {
+  if (!rosterPokemon || !Array.isArray(rosterPokemon.abilities)) return 1;
+  const safeLevel = Math.max(1, Math.floor(Number(level) || 1));
+  let mult = 1;
+  for (const ability of rosterPokemon.abilities) {
+    if (safeLevel >= ability.level) {
+      mult *= (ability.dpsMultiplier || 1);
+    }
+  }
+  return mult;
+}
+
+export function getUnlockedAbilities(rosterPokemon, level) {
+  if (!rosterPokemon || !Array.isArray(rosterPokemon.abilities)) return [];
+  const safeLevel = Math.max(1, Math.floor(Number(level) || 1));
+  return rosterPokemon.abilities.filter(a => safeLevel >= a.level);
+}
+
+export function getNextAbility(rosterPokemon, level) {
+  if (!rosterPokemon || !Array.isArray(rosterPokemon.abilities)) return null;
+  const safeLevel = Math.max(1, Math.floor(Number(level) || 1));
+  return rosterPokemon.abilities.find(a => safeLevel < a.level) || null;
 }
 
 // ===== MILESTONE MULTIPLIERS =====
@@ -290,16 +324,65 @@ export function getMilestoneMultiplier(level, rosterPokemon = null, ownedEntry =
     }
   }
 
-  return mult;  // Max cumulative at 200: 4*4*2*4*4*10 = 5,120
+  return mult;  // Max cumulative at 500: 4*4*2*4*4*10*4*10 = 204,800
 }
 
 // ===== DPS CALCULATION =====
 // DPS for a single pokemon at a given level
+// Clicker-role companions give 0 idle DPS (they boost click damage instead)
 export function getPokemonDps(rosterPokemon, level, ownedEntry = null) {
+  if (rosterPokemon.role === 'clicker') return 0;
   return rosterPokemon.baseDps
     * level
     * getMilestoneMultiplier(level, rosterPokemon, ownedEntry)
+    * getAbilityMultiplier(rosterPokemon, level)
     * getOwnedIdleProgressMultiplier(ownedEntry);
+}
+
+// Click damage contribution from clicker-role companions (like Cid in Clicker Heroes)
+// Simple linear scaling: baseDps × level (no milestones, no nature/star bonuses)
+export function getClickerCompanionDamage(activeTeam, ownedPokemon) {
+  if (!Array.isArray(activeTeam)) return 0;
+
+  let total = 0;
+  for (const rosterId of activeTeam) {
+    if (!Number.isFinite(rosterId)) continue;
+
+    const pokemon = getRosterPokemon(rosterId);
+    if (!pokemon || pokemon.role !== 'clicker') continue;
+
+    const level = getOwnedPokemonLevel(ownedPokemon?.[rosterId]);
+    if (level <= 0) continue;
+
+    total += pokemon.baseDps * level;
+  }
+
+  return total;
+}
+
+function getOwnedRosterIdsSorted(ownedPokemon) {
+  return Object.keys(ownedPokemon || {})
+    .map((rosterId) => Number(rosterId))
+    .filter((rosterId) => Number.isFinite(rosterId))
+    .sort((a, b) => a - b);
+}
+
+export function getOwnedClickerCompanionDamage(ownedPokemon) {
+  let total = 0;
+  for (const rosterId of getOwnedRosterIdsSorted(ownedPokemon)) {
+    const pokemon = getRosterPokemon(rosterId);
+    if (!pokemon || pokemon.role !== 'clicker') {
+      continue;
+    }
+
+    const level = getOwnedPokemonLevel(ownedPokemon?.[rosterId]);
+    if (level <= 0) {
+      continue;
+    }
+
+    total += pokemon.baseDps * level;
+  }
+  return total;
 }
 
 export function getPokemonDpsForOwnedEntry(rosterPokemon, ownedEntry) {
@@ -328,6 +411,19 @@ export function getTeamDps(activeTeam, ownedPokemon) {
   return total;
 }
 
+export function getOwnedTeamDps(ownedPokemon) {
+  let total = 0;
+  for (const rosterId of getOwnedRosterIdsSorted(ownedPokemon)) {
+    const rosterPokemon = getRosterPokemon(rosterId);
+    const ownedEntry = ownedPokemon?.[rosterId];
+    const level = getOwnedPokemonLevel(ownedEntry);
+    if (rosterPokemon && level > 0) {
+      total += getPokemonDps(rosterPokemon, level, ownedEntry);
+    }
+  }
+  return total;
+}
+
 export function getActiveTeamBreakdown(activeTeam, ownedPokemon) {
   if (!Array.isArray(activeTeam)) {
     return [];
@@ -347,11 +443,41 @@ export function getActiveTeamBreakdown(activeTeam, ownedPokemon) {
     }
 
     const currentForm = getCurrentForm(rosterPokemon, level, ownedEntry);
+    const isClicker = rosterPokemon.role === 'clicker';
     members.push({
       rosterId,
       rosterPokemon,
       level,
       dps: getPokemonDps(rosterPokemon, level, ownedEntry),
+      clickDamage: isClicker ? rosterPokemon.baseDps * level : 0,
+      role: isClicker ? 'clicker' : 'dps',
+      currentForm,
+      types: getRosterPokemonTypes(rosterPokemon, level, ownedEntry),
+    });
+  }
+
+  return members;
+}
+
+export function getOwnedTeamBreakdown(ownedPokemon) {
+  const members = [];
+  for (const rosterId of getOwnedRosterIdsSorted(ownedPokemon)) {
+    const rosterPokemon = getRosterPokemon(rosterId);
+    const ownedEntry = ownedPokemon?.[rosterId];
+    const level = getOwnedPokemonLevel(ownedEntry);
+    if (!rosterPokemon || level <= 0) {
+      continue;
+    }
+
+    const currentForm = getCurrentForm(rosterPokemon, level, ownedEntry);
+    const isClicker = rosterPokemon.role === 'clicker';
+    members.push({
+      rosterId,
+      rosterPokemon,
+      level,
+      dps: getPokemonDps(rosterPokemon, level, ownedEntry),
+      clickDamage: isClicker ? rosterPokemon.baseDps * level : 0,
+      role: isClicker ? 'clicker' : 'dps',
       currentForm,
       types: getRosterPokemonTypes(rosterPokemon, level, ownedEntry),
     });
@@ -450,11 +576,11 @@ export function getActiveTeamSynergies(activeTeam, ownedPokemon) {
 }
 
 // ===== LEVEL UP COST =====
-// Cost to level up: baseCost * level * 1.07^level
-// baseCost = purchaseCost / 10 (first level-up is cheap relative to purchase)
+// Clicker Heroes formula: purchaseCost × 1.07^level (pure exponential, no linear factor).
+// Removes the old × level term that made high levels disproportionately expensive
+// and prevented companion DPS from keeping pace with zone HP growth.
 export function getLevelUpCost(rosterPokemon, currentLevel) {
-  const baseCost = rosterPokemon.purchaseCost / 10;
-  return Math.ceil(baseCost * currentLevel * Math.pow(1.07, currentLevel));
+  return Math.ceil(rosterPokemon.purchaseCost * Math.pow(1.07, currentLevel));
 }
 
 // ===== CURRENT EVOLUTION FORM =====
@@ -465,9 +591,10 @@ export function getCurrentForm(rosterPokemon, level, ownedEntry = null) {
   const effectiveMilestones = getEffectiveMilestones(rosterPokemon, ownedEntry);
   const stage2Level = effectiveMilestones.find((milestone) => milestone.key === 'stage2')?.level ?? 10;
   const stage3Level = effectiveMilestones.find((milestone) => milestone.key === 'stage3')?.level ?? 25;
-  const evolutionLevels = [stage2Level, stage3Level];
+  const megaLevel = effectiveMilestones.find((milestone) => milestone.key === 'special')?.level ?? 50;
+  const evolutionLevels = [stage2Level, stage3Level, megaLevel];
 
-  if (rosterPokemon.evolutions) {
+  if (rosterPokemon.evolutions && rosterPokemon.evolutions.length > 0) {
     for (let index = 0; index < rosterPokemon.evolutions.length; index++) {
       const evo = rosterPokemon.evolutions[index];
       const effectiveLevel = evolutionLevels[index] || evo.level;
@@ -476,6 +603,11 @@ export function getCurrentForm(rosterPokemon, level, ownedEntry = null) {
         pokedexId = evo.pokedexId;
       }
     }
+  } else {
+    // 0-evo: show power form suffixes at milestone levels for visual progression
+    if (level >= megaLevel) name = rosterPokemon.name + ' Apex';
+    else if (level >= stage3Level) name = rosterPokemon.name + ' Plus';
+    else if (level >= stage2Level) name = rosterPokemon.name + ' Alpha';
   }
   return { name, pokedexId };
 }

@@ -2,24 +2,70 @@
 // Pure data/utility module — no imports from player.js or combat.js
 import { getPokemonData } from './pokemon.js';
 
+// === ENEMY DATA (loaded from enemies.json) ===
+let ENEMY_DATA = [];        // Full sorted array from enemies.json
+let ZONE_ENEMY_MAP = {};    // { zone: [{ id, weight, rarity, category? }] }
+let ZONE_TOTAL_WEIGHT = {}; // { zone: totalWeight } — precomputed for fast weighted selection
+let MAX_ENEMY_ZONE = 94;    // Total zones with enemies
+
+export async function loadEnemyData() {
+  const resp = await fetch('data/enemies.json');
+  ENEMY_DATA = await resp.json();
+  // Build zone lookup map with spawn weights
+  ZONE_ENEMY_MAP = {};
+  ZONE_TOTAL_WEIGHT = {};
+  for (const enemy of ENEMY_DATA) {
+    const zone = enemy.zone;
+    if (!ZONE_ENEMY_MAP[zone]) {
+      ZONE_ENEMY_MAP[zone] = [];
+      ZONE_TOTAL_WEIGHT[zone] = 0;
+    }
+    const entry = {
+      id: enemy.id,
+      weight: enemy.spawnWeight || 1,
+      rarity: enemy.rarity || 'common',
+    };
+    if (enemy.category) entry.category = enemy.category;
+    ZONE_ENEMY_MAP[zone].push(entry);
+    ZONE_TOTAL_WEIGHT[zone] += entry.weight;
+  }
+  MAX_ENEMY_ZONE = Math.max(...Object.keys(ZONE_ENEMY_MAP).map(Number));
+  return ENEMY_DATA;
+}
+
+export function getMaxEnemyZone() {
+  return MAX_ENEMY_ZONE;
+}
+
 // Enemy HP for a given zone: 10 * 1.55^zone
 export function getZoneEnemyHP(zone) {
   return Math.floor(10 * Math.pow(1.55, zone));
 }
 
+// Per-enemy HP stagger within a zone.
+// First enemy (index 0) has 50% of base HP, last enemy (index 9) has 175%.
+// Creates within-zone difficulty ramp so each Pokémon feels harder than the previous.
+export function getEnemyHPStagger(killIndex) {
+  const clamped = Math.max(0, Math.min(9, Math.floor(killIndex)));
+  return 0.50 + (clamped / 9) * 1.25;
+}
+
+// Gold coefficient — tuned so players must farm zones to level up companions.
+const GOLD_COEFFICIENT = 0.25;
+
 // Gold reward for killing an enemy in a zone
 export function getZoneGoldReward(zone) {
-  return Math.ceil(getZoneEnemyHP(zone) * 0.53);
+  return Math.ceil(getZoneEnemyHP(zone) * GOLD_COEFFICIENT);
 }
 
 // Boss HP (10x normal zone HP)
 export function getBossHP(zone) {
-  return getZoneEnemyHP(zone) * 10;
+  return getZoneEnemyHP(zone) * (zone === 94 ? 20 : 10);
 }
 
 // Boss gold reward (5x normal)
 export function getBossGoldReward(zone) {
-  return getZoneGoldReward(zone) * 5;
+  return getZoneGoldReward(zone) * (zone === 94 ? 10 : 5);
 }
 
 // Number of kills needed to advance zone
@@ -27,6 +73,10 @@ export const KILLS_PER_ZONE = 10;
 
 // Boss timer in seconds
 export const BOSS_TIMER_SEC = 30;
+
+export function getBossTimerSec(zone) {
+  return zone === 94 ? 60 : BOSS_TIMER_SEC;
+}
 
 // Trainer timer in seconds
 export const TRAINER_TIMER_SEC = 45;
@@ -182,7 +232,15 @@ export function createTrainerEncounter(zone) {
   const trainer = getTrainerDefinition(zone);
   const pool = getZoneWildPokemon(zone);
   const pokemonCount = randomInt(trainer.pokemonCount[0], trainer.pokemonCount[1]);
-  const pokemonIds = Array.from({ length: pokemonCount }, () => pool[randomInt(0, pool.length - 1)]);
+  const totalWeight = pool.reduce((sum, e) => sum + e.weight, 0);
+  const pokemonIds = Array.from({ length: pokemonCount }, () => {
+    let roll = Math.random() * totalWeight;
+    for (const entry of pool) {
+      roll -= entry.weight;
+      if (roll <= 0) return entry.id;
+    }
+    return pool[pool.length - 1].id;
+  });
 
   return {
     ...trainer,
@@ -197,34 +255,29 @@ export function isBossZone(zone) {
   return zone % 5 === 0;
 }
 
-// Visual: which wild Pokemon appear in this zone (for sprite display only, no gameplay effect)
-// Returns array of PokeAPI IDs
+// Visual: which wild Pokemon appear in this zone
+// Returns array of { id, weight, rarity, category? } from enemies.json
 export function getZoneWildPokemon(zone) {
-  const pools = [
-    // Zone 1-4: Common weak Pokemon
-    [16, 19, 10, 13, 21, 161, 163],       // Pidgey, Rattata, Caterpie, Weedle, Spearow, Sentret, Hoothoot
-    // Zone 6-9
-    [41, 74, 46, 43, 69, 23, 48],          // Zubat, Geodude, Paras, Oddish, Bellsprout, Ekans, Venonat
-    // Zone 11-14
-    [72, 77, 81, 100, 109, 88, 92],        // Tentacool, Ponyta, Magnemite, Voltorb, Koffing, Grimer, Gastly
-    // Zone 16-19
-    [111, 114, 118, 119, 120, 116, 98],    // Rhyhorn, Tangela, Goldeen, Seaking, Staryu, Horsea, Krabby
-    // Zone 21-24
-    [132, 129, 147, 131, 142, 123, 127],   // Ditto, Magikarp, Dratini, Lapras, Aerodactyl, Scyther, Pinsir
-    // Zone 26-29
-    [165, 167, 187, 194, 220, 209, 179],   // Ledyba, Spinarak, Hoppip, Wooper, Swinub, Snubbull, Mareep
-    // Zone 31-34
-    [218, 231, 228, 246, 207, 227, 214],   // Slugma, Phanpy, Houndour, Larvitar, Gligar, Skarmory, Heracross
-    // Zone 36-39
-    [263, 265, 270, 280, 304, 328, 355],   // Zigzagoon, Wurmple, Lotad, Ralts, Aron, Trapinch, Duskull
-    // Zone 41-44
-    [396, 403, 415, 443, 447, 425, 436],   // Starly, Shinx, Combee, Gible, Riolu, Drifloon, Bronzor
-    // Zone 46-50
-    [504, 519, 529, 551, 607, 633, 246]    // Patrat, Pidove, Drilbur, Sandile, Litwick, Deino, Larvitar
-  ];
+  // Use enemies.json data if loaded
+  const zoneEnemies = ZONE_ENEMY_MAP[zone];
+  if (zoneEnemies && zoneEnemies.length > 0) {
+    return zoneEnemies;
+  }
 
-  const poolIndex = Math.min(Math.floor((zone - 1) / 5), pools.length - 1);
-  return pools[poolIndex];
+  // Fallback for zones beyond enemy data (zone > MAX_ENEMY_ZONE)
+  const fallbackZone = Math.min(zone, MAX_ENEMY_ZONE);
+  const fallback = ZONE_ENEMY_MAP[fallbackZone];
+  if (fallback && fallback.length > 0) {
+    return fallback;
+  }
+
+  // Ultimate fallback: hardcoded early-game pool (equal weights)
+  return [10, 13, 16, 19, 21, 265, 191].map(id => ({ id, weight: 100, rarity: 'common' }));
+}
+
+// Get just the IDs for a zone (backwards compat)
+export function getZoneWildPokemonIds(zone) {
+  return getZoneWildPokemon(zone).map(e => e.id);
 }
 
 const WEATHER_FAVOR_TYPES = {
@@ -249,6 +302,54 @@ const DAY_PHASE_SPECIALS = {
   night: [92, 93, 94, 198], // Gastly line, Murkrow
 };
 
+const EARLY_ROUTE_ICONIC_IDS = {
+  bug: [10, 13, 265, 401], // Caterpie, Weedle, Wurmple, Kricketot
+  birds: [16, 21, 84, 163, 278], // Pidgey, Spearow, Doduo, Hoothoot, Wingull
+  normals: [19, 20, 161, 162, 263, 264, 276, 277], // Rattata line, Sentret line, Zigzagoon line, Taillow line
+};
+
+const EARLY_ROUTE_SUPPRESSED_TYPES = ['dragon', 'steel', 'ghost', 'psychic', 'ice', 'fairy'];
+
+function getPokemonTypes(pokemonId) {
+  const pokemon = getPokemonData(pokemonId);
+  return Array.isArray(pokemon?.types) ? pokemon.types : [];
+}
+
+function getProgressionSpawnMultiplier(pokemonId, zone) {
+  const types = getPokemonTypes(pokemonId);
+  let multiplier = 1;
+
+  // Zones 1-2: route critters (bugs + birds) should dominate.
+  if (zone <= 2) {
+    if (types.includes('bug')) multiplier *= 2.0;
+    if (types.includes('flying')) multiplier *= 1.8;
+    if (types.includes('normal')) multiplier *= 1.25;
+    if (EARLY_ROUTE_ICONIC_IDS.bug.includes(pokemonId)) multiplier *= 1.4;
+    if (EARLY_ROUTE_ICONIC_IDS.birds.includes(pokemonId)) multiplier *= 1.4;
+    if (EARLY_ROUTE_SUPPRESSED_TYPES.some((type) => types.includes(type))) multiplier *= 0.45;
+  }
+
+  // Zones 3-5: normal route fauna starts to take over while keeping early bugs.
+  if (zone >= 3 && zone <= 5) {
+    if (types.includes('normal')) multiplier *= 1.8;
+    if (types.includes('flying')) multiplier *= 1.45;
+    if (types.includes('bug')) multiplier *= 1.3;
+    if (EARLY_ROUTE_ICONIC_IDS.normals.includes(pokemonId)) multiplier *= 1.45;
+    if (EARLY_ROUTE_ICONIC_IDS.birds.includes(pokemonId)) multiplier *= 1.25;
+    if (EARLY_ROUTE_SUPPRESSED_TYPES.some((type) => types.includes(type))) multiplier *= 0.7;
+  }
+
+  // Zones 6-10: keep a slight route feel but allow broader variety.
+  if (zone >= 6 && zone <= 10) {
+    if (types.includes('normal')) multiplier *= 1.2;
+    if (types.includes('flying')) multiplier *= 1.15;
+    if (types.includes('bug')) multiplier *= 1.1;
+    if (EARLY_ROUTE_SUPPRESSED_TYPES.some((type) => types.includes(type))) multiplier *= 0.9;
+  }
+
+  return Math.max(0.2, multiplier);
+}
+
 function hasTypeMatch(pokemonId, preferredTypes = []) {
   if (!Array.isArray(preferredTypes) || preferredTypes.length <= 0) {
     return false;
@@ -260,62 +361,106 @@ function hasTypeMatch(pokemonId, preferredTypes = []) {
 
 export function getZoneEncounterPool(zone, weatherId = null, dayPhase = null) {
   const basePool = getZoneWildPokemon(zone);
-  const weightedPool = [...basePool];
 
   const weatherTypes = WEATHER_FAVOR_TYPES[weatherId] || [];
   const phaseTypes = DAY_PHASE_FAVOR_TYPES[dayPhase] || [];
 
-  for (const pokemonId of basePool) {
-    if (hasTypeMatch(pokemonId, weatherTypes)) {
-      weightedPool.push(pokemonId, pokemonId);
-    }
-    if (hasTypeMatch(pokemonId, phaseTypes)) {
-      weightedPool.push(pokemonId);
-    }
-  }
+  // Build weighted entries with weather/phase bonuses
+  const pool = basePool.map(entry => {
+    let bonus = 1;
+    if (hasTypeMatch(entry.id, weatherTypes)) bonus += 2;  // Weather: +200% weight
+    if (hasTypeMatch(entry.id, phaseTypes)) bonus += 1;    // Phase: +100% weight
+    const progressionMult = getProgressionSpawnMultiplier(entry.id, zone);
+    return { ...entry, effectiveWeight: entry.weight * bonus * progressionMult };
+  });
 
+  // Add day-phase specials as low-weight entries
   const specials = DAY_PHASE_SPECIALS[dayPhase] || [];
   for (const specialId of specials) {
-    if (zone >= 10) {
-      weightedPool.push(specialId);
+    if (zone >= 10 && !pool.some(e => e.id === specialId)) {
+      pool.push({ id: specialId, weight: 5, rarity: 'epic', effectiveWeight: 5 });
     }
   }
 
-  return weightedPool;
+  return pool;
+}
+
+// Weighted random selection from a pool of { id, effectiveWeight } entries
+function weightedRandomSelect(pool) {
+  const totalWeight = pool.reduce((sum, e) => sum + e.effectiveWeight, 0);
+  let roll = Math.random() * totalWeight;
+  for (const entry of pool) {
+    roll -= entry.effectiveWeight;
+    if (roll <= 0) return entry;
+  }
+  return pool[pool.length - 1]; // Fallback
 }
 
 export function getZoneSpawnPreview(zone, weatherId = null, dayPhase = null, limit = 6) {
   const pool = getZoneEncounterPool(zone, weatherId, dayPhase);
+  // Sort by weight descending (most common first) and deduplicate
+  const sorted = [...pool].sort((a, b) => b.effectiveWeight - a.effectiveWeight);
   const unique = [];
-  for (const pokemonId of pool) {
-    if (!unique.includes(pokemonId)) {
-      unique.push(pokemonId);
+  const seen = new Set();
+  for (const entry of sorted) {
+    if (!seen.has(entry.id)) {
+      seen.add(entry.id);
+      unique.push(entry);
     }
-    if (unique.length >= Math.max(1, limit)) {
-      break;
-    }
+    if (unique.length >= Math.max(1, limit)) break;
   }
 
-  return unique.map((pokemonId) => {
-    const pokemon = getPokemonData(pokemonId);
+  return unique.map(entry => {
+    const pokemon = getPokemonData(entry.id);
     return {
-      id: pokemonId,
-      name: pokemon?.nameEs || pokemon?.name || `#${pokemonId}`,
+      id: entry.id,
+      name: pokemon?.nameEs || pokemon?.name || `#${entry.id}`,
       types: Array.isArray(pokemon?.types) ? [...pokemon.types] : [],
+      rarity: entry.rarity,
+      category: entry.category || null,
     };
   });
 }
 
-// Get a random wild Pokemon sprite ID for a zone
+// Get a random wild Pokemon sprite ID for a zone (weighted by spawn rate)
 export function getRandomWildPokemon(zone, weatherId = null, dayPhase = null) {
   const pool = getZoneEncounterPool(zone, weatherId, dayPhase);
-  return pool[Math.floor(Math.random() * pool.length)];
+  const selected = weightedRandomSelect(pool);
+  return selected.id;
 }
+
+// Get rarity info for a specific pokemon in a zone
+export function getEnemyRarity(pokemonId, zone) {
+  const zoneEnemies = ZONE_ENEMY_MAP[zone];
+  if (zoneEnemies) {
+    const entry = zoneEnemies.find(e => e.id === pokemonId);
+    if (entry) return { rarity: entry.rarity, category: entry.category || null };
+  }
+  // Search globally in ENEMY_DATA
+  const enemy = ENEMY_DATA.find(e => e.id === pokemonId);
+  if (enemy) return { rarity: enemy.rarity || 'common', category: enemy.category || null };
+  return { rarity: 'common', category: null };
+}
+
+// Rarity display colors for UI
+export const RARITY_COLORS = {
+  common:    '#FFFFFF',  // White
+  uncommon:  '#4ADE80',  // Green
+  rare:      '#60A5FA',  // Blue
+  epic:      '#C084FC',  // Purple
+  legendary: '#FBBF24',  // Gold
+};
 
 // Zone display name
 export function getZoneName(zone) {
-  if (zone <= 25) return `Kanto - Zona ${zone}`;
-  if (zone <= 50) return `Johto - Zona ${zone}`;
-  if (zone <= 75) return `Hoenn - Zona ${zone}`;
+  if (zone <= 10) return `Kanto - Zona ${zone}`;
+  if (zone <= 20) return `Johto - Zona ${zone}`;
+  if (zone <= 30) return `Hoenn - Zona ${zone}`;
+  if (zone <= 40) return `Sinnoh - Zona ${zone}`;
+  if (zone <= 50) return `Unova - Zona ${zone}`;
+  if (zone <= 60) return `Kalos - Zona ${zone}`;
+  if (zone <= 70) return `Alola - Zona ${zone}`;
+  if (zone <= 80) return `Galar - Zona ${zone}`;
+  if (zone <= 94) return `Paldea - Zona ${zone}`;
   return `Zona ${zone}`;
 }

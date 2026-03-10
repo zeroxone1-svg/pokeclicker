@@ -17,7 +17,9 @@ const pendingSpriteLoads = new Map();
  */
 export function downscaleTexture(scene, srcKey, size, newKey) {
   if (scene.textures.exists(newKey)) return;
+  if (!scene.textures.exists(srcKey)) return;
   const src = scene.textures.get(srcKey).getSourceImage();
+  if (!src) return;
   const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;
@@ -30,6 +32,19 @@ export function downscaleTexture(scene, srcKey, size, newKey) {
 
 export function spriteKey(id, type = 'artwork') {
   return `pkmn_${type}_${id}`;
+}
+
+export function getCachedPokemonSpriteKey(scene, id, type = 'artwork') {
+  const baseKey = spriteKey(id, type);
+  if (!scene?.textures?.exists?.(baseKey)) {
+    return null;
+  }
+  return getBestSpriteKey(scene, baseKey);
+}
+
+export function getBestSpriteKey(scene, baseKey) {
+  const smallKey = `${baseKey}-sm`;
+  return scene?.textures?.exists?.(smallKey) ? smallKey : baseKey;
 }
 
 export function loadPokemonSprite(scene, id, type = 'artwork') {
@@ -48,7 +63,7 @@ export function loadPokemonSprite(scene, id, type = 'artwork') {
       if (scene.textures.exists(key)) {
         loadedSprites.add(key);
         if (type === 'artwork') {
-          downscaleTexture(scene, key, 128, key + '-sm');
+          downscaleTexture(scene, key, 144, key + '-sm');
         }
       }
       pendingSpriteLoads.delete(key);

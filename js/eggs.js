@@ -110,6 +110,14 @@ function pickHatchedPokemon(type) {
     return null;
   }
 
+  const nextPurchaseId = Number(player.getNextPurchaseRosterId());
+  if (Number.isFinite(nextPurchaseId) && nextPurchaseId > 0) {
+    const nextInTier = pool.find((pokemon) => Number(pokemon?.id) === nextPurchaseId);
+    if (nextInTier && !player.isOwned(nextPurchaseId)) {
+      return nextInTier;
+    }
+  }
+
   const unowned = pool.filter((pokemon) => !player.isOwned(pokemon.id));
   if (type === 'golden' && unowned.length > 0) {
     return unowned[Math.floor(Math.random() * unowned.length)] || null;
@@ -141,6 +149,25 @@ function hatchEgg(egg, options = {}) {
   });
   let bonusGold = 0;
 
+  if (!acquisition?.ok) {
+    // Keep egg rewards meaningful even when progression order blocks unlocks.
+    bonusGold = meta.bonusGold;
+    player.gold += bonusGold;
+    return {
+      egg,
+      pokemonId: selected.id,
+      pokemonName: getRosterPokemon(selected.id)?.name || selected.name,
+      wasNew: false,
+      wasReplaced: false,
+      pendingManualChoice: false,
+      manualChoice: null,
+      candiesAwarded: 0,
+      bonusGold,
+      blockedByOrder: acquisition?.reason === 'out_of_order_locked',
+      nextPurchaseRosterId: acquisition?.nextPurchaseRosterId ?? null,
+    };
+  }
+
   if (wasOwned) {
     // Keep old consolation gold on duplicates while adding candy/recapture progression.
     bonusGold = meta.bonusGold;
@@ -151,7 +178,7 @@ function hatchEgg(egg, options = {}) {
     egg,
     pokemonId: selected.id,
     pokemonName: getRosterPokemon(selected.id)?.name || selected.name,
-    wasNew: acquisition?.isNew || !wasOwned,
+    wasNew: !!acquisition?.isNew,
     wasReplaced: !!acquisition?.replaced,
     pendingManualChoice: !!acquisition?.pendingManualChoice,
     manualChoice: acquisition?.manualChoice || null,

@@ -254,10 +254,21 @@ function addScoutedPokemonRewards(count, routeZone, options = {}) {
   const manualChoices = [];
   let candiesAwarded = 0;
   let fallbackGold = 0;
+  const nextPurchaseId = Number(player.getNextPurchaseRosterId());
+  const ownedIds = new Set(
+    Object.keys(player.ownedPokemon || {})
+      .map((id) => Number(id))
+      .filter((id) => Number.isFinite(id))
+  );
 
   for (let i = 0; i < count; i++) {
     const tierMax = getScoutingTierByZone(routeZone);
-    const candidates = getAllRoster().filter((pokemon) => pokemon.id <= tierMax);
+    const candidates = getAllRoster().filter((pokemon) => {
+      if (!pokemon || pokemon.id > tierMax) {
+        return false;
+      }
+      return ownedIds.has(pokemon.id) || (Number.isFinite(nextPurchaseId) && pokemon.id === nextPurchaseId);
+    });
 
     if (candidates.length <= 0) {
       fallbackGold += getZoneGoldReward(routeZone) * 30;
@@ -274,6 +285,12 @@ function addScoutedPokemonRewards(count, routeZone, options = {}) {
       allowRecapture: true,
       recaptureMode: options.recaptureMode,
     });
+
+    if (!acquisition?.ok) {
+      fallbackGold += getZoneGoldReward(routeZone) * 30;
+      continue;
+    }
+
     if (acquisition?.isNew) {
       unlocked.push(selected.id);
     } else {

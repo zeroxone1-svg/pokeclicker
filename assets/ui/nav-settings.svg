@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+  <defs>
+    <linearGradient id="ns-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2d5b8f"/>
+      <stop offset="1" stop-color="#16365c"/>
+    </linearGradient>
+    <radialGradient id="ns-gear" cx="35%" cy="30%" r="78%">
+      <stop offset="0" stop-color="#f8fbff"/>
+      <stop offset="0.55" stop-color="#cbd8ea"/>
+      <stop offset="1" stop-color="#8da4c2"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="32" cy="32" r="30" fill="url(#ns-bg)"/>
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#89acd6" stroke-opacity="0.55" stroke-width="1.6"/>
+
+  <g fill="url(#ns-gear)">
+    <rect x="29.5" y="9" width="5" height="10" rx="2"/>
+    <rect x="29.5" y="45" width="5" height="10" rx="2"/>
+    <rect x="45" y="29.5" width="10" height="5" rx="2"/>
+    <rect x="9" y="29.5" width="10" height="5" rx="2"/>
+
+    <rect x="41.6" y="14" width="5" height="10" rx="2" transform="rotate(45 44.1 19)"/>
+    <rect x="17.4" y="40" width="5" height="10" rx="2" transform="rotate(45 19.9 45)"/>
+    <rect x="40" y="41.6" width="10" height="5" rx="2" transform="rotate(45 45 44.1)"/>
+    <rect x="14" y="17.4" width="10" height="5" rx="2" transform="rotate(45 19 19.9)"/>
+
+    <circle cx="32" cy="32" r="16"/>
+  </g>
+
+  <circle cx="32" cy="32" r="8.2" fill="#34567f"/>
+  <circle cx="32" cy="32" r="4" fill="#e7f0fb"/>
+  <ellipse cx="24" cy="18" rx="10" ry="5" fill="#ffffff" fill-opacity="0.2"/>
+</svg>
